@@ -1,0 +1,55 @@
+[gd_scene load_steps=4 format=3 uid="uid://cc3qvorsgdiqt"]
+
+[ext_resource type="PackedScene" uid="uid://cok1q8vialda1" path="res://scenes/boundary.tscn" id="1_2q6dc"]
+[ext_resource type="PackedScene" uid="uid://58gka0bukx6r" path="res://scenes/guppy_manager.tscn" id="1_w8frs"]
+[ext_resource type="PackedScene" uid="uid://baaen8igoytc4" path="res://scenes/guppy.tscn" id="2_w7c3h"]
+
+[node name="Node2D" type="Node2D"]
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="guppyManager" parent="." instance=ExtResource("1_w8frs")]
+
+[node name="boundrays" type="Node2D" parent="."]
+
+[node name="boundary" parent="boundrays" instance=ExtResource("1_2q6dc")]
+position = Vector2(0, 184)
+
+[node name="boundary2" parent="boundrays" instance=ExtResource("1_2q6dc")]
+position = Vector2(320, -4)
+rotation = -1.5708
+
+[node name="boundary3" parent="boundrays" instance=ExtResource("1_2q6dc")]
+position = Vector2(-320, -2)
+rotation = 1.5708
+
+[node name="boundary4" parent="boundrays" instance=ExtResource("1_2q6dc")]
+position = Vector2(-1, -179)
+rotation = -3.14159
+
+[node name="guppy" parent="." instance=ExtResource("2_w7c3h")]
+position = Vector2(-153, -8)
+
+[node name="guppy2" parent="." instance=ExtResource("2_w7c3h")]
+position = Vector2(-153, -8)
+
+[node name="guppy3" parent="." instance=ExtResource("2_w7c3h")]
+position = Vector2(-153, -8)
+
+[node name="guppy4" parent="." instance=ExtResource("2_w7c3h")]
+position = Vector2(-153, -8)
+
+[node name="guppy5" parent="." instance=ExtResource("2_w7c3h")]
+position = Vector2(-153, -8)
+
+[node name="guppy6" parent="." instance=ExtResource("2_w7c3h")]
+position = Vector2(-153, -8)
+
+[node name="guppy7" parent="." instance=ExtResource("2_w7c3h")]
+position = Vector2(-153, -8)
+
+[node name="guppy8" parent="." instance=ExtResource("2_w7c3h")]
+position = Vector2(-153, -8)
+
+[node name="guppy9" parent="." instance=ExtResource("2_w7c3h")]
+position = Vector2(-153, -8)

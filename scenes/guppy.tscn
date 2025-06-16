@@ -1,0 +1,42 @@
+[gd_scene load_steps=5 format=3 uid="uid://baaen8igoytc4"]
+
+[ext_resource type="Script" uid="uid://vx7tj6vdhvv6" path="res://scripts/guppy.gd" id="1_a3xws"]
+[ext_resource type="Texture2D" uid="uid://b8xsof348chs3" path="res://assets/fish.png" id="2_a3xws"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_a3xws"]
+radius = 21.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ldxe8"]
+radius = 26.0192
+
+[node name="guppy" type="RigidBody2D"]
+texture_filter = 1
+collision_layer = 2
+gravity_scale = 0.0
+lock_rotation = true
+script = ExtResource("1_a3xws")
+speed = 0.5
+
+[node name="sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, 1)
+texture = ExtResource("2_a3xws")
+
+[node name="Timer" type="Timer" parent="."]
+process_callback = 0
+one_shot = true
+autostart = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+scale = Vector2(0.322606, 0.322606)
+shape = SubResource("CircleShape2D_a3xws")
+
+[node name="wallDetect" type="Area2D" parent="."]
+scale = Vector2(0.322606, 0.322606)
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="wallDetect"]
+shape = SubResource("CircleShape2D_ldxe8")
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="body_entered" from="wallDetect" to="." method="_on_wall_detect_body_entered"]
