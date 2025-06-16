@@ -1,7 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://baaen8igoytc4"]
+[gd_scene load_steps=8 format=3 uid="uid://baaen8igoytc4"]
 
 [ext_resource type="Script" uid="uid://vx7tj6vdhvv6" path="res://scripts/guppy.gd" id="1_a3xws"]
 [ext_resource type="Texture2D" uid="uid://b8xsof348chs3" path="res://assets/fish.png" id="2_a3xws"]
+[ext_resource type="Script" uid="uid://ca1ym6vuspvmb" path="res://scripts/States/wander_state.gd" id="2_ldxe8"]
+[ext_resource type="Script" uid="uid://bh77r8leevuyk" path="res://scripts/States/state_machine.gd" id="2_tug1h"]
+[ext_resource type="Script" uid="uid://d14i0sacaiadn" path="res://scripts/States/hungry_state.gd" id="4_lrsxt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_a3xws"]
 radius = 21.0
@@ -9,7 +12,7 @@ radius = 21.0
 [sub_resource type="CircleShape2D" id="CircleShape2D_ldxe8"]
 radius = 26.0192
 
-[node name="guppy" type="RigidBody2D"]
+[node name="guppy" type="RigidBody2D" groups=["Fish"]]
 texture_filter = 1
 collision_layer = 2
 gravity_scale = 0.0
@@ -17,26 +20,61 @@ lock_rotation = true
 script = ExtResource("1_a3xws")
 speed = 0.5
 
+[node name="state_machine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("2_tug1h")
+initial_state = NodePath("wander")
+
+[node name="wander" type="Node" parent="state_machine" node_paths=PackedStringArray("fish")]
+script = ExtResource("2_ldxe8")
+fish = NodePath("../..")
+
+[node name="hungry" type="Node" parent="state_machine" node_paths=PackedStringArray("fish")]
+script = ExtResource("4_lrsxt")
+fish = NodePath("../..")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -26.0
+offset_top = -34.0
+offset_right = 29.0
+offset_bottom = -11.0
+text = "hungry"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
 position = Vector2(0, 1)
 texture = ExtResource("2_a3xws")
 
-[node name="Timer" type="Timer" parent="."]
+[node name="MoveTimer" type="Timer" parent="."]
 process_callback = 0
 one_shot = true
 autostart = true
+
+[node name="hungerTimer" type="Timer" parent="."]
+process_callback = 0
+one_shot = true
+autostart = true
+
+[node name="moneyTimer" type="Timer" parent="."]
+process_callback = 0
+one_shot = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 scale = Vector2(0.322606, 0.322606)
 shape = SubResource("CircleShape2D_a3xws")
 
-[node name="wallDetect" type="Area2D" parent="."]
+[node name="hitBox" type="Area2D" parent="."]
 scale = Vector2(0.322606, 0.322606)
 collision_layer = 0
+collision_mask = 5
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="wallDetect"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitBox"]
 shape = SubResource("CircleShape2D_ldxe8")
 
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
-[connection signal="body_entered" from="wallDetect" to="." method="_on_wall_detect_body_entered"]
+[connection signal="timeout" from="MoveTimer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="MoveTimer" to="state_machine/wander" method="_on_move_timer_timeout"]
+[connection signal="timeout" from="hungerTimer" to="." method="_on_hunger_timer_timeout"]
+[connection signal="timeout" from="moneyTimer" to="." method="_on_money_timer_timeout"]
+[connection signal="area_entered" from="hitBox" to="state_machine/hungry" method="_on_hit_box_area_entered"]
+[connection signal="body_entered" from="hitBox" to="state_machine/wander" method="_on_hit_box_body_entered"]

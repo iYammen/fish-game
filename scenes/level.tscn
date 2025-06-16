@@ -1,14 +1,16 @@
 [gd_scene load_steps=4 format=3 uid="uid://cc3qvorsgdiqt"]
 
 [ext_resource type="PackedScene" uid="uid://cok1q8vialda1" path="res://scenes/boundary.tscn" id="1_2q6dc"]
+[ext_resource type="PackedScene" uid="uid://d1hiqisxkn60e" path="res://scenes/game_manager.tscn" id="1_mx8sn"]
 [ext_resource type="PackedScene" uid="uid://58gka0bukx6r" path="res://scenes/guppy_manager.tscn" id="1_w8frs"]
-[ext_resource type="PackedScene" uid="uid://baaen8igoytc4" path="res://scenes/guppy.tscn" id="2_w7c3h"]
 
-[node name="Node2D" type="Node2D"]
+[node name="Level" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="guppyManager" parent="." instance=ExtResource("1_w8frs")]
+[node name="Game Manager" parent="." groups=["Game Manager"] instance=ExtResource("1_mx8sn")]
+
+[node name="Guppy Manager" parent="." instance=ExtResource("1_w8frs")]
 
 [node name="boundrays" type="Node2D" parent="."]
 
@@ -27,29 +29,28 @@ rotation = 1.5708
 position = Vector2(-1, -179)
 rotation = -3.14159
 
-[node name="guppy" parent="." instance=ExtResource("2_w7c3h")]
-position = Vector2(-153, -8)
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="guppy2" parent="." instance=ExtResource("2_w7c3h")]
-position = Vector2(-153, -8)
+[node name="Button" type="Button" parent="CanvasLayer"]
+offset_right = 8.0
+offset_bottom = 8.0
+text = "Buy"
 
-[node name="guppy3" parent="." instance=ExtResource("2_w7c3h")]
-position = Vector2(-153, -8)
+[node name="moneyLabel" type="Label" parent="CanvasLayer" groups=["Money Label"]]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -20.0
+offset_right = 20.0
+offset_bottom = 23.0
+grow_horizontal = 2
+text = "Money: 100"
 
-[node name="guppy4" parent="." instance=ExtResource("2_w7c3h")]
-position = Vector2(-153, -8)
-
-[node name="guppy5" parent="." instance=ExtResource("2_w7c3h")]
-position = Vector2(-153, -8)
-
-[node name="guppy6" parent="." instance=ExtResource("2_w7c3h")]
-position = Vector2(-153, -8)
-
-[node name="guppy7" parent="." instance=ExtResource("2_w7c3h")]
-position = Vector2(-153, -8)
-
-[node name="guppy8" parent="." instance=ExtResource("2_w7c3h")]
-position = Vector2(-153, -8)
-
-[node name="guppy9" parent="." instance=ExtResource("2_w7c3h")]
-position = Vector2(-153, -8)
+[node name="stageGoalLabel" type="Label" parent="CanvasLayer" groups=["Stage Goal Label"]]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 23.0
+grow_horizontal = 0
+text = "400$"
