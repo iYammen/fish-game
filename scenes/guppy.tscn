@@ -2,9 +2,9 @@
 
 [ext_resource type="Script" uid="uid://vx7tj6vdhvv6" path="res://scripts/guppy.gd" id="1_a3xws"]
 [ext_resource type="Texture2D" uid="uid://b8xsof348chs3" path="res://assets/fish.png" id="2_a3xws"]
-[ext_resource type="Script" uid="uid://ca1ym6vuspvmb" path="res://scripts/States/wander_state.gd" id="2_ldxe8"]
+[ext_resource type="Script" uid="uid://ca1ym6vuspvmb" path="res://scripts/States/guppy_wander_state.gd" id="2_ldxe8"]
 [ext_resource type="Script" uid="uid://bh77r8leevuyk" path="res://scripts/States/state_machine.gd" id="2_tug1h"]
-[ext_resource type="Script" uid="uid://d14i0sacaiadn" path="res://scripts/States/hungry_state.gd" id="4_lrsxt"]
+[ext_resource type="Script" uid="uid://d14i0sacaiadn" path="res://scripts/States/guppy_hungry_state.gd" id="4_lrsxt"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_a3xws"]
 radius = 21.0

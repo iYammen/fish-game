@@ -9,7 +9,7 @@ var target: Vector2
 func Enter() -> void:
 	move_timer.stop()
 
-func Update(delta:float):
+func Update(_delta:float):
 	if fish.global_position.x - target.x < 0:
 		fish.sprite_2d.flip_h = true
 	else:

@@ -1,8 +1,11 @@
-[gd_scene load_steps=4 format=3 uid="uid://cc3qvorsgdiqt"]
+[gd_scene load_steps=7 format=3 uid="uid://cc3qvorsgdiqt"]
 
 [ext_resource type="PackedScene" uid="uid://cok1q8vialda1" path="res://scenes/boundary.tscn" id="1_2q6dc"]
 [ext_resource type="PackedScene" uid="uid://d1hiqisxkn60e" path="res://scenes/game_manager.tscn" id="1_mx8sn"]
 [ext_resource type="PackedScene" uid="uid://58gka0bukx6r" path="res://scenes/guppy_manager.tscn" id="1_w8frs"]
+[ext_resource type="PackedScene" uid="uid://d0xn38x3lbxjw" path="res://scenes/slot_machine.tscn" id="4_mx8sn"]
+[ext_resource type="Script" uid="uid://81k4bhdlyj6o" path="res://scripts/buy_button.gd" id="4_ppgk2"]
+[ext_resource type="PackedScene" uid="uid://bi0ro5luavxdu" path="res://scenes/Crab.tscn" id="6_2r41h"]
 
 [node name="Level" type="Node2D"]
 
@@ -31,18 +34,22 @@ rotation = -3.14159
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Button" type="Button" parent="CanvasLayer"]
-offset_right = 8.0
-offset_bottom = 8.0
-text = "Buy"
+[node name="buyButton" type="Button" parent="CanvasLayer"]
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 79.0
+offset_bottom = 36.0
+text = "Buy Fish: 20$"
+script = ExtResource("4_ppgk2")
 
 [node name="moneyLabel" type="Label" parent="CanvasLayer" groups=["Money Label"]]
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = -20.0
-offset_right = 20.0
-offset_bottom = 23.0
+offset_left = -44.0
+offset_top = 5.0
+offset_right = 45.0
+offset_bottom = 28.0
 grow_horizontal = 2
 text = "Money: 100"
 
@@ -50,7 +57,18 @@ text = "Money: 100"
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -40.0
-offset_bottom = 23.0
+offset_left = -111.0
+offset_top = 5.0
+offset_right = -10.0
+offset_bottom = 28.0
 grow_horizontal = 0
-text = "400$"
+size_flags_horizontal = 8
+text = "Stage 1: 400$"
+
+[node name="Slot_machine" parent="CanvasLayer" groups=["Slot Machine"] instance=ExtResource("4_mx8sn")]
+visible = false
+
+[node name="Crab" parent="." instance=ExtResource("6_2r41h")]
+position = Vector2(-111, 178)
+
+[connection signal="pressed" from="CanvasLayer/buyButton" to="CanvasLayer/buyButton" method="_on_pressed"]

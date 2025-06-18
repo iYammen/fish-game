@@ -4,6 +4,8 @@ class_name  GameManager
 const FOOD = preload("res://scenes/food.tscn")
 var moneyLabel: Label
 var stageGoalLabel: Label
+var goal: int = 200
+var stage: int = 1
 var money: int = 100
 var Fish: Array
 var Food: Array
@@ -11,7 +13,7 @@ var Food: Array
 func _ready() -> void:
 	moneyLabel = get_tree().get_first_node_in_group("Money Label")
 	stageGoalLabel = get_tree().get_first_node_in_group("Stage Goal Label")
-	stageGoalLabel.text == str(400) + "$"
+	stageGoalLabel.text = "Stage " + str(stage) + ": " + str(goal) + "$"
 	moneyLabel.text = "Money: " + str(money) 
 
 
@@ -28,9 +30,19 @@ func _unhandled_input(event: InputEvent) -> void:
 			var food = FOOD.instantiate()
 			get_tree().root.add_child(food)
 			food.position =  get_global_mouse_position()
-			money -= 5
-			moneyLabel.text = "Money: " + str(money) 
+			subtractCoin(5)
 
 func addCoin(value: int):
 	money += value
 	moneyLabel.text = "Money: " + str(money) 
+	checkScore()
+
+func subtractCoin(value: int):
+	money -= value
+	moneyLabel.text = "Money: " + str(money) 
+
+func checkScore():
+	if money >= goal:
+		goal = goal * 2
+		stage += 1
+		stageGoalLabel.text = "Stage " + str(stage) + ": " + str(goal) + "$"

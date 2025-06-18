@@ -3,7 +3,7 @@ class_name guppyManager
 
 const GUPPY = preload("res://scenes/guppy.tscn")
 var boundray: Vector2 = Vector2(500, 200)
-var spawnNum: int = 5
+var spawnNum: int = 1
 
 func _ready() -> void:
 	for guppy in spawnNum:

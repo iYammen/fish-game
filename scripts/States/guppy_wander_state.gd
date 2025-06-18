@@ -48,6 +48,6 @@ func _on_move_timer_timeout() -> void:
 	move_timer.start(randf_range(0.3, 4))
 
 
-func _on_hit_box_body_entered(body: Node2D) -> void:
+func _on_hit_box_body_entered(_body: Node2D) -> void:
 	target = -fish.linear_velocity
 	fish.linear_velocity = Vector2.ZERO

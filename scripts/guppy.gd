@@ -6,7 +6,7 @@ class_name Guppy
 @onready var hunger_timer: Timer = $hungerTimer
 
 var guppy_manger: guppyManager
-var feedCount: int
+var feedCount: int = 20
 
 @onready var sprite_2d: Sprite2D = $sprite2D
 @onready var money_timer: Timer = $moneyTimer
@@ -17,7 +17,7 @@ func _ready() -> void:
 	hunger_timer.start(randf_range(15,40))
 	guppy_manger = get_tree().get_first_node_in_group("Guppy Manager")
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if hunger_timer.time_left > hunger_timer.wait_time / 1.5:
 		modulate = Color.WHITE
 	else:
@@ -26,14 +26,14 @@ func _process(delta: float) -> void:
 			modulate = Color.DARK_GREEN
 
 func _physics_process(_delta: float) -> void:
-	if feedCount >= 5 and feedCount < 10:
+	if feedCount >= 3 and feedCount < 6:
 		if money_timer.is_stopped():
 			var coin: Button = BRONZE_COIN.instantiate()
 			get_tree().root.add_child(coin)
 			coin.global_position = global_position
 			money_timer.start(randf_range(5, 10))
 		scale = Vector2(1.5,1.5)
-	elif feedCount >= 10:
+	elif feedCount >= 6:
 		if money_timer.is_stopped():
 			var coin: Button = SILVER_COIN.instantiate()
 			get_tree().root.add_child(coin)

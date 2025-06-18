@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="prizeResource" load_steps=3 format=3 uid="uid://dh1iwptcn86ga"]
+
+[ext_resource type="Texture2D" uid="uid://b8xsof348chs3" path="res://assets/fish.png" id="1_rkt0k"]
+[ext_resource type="Script" uid="uid://cyfrwajrr2bdy" path="res://resources/Fish/prizeResource.gd" id="1_yhoux"]
+
+[resource]
+script = ExtResource("1_yhoux")
+id = 1
+portrait = ExtResource("1_rkt0k")
+rarity = 80
+metadata/_custom_type_script = "uid://cyfrwajrr2bdy"

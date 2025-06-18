@@ -1,4 +1,6 @@
 extends Area2D
+class_name Crab
+@onready var sprite_2d: Sprite2D = $sprite2D
 
 
 # Called when the node enters the scene tree for the first time.
@@ -7,9 +9,5 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	position.y += 50 * delta
-
-
-func _on_body_entered(_body: Node2D) -> void:
-	queue_free()
+func _process(_delta: float) -> void:
+	pass

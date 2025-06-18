@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="powerResource" load_steps=2 format=3 uid="uid://6lqv8u6negot"]
+
+[ext_resource type="Script" uid="uid://dkjupqwcpqhl7" path="res://resources/power/powerResource.gd" id="1_lmmh7"]
+
+[resource]
+script = ExtResource("1_lmmh7")
+id = 0
+description = "Speeds up time x2
+"
+metadata/_custom_type_script = "uid://dkjupqwcpqhl7"
