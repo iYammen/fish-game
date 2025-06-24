@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://bi0ro5luavxdu"]
 
 [ext_resource type="Script" uid="uid://bh77r8leevuyk" path="res://scripts/States/state_machine.gd" id="1_0uds8"]
-[ext_resource type="Texture2D" uid="uid://cu4x5sphqq51h" path="res://assets/crab.png" id="1_47adp"]
+[ext_resource type="Texture2D" uid="uid://cu4x5sphqq51h" path="res://assets/fish/crab.png" id="1_47adp"]
 [ext_resource type="Script" uid="uid://cnc3hr5cjrj6p" path="res://scripts/crab.gd" id="1_rvtk1"]
 [ext_resource type="Script" uid="uid://dij5f5oxqe2as" path="res://scripts/States/crab_wander_state.gd" id="2_fj44x"]
 [ext_resource type="Script" uid="uid://dll8akdyj4vkw" path="res://scripts/States/crab_chase_state.gd" id="4_0jwad"]
@@ -9,9 +9,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_0uds8"]
 radius = 20.3961
 
-[node name="Crab" type="Area2D"]
-collision_layer = 2
-collision_mask = 8
+[node name="Crab" type="Node2D" groups=["Fish"]]
 script = ExtResource("1_rvtk1")
 
 [node name="Label" type="Label" parent="."]
@@ -32,10 +30,6 @@ crab = NodePath("../..")
 script = ExtResource("4_0jwad")
 crab = NodePath("../..")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, -17)
-shape = SubResource("CircleShape2D_0uds8")
-
 [node name="sprite2D" type="Sprite2D" parent="."]
 position = Vector2(0, -16)
 texture = ExtResource("1_47adp")
@@ -43,6 +37,12 @@ texture = ExtResource("1_47adp")
 [node name="moveTimer" type="Timer" parent="."]
 process_callback = 0
 wait_time = 0.2
+one_shot = true
+autostart = true
+
+[node name="coolDownTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 4.0
 one_shot = true
 
 [node name="rightWallCheck" type="RayCast2D" parent="."]
@@ -53,5 +53,13 @@ target_position = Vector2(20, 0)
 position = Vector2(-16, -11)
 target_position = Vector2(-20, 0)
 
-[connection signal="area_entered" from="." to="state_machine/chase" method="_on_crab_area_entered"]
+[node name="hitbox" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
+position = Vector2(0, -17)
+shape = SubResource("CircleShape2D_0uds8")
+
 [connection signal="timeout" from="moveTimer" to="state_machine/wander" method="_on_move_timer_timeout"]
+[connection signal="area_entered" from="hitbox" to="state_machine/chase" method="_on_crab_area_entered"]

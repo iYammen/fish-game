@@ -1,0 +1,76 @@
+[gd_scene load_steps=9 format=3 uid="uid://d1c18j7ou1wtb"]
+
+[ext_resource type="Script" uid="uid://ccmgtfes5bakc" path="res://scripts/shark.gd" id="1_q88iu"]
+[ext_resource type="Script" uid="uid://bh77r8leevuyk" path="res://scripts/States/state_machine.gd" id="2_363uy"]
+[ext_resource type="PackedScene" uid="uid://70q8lok643df" path="res://scenes/components/health_component.tscn" id="2_vxi2w"]
+[ext_resource type="Script" uid="uid://0mgmjjxaelyr" path="res://scripts/States/shark_chase_state.gd" id="3_dwrfc"]
+[ext_resource type="Script" uid="uid://ct081ugb1xg6t" path="res://scripts/States/shark_wander_state.gd" id="3_q88iu"]
+[ext_resource type="Texture2D" uid="uid://ymhhbshnc8sx" path="res://assets/fish/shark.png" id="5_q88iu"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_363uy"]
+size = Vector2(223.182, 40.2968)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vxi2w"]
+size = Vector2(235.581, 58.8954)
+
+[node name="shark" type="RigidBody2D" groups=["Fish"]]
+texture_filter = 1
+collision_layer = 2
+gravity_scale = 0.0
+lock_rotation = true
+script = ExtResource("1_q88iu")
+
+[node name="healthComponent" parent="." instance=ExtResource("2_vxi2w")]
+
+[node name="state_machine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("2_363uy")
+initial_state = NodePath("wander")
+
+[node name="wander" type="Node" parent="state_machine" node_paths=PackedStringArray("fish")]
+script = ExtResource("3_q88iu")
+fish = NodePath("../..")
+
+[node name="chase" type="Node" parent="state_machine" node_paths=PackedStringArray("fish")]
+script = ExtResource("3_dwrfc")
+fish = NodePath("../..")
+
+[node name="Label" type="Label" parent="."]
+offset_left = -26.0
+offset_top = -45.0
+offset_right = 29.0
+offset_bottom = -22.0
+text = "hungry"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, 1)
+texture = ExtResource("5_q88iu")
+
+[node name="MoveTimer" type="Timer" parent="."]
+process_callback = 0
+one_shot = true
+
+[node name="attackCoolDownTimer" type="Timer" parent="."]
+process_callback = 0
+one_shot = true
+autostart = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-6, -1.5)
+scale = Vector2(0.322606, 0.322606)
+shape = SubResource("RectangleShape2D_363uy")
+
+[node name="hitBox" type="Area2D" parent="."]
+scale = Vector2(0.322606, 0.322606)
+collision_layer = 2
+collision_mask = 16
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitBox"]
+position = Vector2(-21.6983, -1.54988)
+shape = SubResource("RectangleShape2D_vxi2w")
+
+[connection signal="timeout" from="MoveTimer" to="state_machine/wander" method="_on_move_timer_timeout"]
+[connection signal="area_entered" from="hitBox" to="state_machine/chase" method="_on_hit_box_area_entered"]
+[connection signal="body_entered" from="hitBox" to="state_machine/wander" method="_on_hit_box_body_entered"]

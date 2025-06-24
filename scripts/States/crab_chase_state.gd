@@ -1,6 +1,7 @@
 extends State
 @export var crab: Crab
 @onready var move_timer: Timer = $"../../moveTimer"
+@onready var cool_down_timer: Timer = $"../../coolDownTimer"
 
 
 var closestCoin: Button
@@ -21,7 +22,7 @@ func Physics_Update(delta: float):
 	
 	if closestCoin:
 		target = closestCoin.global_position
-		crab.global_position.x = move_toward(crab.global_position.x, target.x, 50 * delta)
+		crab.global_position.x = move_toward(crab.global_position.x, target.x, randf_range(30, 50) * delta)
 
 func _update_closest_coin() -> void:
 	var coins = get_tree().get_nodes_in_group("Coin")
@@ -37,7 +38,8 @@ func Exit():
 	pass
 
 
-func _on_crab_area_entered(_area: Area2D) -> void:
-	print(closestCoin)
-	if closestCoin != null:
-		closestCoin._on_button_down()
+func _on_crab_area_entered(area: Area2D) -> void:
+	if area != null:
+		area.owner._on_button_down()
+		cool_down_timer.start()
+		state_transition.emit(self, "wander")

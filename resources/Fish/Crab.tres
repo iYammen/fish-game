@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="prizeResource" load_steps=4 format=3 uid="uid://bfvyxhqsom57s"]
+
+[ext_resource type="Texture2D" uid="uid://cu4x5sphqq51h" path="res://assets/fish/crab.png" id="1_0ctby"]
+[ext_resource type="Script" uid="uid://cyfrwajrr2bdy" path="res://resources/Fish/prizeResource.gd" id="2_0ctby"]
+[ext_resource type="PackedScene" uid="uid://bi0ro5luavxdu" path="res://scenes/Fish/Crab.tscn" id="3_ailyc"]
+
+[resource]
+script = ExtResource("2_0ctby")
+id = 2
+portrait = ExtResource("1_0ctby")
+spawnable = ExtResource("3_ailyc")
+rarity = 50
+metadata/_custom_type_script = "uid://cyfrwajrr2bdy"

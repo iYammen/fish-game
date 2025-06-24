@@ -1,16 +1,22 @@
 extends Node
-class_name guppyManager
+class_name spawnManager
 
-const GUPPY = preload("res://scenes/guppy.tscn")
+@onready var monster_spawn_timer: Timer = $monsterSpawnTimer
+
+const GUPPY = preload("res://scenes/Fish/guppy.tscn")
+const MONSTER_1 = preload("res://scenes/monsters/monster_1.tscn")
 var boundray: Vector2 = Vector2(500, 200)
-var spawnNum: int = 1
+@export var spawnNum: int = 5
 
 func _ready() -> void:
+	monster_spawn_timer.start(randf_range(1, 1))
 	for guppy in spawnNum:
 		var spawn: RigidBody2D = GUPPY.instantiate()
 		get_tree().root.add_child.call_deferred(spawn)
 		
 
-func GetDirection():
-	var targetPos: Vector2 = Vector2(randf_range(-boundray.x, boundray.x), randf_range(-boundray.y, boundray.y))
-	return targetPos
+
+func _on_monster_spawn_timer_timeout() -> void:
+	var spawn: Area2D = MONSTER_1.instantiate()
+	get_tree().root.add_child.call_deferred(spawn)
+	monster_spawn_timer.start(randf_range(30, 60))

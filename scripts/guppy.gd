@@ -2,11 +2,11 @@ extends RigidBody2D
 class_name Guppy
 
 @export var speed: float = 20
+@export var health: healthComponent
 @onready var move_timer: Timer = $MoveTimer
 @onready var hunger_timer: Timer = $hungerTimer
 
-var guppy_manger: guppyManager
-var feedCount: int = 20
+var feedCount: int = 6
 
 @onready var sprite_2d: Sprite2D = $sprite2D
 @onready var money_timer: Timer = $moneyTimer
@@ -14,8 +14,8 @@ const BRONZE_COIN = preload("res://scenes/bronze_coin.tscn")
 const SILVER_COIN = preload("res://scenes/silver_coin.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	health.died.connect(die)
 	hunger_timer.start(randf_range(15,40))
-	guppy_manger = get_tree().get_first_node_in_group("Guppy Manager")
 
 func _process(_delta: float) -> void:
 	if hunger_timer.time_left > hunger_timer.wait_time / 1.5:
@@ -40,6 +40,9 @@ func _physics_process(_delta: float) -> void:
 			coin.global_position = global_position
 			money_timer.start(randf_range(5, 10))
 		scale = Vector2(2, 2)
+
+func die():
+	queue_free()
 
 func _on_hunger_timer_timeout() -> void:
 	visible = false

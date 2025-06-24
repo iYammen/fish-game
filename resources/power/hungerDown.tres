@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="powerResource" load_steps=3 format=3 uid="uid://d0vhfinvg20ux"]
+
+[ext_resource type="Texture2D" uid="uid://dtm8eh8r5htxo" path="res://assets/icons/hungerDownIcon.png" id="1_vtj8o"]
+[ext_resource type="Script" uid="uid://dkjupqwcpqhl7" path="res://resources/power/powerResource.gd" id="2_ekwfb"]
+
+[resource]
+script = ExtResource("2_ekwfb")
+id = 1
+icon = ExtResource("1_vtj8o")
+description = "fish are less hungry
+"
+rarity = 50
+metadata/_custom_type_script = "uid://dkjupqwcpqhl7"

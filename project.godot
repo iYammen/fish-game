@@ -26,6 +26,7 @@ window/stretch/mode="viewport"
 
 Fish=""
 Coin=""
+Enemy=""
 
 [input]
 
@@ -41,6 +42,7 @@ press={
 2d_physics/layer_2="Fish"
 2d_physics/layer_3="Food"
 2d_physics/layer_4="Coin"
+2d_physics/layer_5="Enemy"
 
 [rendering]
 

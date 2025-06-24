@@ -1,6 +1,5 @@
 extends State
 
-var guppy_manger: guppyManager
 @export var crab: Crab
 
 @export var speed: float = 0.5
@@ -9,10 +8,14 @@ var closestCoin: Button
 @onready var move_timer: Timer = $"../../moveTimer"
 @onready var right_wall_check: RayCast2D = $"../../rightWallCheck"
 @onready var left_wall_check: RayCast2D = $"../../leftWallCheck"
+@onready var cool_down_timer: Timer = $"../../coolDownTimer"
 
 
 func Enter() -> void:
 	move_timer.start(randf_range(2,8))
+	dir = -1
+	if randf() < 0.5:
+		dir = 1
 
 func Update(_delta: float):
 	if dir == -1:
@@ -27,7 +30,8 @@ func Physics_Update(delta: float):
 	elif left_wall_check.is_colliding():
 		dir = 1
 	crab.position.x += (50 * dir) * delta
-	CheckCoin()
+	if cool_down_timer.is_stopped():
+		CheckCoin()
 
 func CheckCoin():
 	if closestCoin != null:
@@ -43,9 +47,6 @@ func CheckCoin():
 func Exit():
 	pass
 
-
-
 func _on_move_timer_timeout() -> void:
-	print(dir)
 	dir = -dir
 	move_timer.start(randf_range(2,8))

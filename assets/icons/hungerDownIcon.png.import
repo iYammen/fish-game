@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://b8xsof348chs3"
-path="res://.godot/imported/fish.png-d064c52f4f44361be13e5c73475d2f47.ctex"
+uid="uid://dtm8eh8r5htxo"
+path="res://.godot/imported/hungerDownIcon.png-5f4c120b1b3fde90f94f8d81c1dabcec.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/fish.png"
-dest_files=["res://.godot/imported/fish.png-d064c52f4f44361be13e5c73475d2f47.ctex"]
+source_file="res://assets/icons/hungerDownIcon.png"
+dest_files=["res://.godot/imported/hungerDownIcon.png-5f4c120b1b3fde90f94f8d81c1dabcec.ctex"]
 
 [params]
 

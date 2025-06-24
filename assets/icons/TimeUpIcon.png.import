@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cu4x5sphqq51h"
-path="res://.godot/imported/crab.png-8c3f0d487c4f55739f26903ac89d0947.ctex"
+uid="uid://dckhptjcbwcqd"
+path="res://.godot/imported/TimeUpIcon.png-7ade270b821f9fdf3da28d71458b1acd.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/crab.png"
-dest_files=["res://.godot/imported/crab.png-8c3f0d487c4f55739f26903ac89d0947.ctex"]
+source_file="res://assets/icons/TimeUpIcon.png"
+dest_files=["res://.godot/imported/TimeUpIcon.png-7ade270b821f9fdf3da28d71458b1acd.ctex"]
 
 [params]
 

@@ -1,12 +1,15 @@
-[gd_scene load_steps=6 format=3 uid="uid://blaycr1vpl0y8"]
+[gd_scene load_steps=8 format=3 uid="uid://blaycr1vpl0y8"]
 
 [ext_resource type="Script" uid="uid://cri4hvama1quf" path="res://scripts/power_up_screen.gd" id="1_guw8m"]
 [ext_resource type="Texture2D" uid="uid://c8xjmx146q8ew" path="res://icon.svg" id="1_sjmu3"]
-[ext_resource type="Texture2D" uid="uid://dvodivb08kuks" path="res://assets/fish2.png" id="2_guw8m"]
+[ext_resource type="Texture2D" uid="uid://dvodivb08kuks" path="res://assets/fish/fish2.png" id="2_guw8m"]
 [ext_resource type="Script" uid="uid://dkjupqwcpqhl7" path="res://resources/power/powerResource.gd" id="2_nraks"]
 [ext_resource type="Resource" uid="uid://6lqv8u6negot" path="res://resources/power/timeUp.tres" id="3_tqw73"]
+[ext_resource type="Resource" uid="uid://d0vhfinvg20ux" path="res://resources/power/hungerDown.tres" id="4_tqw73"]
+[ext_resource type="Resource" uid="uid://cb01gwuri5d3h" path="res://resources/power/foodUp.tres" id="5_8fifd"]
 
-[node name="powerUpScreen" type="Control"]
+[node name="powerUpScreen" type="Control" node_paths=PackedStringArray("powerButtons") groups=["Power Screen"]]
+process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -14,7 +17,8 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_guw8m")
-powerUps = Array[ExtResource("2_nraks")]([ExtResource("3_tqw73")])
+powerUps = Array[ExtResource("2_nraks")]([ExtResource("3_tqw73"), ExtResource("4_tqw73"), ExtResource("5_8fifd")])
+powerButtons = [NodePath("Panel/TextureRect/HBoxContainer/Button"), NodePath("Panel/TextureRect/HBoxContainer/Button2"), NodePath("Panel/TextureRect/HBoxContainer/Button3")]
 
 [node name="Panel" type="Panel" parent="."]
 custom_minimum_size = Vector2(32, 32)
@@ -27,23 +31,24 @@ grow_vertical = 2
 
 [node name="TextureRect" type="TextureRect" parent="Panel"]
 self_modulate = Color(0, 0, 0, 1)
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(64, 64)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -64.0
-offset_top = -64.0
-offset_right = 64.0
-offset_bottom = 64.0
+offset_left = -117.0
+offset_top = -127.0
+offset_right = 11.0
+offset_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(2, 2)
 texture = ExtResource("1_sjmu3")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel/TextureRect"]
-custom_minimum_size = Vector2(32, 32)
+custom_minimum_size = Vector2(64, 32)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -59,12 +64,22 @@ grow_vertical = 2
 
 [node name="Button" type="Button" parent="Panel/TextureRect/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
 icon = ExtResource("2_guw8m")
 
 [node name="Button2" type="Button" parent="Panel/TextureRect/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
 icon = ExtResource("2_guw8m")
 
 [node name="Button3" type="Button" parent="Panel/TextureRect/HBoxContainer"]
 layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
 icon = ExtResource("2_guw8m")
+
+[connection signal="pressed" from="Panel/TextureRect/HBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="pressed" from="Panel/TextureRect/HBoxContainer/Button2" to="." method="_on_button_2_pressed"]
+[connection signal="pressed" from="Panel/TextureRect/HBoxContainer/Button3" to="." method="_on_button_3_pressed"]

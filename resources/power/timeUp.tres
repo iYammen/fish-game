@@ -1,10 +1,13 @@
-[gd_resource type="Resource" script_class="powerResource" load_steps=2 format=3 uid="uid://6lqv8u6negot"]
+[gd_resource type="Resource" script_class="powerResource" load_steps=3 format=3 uid="uid://6lqv8u6negot"]
 
-[ext_resource type="Script" uid="uid://dkjupqwcpqhl7" path="res://resources/power/powerResource.gd" id="1_lmmh7"]
+[ext_resource type="Texture2D" uid="uid://dckhptjcbwcqd" path="res://assets/icons/TimeUpIcon.png" id="1_dn83t"]
+[ext_resource type="Script" uid="uid://dkjupqwcpqhl7" path="res://resources/power/powerResource.gd" id="1_vcsed"]
 
 [resource]
-script = ExtResource("1_lmmh7")
+script = ExtResource("1_vcsed")
 id = 0
+icon = ExtResource("1_dn83t")
 description = "Speeds up time x2
 "
+rarity = 50
 metadata/_custom_type_script = "uid://dkjupqwcpqhl7"

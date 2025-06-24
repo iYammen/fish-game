@@ -54,8 +54,12 @@ func SpawnPrize():
 		0:
 			pass
 		1:
-			var spawn: Guppy = prizeWon.spawnable.instantiate()
+			var spawn:= prizeWon.spawnable.instantiate()
 			get_tree().root.add_child(spawn)
+		2:
+			var spawn:= prizeWon.spawnable.instantiate()
+			get_tree().root.add_child(spawn)
+			spawn.global_position.y = 180
 
 	# Small pause before returning control to the player
 	await get_tree().create_timer(1).timeout
@@ -73,7 +77,6 @@ func show_machine():
 
 
 func _on_button_pressed() -> void:
-	print("pressed")
 	prizeWon   = pick_weighted_prize(prizes)
 	target_index   = prizes.find(prizeWon)
 

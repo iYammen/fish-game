@@ -1,13 +1,16 @@
-extends Node2D
-class_name Crab
+extends RigidBody2D
+
 @onready var sprite_2d: Sprite2D = $sprite2D
+@export var health: healthComponent
 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	health.died.connect(die)
 
+func die():
+	queue_free()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
+func _process(delta: float) -> void:
 	pass

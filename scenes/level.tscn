@@ -1,11 +1,12 @@
-[gd_scene load_steps=7 format=3 uid="uid://cc3qvorsgdiqt"]
+[gd_scene load_steps=8 format=3 uid="uid://cc3qvorsgdiqt"]
 
 [ext_resource type="PackedScene" uid="uid://cok1q8vialda1" path="res://scenes/boundary.tscn" id="1_2q6dc"]
 [ext_resource type="PackedScene" uid="uid://d1hiqisxkn60e" path="res://scenes/game_manager.tscn" id="1_mx8sn"]
-[ext_resource type="PackedScene" uid="uid://58gka0bukx6r" path="res://scenes/guppy_manager.tscn" id="1_w8frs"]
+[ext_resource type="PackedScene" uid="uid://58gka0bukx6r" path="res://scenes/spawn_manager.tscn" id="1_w8frs"]
 [ext_resource type="PackedScene" uid="uid://d0xn38x3lbxjw" path="res://scenes/slot_machine.tscn" id="4_mx8sn"]
 [ext_resource type="Script" uid="uid://81k4bhdlyj6o" path="res://scripts/buy_button.gd" id="4_ppgk2"]
-[ext_resource type="PackedScene" uid="uid://bi0ro5luavxdu" path="res://scenes/Crab.tscn" id="6_2r41h"]
+[ext_resource type="PackedScene" uid="uid://bi0ro5luavxdu" path="res://scenes/Fish/Crab.tscn" id="6_2r41h"]
+[ext_resource type="PackedScene" uid="uid://blaycr1vpl0y8" path="res://scenes/powerUpScreen.tscn" id="6_klq6b"]
 
 [node name="Level" type="Node2D"]
 
@@ -13,7 +14,7 @@
 
 [node name="Game Manager" parent="." groups=["Game Manager"] instance=ExtResource("1_mx8sn")]
 
-[node name="Guppy Manager" parent="." instance=ExtResource("1_w8frs")]
+[node name="spawnManager" parent="." instance=ExtResource("1_w8frs")]
 
 [node name="boundrays" type="Node2D" parent="."]
 
@@ -43,14 +44,14 @@ text = "Buy Fish: 20$"
 script = ExtResource("4_ppgk2")
 
 [node name="moneyLabel" type="Label" parent="CanvasLayer" groups=["Money Label"]]
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
-offset_left = -44.0
-offset_top = 5.0
-offset_right = 45.0
-offset_bottom = 28.0
-grow_horizontal = 2
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 4.0
+offset_top = -39.0
+offset_right = 93.0
+offset_bottom = -16.0
+grow_vertical = 2
 text = "Money: 100"
 
 [node name="stageGoalLabel" type="Label" parent="CanvasLayer" groups=["Stage Goal Label"]]
@@ -68,7 +69,13 @@ text = "Stage 1: 400$"
 [node name="Slot_machine" parent="CanvasLayer" groups=["Slot Machine"] instance=ExtResource("4_mx8sn")]
 visible = false
 
+[node name="powerUpScreen" parent="CanvasLayer" instance=ExtResource("6_klq6b")]
+visible = false
+
 [node name="Crab" parent="." instance=ExtResource("6_2r41h")]
-position = Vector2(-111, 178)
+position = Vector2(60, 183)
+
+[node name="Crab2" parent="." instance=ExtResource("6_2r41h")]
+position = Vector2(3, 183)
 
 [connection signal="pressed" from="CanvasLayer/buyButton" to="CanvasLayer/buyButton" method="_on_pressed"]
