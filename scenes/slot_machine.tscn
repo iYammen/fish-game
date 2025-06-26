@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://d0xn38x3lbxjw"]
+[gd_scene load_steps=9 format=3 uid="uid://d0xn38x3lbxjw"]
 
 [ext_resource type="Texture2D" uid="uid://c8xjmx146q8ew" path="res://icon.svg" id="1_xixe3"]
 [ext_resource type="Script" uid="uid://bvhk1p7mviygg" path="res://scripts/slot_machine.gd" id="1_xjw1r"]
@@ -6,6 +6,7 @@
 [ext_resource type="Resource" uid="uid://dh1iwptcn86ga" path="res://resources/Fish/Guppy.tres" id="3_puwce"]
 [ext_resource type="Resource" uid="uid://blghhqawk5nf" path="res://resources/Fish/Nothing.tres" id="4_h3s22"]
 [ext_resource type="Resource" uid="uid://bfvyxhqsom57s" path="res://resources/Fish/Crab.tres" id="5_h3s22"]
+[ext_resource type="Theme" uid="uid://c6jbdk3trmuen" path="res://resources/theme/microsoftClassic.tres" id="6_7v1fh"]
 [ext_resource type="Texture2D" uid="uid://cqfx21eafffr3" path="res://assets/nothing.png" id="6_puwce"]
 
 [node name="Slot_machine" type="Control"]
@@ -20,12 +21,16 @@ script = ExtResource("1_xjw1r")
 prizes = Array[ExtResource("2_2e0ow")]([ExtResource("4_h3s22"), ExtResource("3_puwce"), ExtResource("5_h3s22")])
 
 [node name="Panel" type="Panel" parent="."]
+custom_minimum_size = Vector2(300, 200)
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
 grow_horizontal = 2
 grow_vertical = 2
+theme = ExtResource("6_7v1fh")
 
 [node name="TextureRect" type="TextureRect" parent="."]
 self_modulate = Color(0, 0, 0, 1)
@@ -35,13 +40,12 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -64.0
-offset_top = -64.0
-offset_right = 64.0
-offset_bottom = 64.0
+offset_left = -116.0
+offset_top = -61.0
+offset_right = 12.0
+offset_bottom = 67.0
 grow_horizontal = 2
 grow_vertical = 2
-scale = Vector2(1.605, 1.605)
 pivot_offset = Vector2(64.41, 68.885)
 texture = ExtResource("1_xixe3")
 
@@ -52,29 +56,32 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -20.0
-offset_top = -20.0
-offset_right = 20.0
-offset_bottom = 20.0
+offset_left = -39.0
+offset_top = -41.0
+offset_right = 1.0
+offset_bottom = -1.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(2, 2)
 alignment = 1
 
 [node name="Slot1" type="TextureRect" parent="TextureRect/HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 0
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.0
 texture = ExtResource("6_puwce")
 expand_mode = 2
 
 [node name="Button" type="Button" parent="."]
 layout_mode = 0
-offset_left = 438.0
-offset_top = 148.0
-offset_right = 446.0
-offset_bottom = 156.0
-scale = Vector2(7.92791, 7.82334)
+offset_left = 364.0
+offset_top = 170.0
+offset_right = 442.0
+offset_bottom = 210.0
 focus_mode = 0
+theme = ExtResource("6_7v1fh")
 action_mode = 0
+text = "spin"
 
 [node name="slotDelayTime" type="Timer" parent="."]
 process_callback = 0

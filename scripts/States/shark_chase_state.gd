@@ -41,7 +41,5 @@ func Exit():
 func _on_hit_box_area_entered(area: Area2D) -> void:
 	if attack_cool_down_timer.is_stopped():
 		attack_cool_down_timer.start()
-		area.health -= 50
-		area.healthCheck()
-		print(area.health)
+		area.health.takeDamage(20)
 		fish.linear_velocity += Vector2(randf_range(-200,200), randf_range(-200,200))

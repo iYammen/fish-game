@@ -9,7 +9,7 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_0uds8"]
 radius = 20.3961
 
-[node name="Crab" type="Node2D" groups=["Fish"]]
+[node name="Crab" type="Node2D"]
 script = ExtResource("1_rvtk1")
 
 [node name="Label" type="Label" parent="."]

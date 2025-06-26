@@ -1,6 +1,5 @@
 extends State
 
-var game_manager: GameManager
 @export var fish: Guppy
 
 @export var speed: float = 0.5
@@ -11,8 +10,7 @@ var closestFood: Area2D
 
 func Enter() -> void:
 	move_timer.start()
-	game_manager = get_tree().get_first_node_in_group("Game Manager")
-	target = game_manager.GetDirection()
+	(func(): target = fish.game_manager.GetDirection()).call_deferred()
 
 func Update(_delta: float):
 	if fish.global_position.x - target.x < 0:
@@ -45,10 +43,5 @@ func Exit():
 
 
 func _on_move_timer_timeout() -> void:
-	target = game_manager.GetDirection()
+	target = fish.game_manager.GetDirection()
 	move_timer.start(randf_range(0.3, 4))
-
-
-func _on_hit_box_body_entered(_body: Node2D) -> void:
-	target = -fish.linear_velocity
-	fish.linear_velocity = Vector2.ZERO

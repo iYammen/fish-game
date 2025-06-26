@@ -31,7 +31,6 @@ func die():
 func _on_timer_timeout() -> void:
 	if entered:
 		fish.health.takeDamage(100)
-		print("damaged")
 
 func _on_move_timer_timeout() -> void:
 	target = game_manager.GetDirection()

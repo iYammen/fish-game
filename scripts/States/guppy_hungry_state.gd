@@ -2,12 +2,11 @@ extends State
 @export var fish: Guppy
 @onready var move_timer: Timer = $"../../MoveTimer"
 @onready var hunger_timer: Timer = $"../../hungerTimer"
-var game_manager: GameManager
+
 var closestFood: Area2D
 var target: Vector2
 
 func Enter() -> void:
-	game_manager = get_tree().get_first_node_in_group("Game Manager")
 	move_timer.stop()
 
 func Update(_delta:float):
@@ -42,6 +41,7 @@ func Exit():
 func _on_hit_box_area_entered(area: Area2D) -> void:
 	if hunger_timer.time_left < hunger_timer.wait_time / 1.5:
 		hunger_timer.start(randf_range(15,40))
-		fish.feedCount += 1 + game_manager.foodQuality
+		print(fish.game_manager.foodQuality)
+		fish.feedCount += 1 + fish.game_manager.foodQuality
 		area.queue_free()
 		state_transition.emit(self, "wander")

@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://d1c18j7ou1wtb"]
+[gd_scene load_steps=10 format=3 uid="uid://d1c18j7ou1wtb"]
 
 [ext_resource type="Script" uid="uid://ccmgtfes5bakc" path="res://scripts/shark.gd" id="1_q88iu"]
+[ext_resource type="PhysicsMaterial" uid="uid://bjex6o0duh8ty" path="res://physics material/bouncy.tres" id="1_vxi2w"]
 [ext_resource type="Script" uid="uid://bh77r8leevuyk" path="res://scripts/States/state_machine.gd" id="2_363uy"]
 [ext_resource type="PackedScene" uid="uid://70q8lok643df" path="res://scenes/components/health_component.tscn" id="2_vxi2w"]
 [ext_resource type="Script" uid="uid://0mgmjjxaelyr" path="res://scripts/States/shark_chase_state.gd" id="3_dwrfc"]
@@ -13,12 +14,14 @@ size = Vector2(223.182, 40.2968)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vxi2w"]
 size = Vector2(235.581, 58.8954)
 
-[node name="shark" type="RigidBody2D" groups=["Fish"]]
+[node name="shark" type="RigidBody2D" node_paths=PackedStringArray("health") groups=["Fish"]]
 texture_filter = 1
 collision_layer = 2
+physics_material_override = ExtResource("1_vxi2w")
 gravity_scale = 0.0
 lock_rotation = true
 script = ExtResource("1_q88iu")
+health = NodePath("healthComponent")
 
 [node name="healthComponent" parent="." instance=ExtResource("2_vxi2w")]
 
@@ -73,4 +76,3 @@ shape = SubResource("RectangleShape2D_vxi2w")
 
 [connection signal="timeout" from="MoveTimer" to="state_machine/wander" method="_on_move_timer_timeout"]
 [connection signal="area_entered" from="hitBox" to="state_machine/chase" method="_on_hit_box_area_entered"]
-[connection signal="body_entered" from="hitBox" to="state_machine/wander" method="_on_hit_box_body_entered"]

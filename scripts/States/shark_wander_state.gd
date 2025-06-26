@@ -10,9 +10,7 @@ var closestEnemy: Area2D
 
 
 func Enter() -> void:
-	print("test")
 	move_timer.start(1)
-	print(move_timer.time_left)
 	game_manager = get_tree().get_first_node_in_group("Game Manager")
 	target = game_manager.GetDirection()
 
@@ -43,12 +41,7 @@ func CheckHunger():
 func Exit():
 	pass
 
-func _on_hit_box_body_entered(_body: Node2D) -> void:
-	target = -fish.linear_velocity
-	fish.linear_velocity = Vector2.ZERO
-
 
 func _on_move_timer_timeout() -> void:
-	print(target)
 	target = game_manager.GetDirection()
 	move_timer.start(randf_range(0.3, 4))

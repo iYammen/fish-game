@@ -2,7 +2,7 @@ extends Node2D
 class_name  GameManager
 
 const FOOD = preload("res://scenes/food.tscn")
-var boundray: Vector2 = Vector2(400, 200)
+var boundray: Vector2 = Vector2(300, 200)
 var moneyLabel: Label
 var stageGoalLabel: Label
 var powerScreen: powerUpScreen
@@ -22,7 +22,7 @@ func _ready() -> void:
 	stageGoalLabel = get_tree().get_first_node_in_group("Stage Goal Label")
 	powerScreen = get_tree().get_first_node_in_group("Power Screen")
 	stageGoalLabel.text = "Stage " + str(stage) + ": " + str(goal) + "$"
-	moneyLabel.text = "Money: " + str(money)
+	moneyLabel.text = "$: " + str(money)
 	call_deferred("checkScore")
 
 
@@ -34,21 +34,23 @@ func _process(_delta: float) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	Food = get_tree().get_nodes_in_group("Food")
-	if Food.size() < foodMax:
-		if event.is_action_pressed("press") and money >= 5:
-			var food = FOOD.instantiate()
-			get_tree().root.add_child(food)
-			food.position =  get_global_mouse_position()
-			subtractCoin(5)
+	if event.is_action_pressed("press") and money >= 5:
+		var inBourders: bool = get_global_mouse_position().x > -183 and get_global_mouse_position().x < 310 and get_global_mouse_position().y > -170 and get_global_mouse_position().y < 170
+		if inBourders:
+			if Food.size() < foodMax:
+				var food = FOOD.instantiate()
+				get_tree().root.add_child(food)
+				food.position =  get_global_mouse_position()
+				subtractCoin(5)
 
 func addCoin(value: int):
 	money += value
-	moneyLabel.text = "Money: " + str(money) 
+	moneyLabel.text = "$: " + str(money) 
 	checkScore()
 
 func subtractCoin(value: int):
 	money -= value
-	moneyLabel.text = "Money: " + str(money) 
+	moneyLabel.text = "$: " + str(money) 
 
 func checkScore():
 	if money >= goal:
@@ -60,5 +62,5 @@ func checkScore():
 		get_tree().paused = true
 
 func GetDirection():
-	var targetPos: Vector2 = Vector2(randf_range(-boundray.x, boundray.x), randf_range(-boundray.y, boundray.y))
+	var targetPos: Vector2 = Vector2(randf_range(-170, boundray.x), randf_range(-boundray.y, boundray.y))
 	return targetPos

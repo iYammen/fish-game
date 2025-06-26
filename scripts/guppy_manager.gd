@@ -9,7 +9,7 @@ var boundray: Vector2 = Vector2(500, 200)
 @export var spawnNum: int = 5
 
 func _ready() -> void:
-	monster_spawn_timer.start(randf_range(1, 1))
+	monster_spawn_timer.start(randf_range(60, 120))
 	for guppy in spawnNum:
 		var spawn: RigidBody2D = GUPPY.instantiate()
 		get_tree().root.add_child.call_deferred(spawn)

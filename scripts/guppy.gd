@@ -7,6 +7,7 @@ class_name Guppy
 @onready var hunger_timer: Timer = $hungerTimer
 
 var feedCount: int = 6
+var game_manager: GameManager
 
 @onready var sprite_2d: Sprite2D = $sprite2D
 @onready var money_timer: Timer = $moneyTimer
@@ -14,6 +15,8 @@ const BRONZE_COIN = preload("res://scenes/bronze_coin.tscn")
 const SILVER_COIN = preload("res://scenes/silver_coin.tscn")
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	game_manager = get_tree().get_first_node_in_group("Game Manager")
+	print(game_manager)
 	health.died.connect(die)
 	hunger_timer.start(randf_range(15,40))
 

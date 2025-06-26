@@ -1,5 +1,6 @@
-[gd_scene load_steps=9 format=3 uid="uid://baaen8igoytc4"]
+[gd_scene load_steps=10 format=3 uid="uid://baaen8igoytc4"]
 
+[ext_resource type="PhysicsMaterial" uid="uid://bjex6o0duh8ty" path="res://physics material/bouncy.tres" id="1_3y8gv"]
 [ext_resource type="Script" uid="uid://vx7tj6vdhvv6" path="res://scripts/guppy.gd" id="1_5al4j"]
 [ext_resource type="PackedScene" uid="uid://70q8lok643df" path="res://scenes/components/health_component.tscn" id="2_3y8gv"]
 [ext_resource type="Script" uid="uid://bh77r8leevuyk" path="res://scripts/States/state_machine.gd" id="2_6eadt"]
@@ -7,15 +8,16 @@
 [ext_resource type="Script" uid="uid://d14i0sacaiadn" path="res://scripts/States/guppy_hungry_state.gd" id="4_2njgj"]
 [ext_resource type="Texture2D" uid="uid://b8xsof348chs3" path="res://assets/fish/fish.png" id="5_8ckny"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_a3xws"]
-radius = 21.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3y8gv"]
+size = Vector2(89.8929, 40.2968)
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_ldxe8"]
-radius = 26.0192
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2njgj"]
+size = Vector2(99.1922, 49.5961)
 
 [node name="guppy" type="RigidBody2D" node_paths=PackedStringArray("health") groups=["Fish"]]
 texture_filter = 1
 collision_layer = 2
+physics_material_override = ExtResource("1_3y8gv")
 gravity_scale = 0.0
 lock_rotation = true
 script = ExtResource("1_5al4j")
@@ -66,8 +68,9 @@ process_callback = 0
 one_shot = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1.5, -1.5)
 scale = Vector2(0.322606, 0.322606)
-shape = SubResource("CircleShape2D_a3xws")
+shape = SubResource("RectangleShape2D_3y8gv")
 
 [node name="hitBox" type="Area2D" parent="."]
 scale = Vector2(0.322606, 0.322606)
@@ -75,11 +78,11 @@ collision_layer = 2
 collision_mask = 5
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitBox"]
-shape = SubResource("CircleShape2D_ldxe8")
+position = Vector2(3.09976, -3.09976)
+shape = SubResource("RectangleShape2D_2njgj")
 
 [connection signal="timeout" from="MoveTimer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="MoveTimer" to="state_machine/wander" method="_on_move_timer_timeout"]
 [connection signal="timeout" from="hungerTimer" to="." method="_on_hunger_timer_timeout"]
 [connection signal="timeout" from="moneyTimer" to="." method="_on_money_timer_timeout"]
 [connection signal="area_entered" from="hitBox" to="state_machine/hungry" method="_on_hit_box_area_entered"]
-[connection signal="body_entered" from="hitBox" to="state_machine/wander" method="_on_hit_box_body_entered"]

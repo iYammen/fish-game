@@ -1,35 +1,32 @@
 [gd_scene load_steps=4 format=3 uid="uid://ohj7rjnj8pmn"]
 
 [ext_resource type="Script" uid="uid://cqememkuws5oy" path="res://scripts/coin.gd" id="1_kyq3r"]
-[ext_resource type="Texture2D" uid="uid://c8xjmx146q8ew" path="res://icon.svg" id="1_owubc"]
+[ext_resource type="Texture2D" uid="uid://df4g74krtj1ua" path="res://assets/coin.png" id="2_wvq30"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kyq3r"]
-size = Vector2(2.1575, 6.68824)
+size = Vector2(26, 35)
 
 [node name="Coin" type="Button" groups=["Coin"]]
-modulate = Color(5.525, 4.972, 1, 1)
-offset_left = -17.0
+offset_left = -12.0
 offset_top = -19.0
-offset_right = -9.0
-offset_bottom = -11.0
-scale = Vector2(4.635, 4.635)
+offset_right = 12.0
+offset_bottom = 18.0
 focus_mode = 0
 flat = true
 script = ExtResource("1_kyq3r")
 value = 10
 
 [node name="Icon" type="Sprite2D" parent="."]
-modulate = Color(0.725064, 0.697179, 0, 1)
-position = Vector2(3.8835, 4.31499)
-scale = Vector2(0.0315794, 0.0494285)
-texture = ExtResource("1_owubc")
+modulate = Color(0.953822, 0.693419, 0.158113, 1)
+position = Vector2(11, 19)
+texture = ExtResource("2_wvq30")
 
 [node name="Area2D" type="Area2D" parent="."]
-position = Vector2(3.8835, 4.09924)
+position = Vector2(12, 18.7842)
 collision_layer = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(-5.34952e-06, 0.323627)
+position = Vector2(1, 0.715751)
 shape = SubResource("RectangleShape2D_kyq3r")
 
 [node name="Timer" type="Timer" parent="."]

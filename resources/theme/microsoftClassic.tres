@@ -1,0 +1,57 @@
+[gd_resource type="Theme" load_steps=6 format=3 uid="uid://c6jbdk3trmuen"]
+
+[ext_resource type="FontFile" uid="uid://bc3k8gqtkqesx" path="res://fonts/Windows Regular.ttf" id="1_na32x"]
+[ext_resource type="Texture2D" uid="uid://bwew6rr24t1rm" path="res://assets/button.png" id="1_r566y"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_qtaav"]
+texture = ExtResource("1_r566y")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 4.0
+texture_margin_bottom = 5.0
+region_rect = Rect2(0, 0, 40, 39)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_v31fn"]
+texture = ExtResource("1_r566y")
+texture_margin_left = 5.0
+texture_margin_top = 5.0
+texture_margin_right = 4.0
+texture_margin_bottom = 4.0
+region_rect = Rect2(48, 0, 40, 39)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_na32x"]
+texture = ExtResource("1_r566y")
+texture_margin_left = 5.0
+texture_margin_top = 29.0
+texture_margin_right = 6.0
+texture_margin_bottom = 3.0
+region_rect = Rect2(1, 44, 110, 83)
+
+[resource]
+default_font = ExtResource("1_na32x")
+default_font_size = 12
+Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
+Button/colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+Button/colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+Button/colors/font_hover_pressed_color = Color(1, 1, 1, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/colors/font_pressed_color = Color(1, 1, 1, 1)
+Button/colors/icon_disabled_color = Color(1, 1, 1, 0.4)
+Button/colors/icon_focus_color = Color(1, 1, 1, 1)
+Button/colors/icon_hover_color = Color(1, 1, 1, 1)
+Button/colors/icon_hover_pressed_color = Color(1, 1, 1, 1)
+Button/colors/icon_normal_color = Color(1, 1, 1, 1)
+Button/colors/icon_pressed_color = Color(1, 1, 1, 1)
+Button/constants/align_to_largest_stylebox = 0
+Button/constants/h_separation = 4
+Button/constants/icon_max_width = 0
+Button/constants/outline_size = 0
+Button/font_sizes/font_size = 12
+Button/fonts/font = ExtResource("1_na32x")
+Button/styles/disabled = SubResource("StyleBoxTexture_qtaav")
+Button/styles/focus = SubResource("StyleBoxTexture_qtaav")
+Button/styles/hover = SubResource("StyleBoxTexture_qtaav")
+Button/styles/normal = SubResource("StyleBoxTexture_qtaav")
+Button/styles/pressed = SubResource("StyleBoxTexture_v31fn")
+Panel/styles/panel = SubResource("StyleBoxTexture_na32x")
