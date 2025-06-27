@@ -4,6 +4,7 @@ class_name powerUpScreen
 @export var powerButtons: Array[Button]
 var rng := RandomNumberGenerator.new()
 var game_manager: GameManager
+@onready var button: Button = $Panel/HBoxContainer/Button
 
 var powerWonArray: Array[powerResource]
 # Called when the node enters the scene tree for the first time.
@@ -29,6 +30,7 @@ func setUpPowers():
 		var picked := pick_weighted_prize(available_powers)
 		powerWonArray[i] = picked
 		powerButtons[i].icon = picked.icon
+		powerButtons[i].tooltip_text = picked.description
 		available_powers.erase(picked) # Remove so it can't repeat
 
 

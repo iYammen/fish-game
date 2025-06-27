@@ -1,14 +1,14 @@
 extends Control
 class_name SlotMachine
 
-@export var prizes: Array[prizeResource]
+@export var prizes: Array[entityResource]
 
 @onready var slot_1: TextureRect   = $TextureRect/HBoxContainer/Slot1
 @onready var slot_delay_time: Timer = $slotDelayTime
 @onready var spin_time: Timer       = $spinTime
 @onready var button: Button         = $Button
 
-var prizeWon: prizeResource     # the prize we actually won
+var prizeWon: entityResource     # the prize we actually won
 var slotNum: int = 0                 # index that drives the spinning animation
 var target_index: int = 0            # index of the chosen prize – where the reel must end
 
@@ -36,7 +36,7 @@ func Spin():
 	slotNum = (slotNum + 1) % prizes.size()
 	slot_delay_time.start()
 
-func pick_weighted_prize(list: Array[prizeResource]) -> prizeResource:
+func pick_weighted_prize(list: Array[entityResource]) -> entityResource:
 	var total := 0
 	for p in list:
 		total += p.rarity

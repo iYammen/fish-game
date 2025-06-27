@@ -6,18 +6,20 @@ var boundray: Vector2 = Vector2(300, 200)
 var moneyLabel: Label
 var stageGoalLabel: Label
 var powerScreen: powerUpScreen
-var goal: int = 100
+var shop: Control
+var goal: int = 200
 var stage: int = 1
-var money: int = 100
+var money: int = 200
 var Fish: Array
 
 var Food: Array
 var foodMax: int = 3
-var foodQuality: int = 0
+var foodQuality: int = 1
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Engine.time_scale = 1
+	shop = get_tree().get_first_node_in_group("Shop")
 	moneyLabel = get_tree().get_first_node_in_group("Money Label")
 	stageGoalLabel = get_tree().get_first_node_in_group("Stage Goal Label")
 	powerScreen = get_tree().get_first_node_in_group("Power Screen")
@@ -33,13 +35,13 @@ func _process(_delta: float) -> void:
 		get_tree().reload_current_scene()
 
 func _unhandled_input(event: InputEvent) -> void:
-	Food = get_tree().get_nodes_in_group("Food")
+	Food = get_tree().get_nodes_in_group("Player Food")
 	if event.is_action_pressed("press") and money >= 5:
 		var inBourders: bool = get_global_mouse_position().x > -183 and get_global_mouse_position().x < 310 and get_global_mouse_position().y > -170 and get_global_mouse_position().y < 170
 		if inBourders:
 			if Food.size() < foodMax:
 				var food = FOOD.instantiate()
-				get_tree().root.add_child(food)
+				get_tree().current_scene.add_child(food)
 				food.position =  get_global_mouse_position()
 				subtractCoin(5)
 
@@ -64,3 +66,7 @@ func checkScore():
 func GetDirection():
 	var targetPos: Vector2 = Vector2(randf_range(-170, boundray.x), randf_range(-boundray.y, boundray.y))
 	return targetPos
+
+
+func _on_button_pressed() -> void:
+	shop.showShop()

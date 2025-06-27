@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://58gka0bukx6r"]
 
-[ext_resource type="Script" uid="uid://df3lkeocinyl4" path="res://scripts/guppy_manager.gd" id="1_2fj8g"]
+[ext_resource type="Script" uid="uid://df3lkeocinyl4" path="res://scripts/spawn_manager.gd" id="1_2fj8g"]
 
 [node name="spawnManager" type="Node" groups=["Guppy Manager"]]
 script = ExtResource("1_2fj8g")

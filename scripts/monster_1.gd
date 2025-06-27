@@ -27,6 +27,7 @@ func _physics_process(delta: float) -> void:
 
 func die():
 	queue_free()
+	process_mode = Node.PROCESS_MODE_DISABLED
 
 func _on_timer_timeout() -> void:
 	if entered:

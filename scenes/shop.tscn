@@ -1,0 +1,82 @@
+[gd_scene load_steps=12 format=3 uid="uid://ce2efrqeqkwis"]
+
+[ext_resource type="Theme" uid="uid://c6jbdk3trmuen" path="res://resources/theme/microsoftClassic.tres" id="1_xfvoa"]
+[ext_resource type="Texture2D" uid="uid://ymhhbshnc8sx" path="res://assets/fish/shark.png" id="2_1l46r"]
+[ext_resource type="Script" uid="uid://b6t335aytpnnv" path="res://scripts/shop.gd" id="2_2fc2m"]
+[ext_resource type="Texture2D" uid="uid://b8xsof348chs3" path="res://assets/fish/fish.png" id="3_1l46r"]
+[ext_resource type="Texture2D" uid="uid://cu4x5sphqq51h" path="res://assets/fish/crab.png" id="3_032fp"]
+[ext_resource type="Script" uid="uid://cyfrwajrr2bdy" path="res://resources/entityResource.gd" id="3_y6sft"]
+[ext_resource type="Resource" uid="uid://dh1iwptcn86ga" path="res://resources/Fish/Guppy.tres" id="4_m4ofw"]
+[ext_resource type="Resource" uid="uid://bfvyxhqsom57s" path="res://resources/Fish/Crab.tres" id="5_heatd"]
+[ext_resource type="Resource" uid="uid://kr4dgngu88kd" path="res://resources/Fish/Shark.tres" id="6_m4ofw"]
+[ext_resource type="Resource" uid="uid://chxbrefwiflu6" path="res://resources/Fish/Algae.tres" id="7_1v8qu"]
+[ext_resource type="Texture2D" uid="uid://dvjoomqvhlffj" path="res://assets/algae_icon.png" id="10_heatd"]
+
+[node name="shop" type="Control" groups=["Shop"]]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 168.0
+offset_top = 24.0
+offset_right = -176.0
+offset_bottom = -24.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_xfvoa")
+script = ExtResource("2_2fc2m")
+fish = Array[ExtResource("3_y6sft")]([ExtResource("4_m4ofw"), ExtResource("5_heatd"), ExtResource("6_m4ofw"), ExtResource("7_1v8qu")])
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 16.0
+offset_top = 8.0
+offset_right = 280.0
+offset_bottom = 304.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 32.0
+offset_right = 254.0
+offset_bottom = 230.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer"]
+custom_minimum_size = Vector2(250, 0)
+layout_mode = 2
+
+[node name="Button2" type="Button" parent="Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Guppy: 20$"
+icon = ExtResource("3_1l46r")
+
+[node name="Button3" type="Button" parent="Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Crab: 40$"
+icon = ExtResource("3_032fp")
+
+[node name="Button" type="Button" parent="Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Shark: 3 grown Guppies
+"
+icon = ExtResource("2_1l46r")
+
+[node name="Button4" type="Button" parent="Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Algae: 100$
+"
+icon = ExtResource("10_heatd")
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 48.0
+offset_bottom = 23.0
+text = "shop"
+
+[connection signal="button_down" from="Panel/HBoxContainer/VBoxContainer/Button2" to="." method="_on_button_2_button_down"]
+[connection signal="button_down" from="Panel/HBoxContainer/VBoxContainer/Button3" to="." method="_on_button_3_button_down"]
+[connection signal="button_down" from="Panel/HBoxContainer/VBoxContainer/Button" to="." method="_on_button_button_down"]
+[connection signal="button_down" from="Panel/HBoxContainer/VBoxContainer/Button4" to="." method="_on_button_4_button_down"]

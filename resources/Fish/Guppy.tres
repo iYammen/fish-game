@@ -1,12 +1,12 @@
-[gd_resource type="Resource" script_class="prizeResource" load_steps=4 format=3 uid="uid://dh1iwptcn86ga"]
+[gd_resource type="Resource" script_class="entityResource" load_steps=4 format=3 uid="uid://dh1iwptcn86ga"]
 
 [ext_resource type="Texture2D" uid="uid://b8xsof348chs3" path="res://assets/fish/fish.png" id="1_yht15"]
-[ext_resource type="Script" uid="uid://cyfrwajrr2bdy" path="res://resources/Fish/prizeResource.gd" id="2_65oc2"]
+[ext_resource type="Script" uid="uid://cyfrwajrr2bdy" path="res://resources/entityResource.gd" id="2_yht15"]
 [ext_resource type="PackedScene" uid="uid://baaen8igoytc4" path="res://scenes/Fish/guppy.tscn" id="3_w8dnt"]
 
 [resource]
-script = ExtResource("2_65oc2")
-id = 1
+script = ExtResource("2_yht15")
+id = 0
 portrait = ExtResource("1_yht15")
 spawnable = ExtResource("3_w8dnt")
 rarity = 80

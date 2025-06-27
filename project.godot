@@ -28,6 +28,7 @@ window/stretch/mode="viewport"
 Fish=""
 Coin=""
 Enemy=""
+Food=""
 
 [gui]
 

@@ -9,6 +9,7 @@ var closestFood: Area2D
 @onready var hunger_timer: Timer = $"../../hungerTimer"
 
 func Enter() -> void:
+	closestFood = null
 	move_timer.start()
 	(func(): target = fish.game_manager.GetDirection()).call_deferred()
 
