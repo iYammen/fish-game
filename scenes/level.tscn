@@ -61,7 +61,6 @@ rotation = -3.14159
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Sidebar" type="TextureRect" parent="CanvasLayer"]
-visible = false
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
@@ -121,11 +120,11 @@ script = ExtResource("4_ppgk2")
 [node name="Button" type="Button" parent="CanvasLayer/Sidebar/buttons"]
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
+focus_mode = 0
 theme = ExtResource("5_64w2a")
 text = "shop"
 
 [node name="shop" parent="CanvasLayer" instance=ExtResource("7_64w2a")]
-visible = false
 offset_left = 208.0
 offset_right = -136.0
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://ce2efrqeqkwis"]
+[gd_scene load_steps=13 format=3 uid="uid://ce2efrqeqkwis"]
 
 [ext_resource type="Theme" uid="uid://c6jbdk3trmuen" path="res://resources/theme/microsoftClassic.tres" id="1_xfvoa"]
 [ext_resource type="Texture2D" uid="uid://ymhhbshnc8sx" path="res://assets/fish/shark.png" id="2_1l46r"]
@@ -11,6 +11,7 @@
 [ext_resource type="Resource" uid="uid://kr4dgngu88kd" path="res://resources/Fish/Shark.tres" id="6_m4ofw"]
 [ext_resource type="Resource" uid="uid://chxbrefwiflu6" path="res://resources/Fish/Algae.tres" id="7_1v8qu"]
 [ext_resource type="Texture2D" uid="uid://dvjoomqvhlffj" path="res://assets/algae_icon.png" id="10_heatd"]
+[ext_resource type="Texture2D" uid="uid://cqfx21eafffr3" path="res://assets/nothing.png" id="12_44xle"]
 
 [node name="shop" type="Control" groups=["Shop"]]
 process_mode = 3
@@ -76,7 +77,46 @@ offset_right = 48.0
 offset_bottom = 23.0
 text = "shop"
 
+[node name="Error Message" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 248.0
+offset_top = -24.0
+offset_right = 432.0
+offset_bottom = 72.0
+
+[node name="errorMessageLabel" type="Label" parent="Error Message"]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 48.0
+offset_top = 48.0
+offset_right = 175.0
+offset_bottom = 63.0
+text = "not enough money to
+buy stock"
+
+[node name="Label2" type="Label" parent="Error Message"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 135.0
+offset_bottom = 23.0
+text = "Error Buying Stock"
+
+[node name="TextureRect" type="TextureRect" parent="Error Message"]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 40.0
+offset_right = 48.0
+offset_bottom = 80.0
+texture = ExtResource("12_44xle")
+
+[node name="popUpTimer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 2.0
+one_shot = true
+
 [connection signal="button_down" from="Panel/HBoxContainer/VBoxContainer/Button2" to="." method="_on_button_2_button_down"]
 [connection signal="button_down" from="Panel/HBoxContainer/VBoxContainer/Button3" to="." method="_on_button_3_button_down"]
 [connection signal="button_down" from="Panel/HBoxContainer/VBoxContainer/Button" to="." method="_on_button_button_down"]
 [connection signal="button_down" from="Panel/HBoxContainer/VBoxContainer/Button4" to="." method="_on_button_4_button_down"]
+[connection signal="timeout" from="popUpTimer" to="." method="_on_pop_up_timer_timeout"]

@@ -15,7 +15,7 @@ var Fish: Array
 var Food: Array
 var foodMax: int = 3
 var foodQuality: int = 1
-
+var exitingScreen: bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Engine.time_scale = 1
@@ -36,14 +36,16 @@ func _process(_delta: float) -> void:
 
 func _unhandled_input(event: InputEvent) -> void:
 	Food = get_tree().get_nodes_in_group("Player Food")
-	if event.is_action_pressed("press") and money >= 5:
-		var inBourders: bool = get_global_mouse_position().x > -183 and get_global_mouse_position().x < 310 and get_global_mouse_position().y > -170 and get_global_mouse_position().y < 170
-		if inBourders:
-			if Food.size() < foodMax:
-				var food = FOOD.instantiate()
-				get_tree().current_scene.add_child(food)
-				food.position =  get_global_mouse_position()
-				subtractCoin(5)
+	if event.is_action_pressed("press"):
+		if !exitingScreen and money >= 5:
+			var inBourders: bool = get_global_mouse_position().x > -183 and get_global_mouse_position().x < 310 and get_global_mouse_position().y > -170 and get_global_mouse_position().y < 170
+			if inBourders:
+				if Food.size() < foodMax:
+					var food = FOOD.instantiate()
+					get_tree().current_scene.add_child(food)
+					food.position =  get_global_mouse_position()
+					subtractCoin(5)
+		exitingScreen = false
 
 func addCoin(value: int):
 	money += value

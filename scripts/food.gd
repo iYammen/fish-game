@@ -22,6 +22,5 @@ func die():
 func _process(delta: float) -> void:
 	position.y += 50 * delta
 
-
 func _on_body_entered(_body: Node2D) -> void:
 	die()

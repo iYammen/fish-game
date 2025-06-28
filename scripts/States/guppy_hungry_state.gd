@@ -41,7 +41,6 @@ func Exit():
 func _on_hit_box_area_entered(area: Area2D) -> void:
 	if hunger_timer.time_left < hunger_timer.wait_time / 1.5:
 		hunger_timer.start(randf_range(fish.hungerTimerRange.x,fish.hungerTimerRange.y))
-		print(area.foodQuality)
 		fish.feedCount += area.foodQuality
 		fish.checkFoodCount()
 		area.health.takeDamage(100)

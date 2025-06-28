@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="powerResource" load_steps=3 format=3 uid="uid://cakfaucs507k6"]
+
+[ext_resource type="Texture2D" uid="uid://cdhvpchtqdvat" path="res://assets/icons/discountIcon.png" id="1_f0ybl"]
+[ext_resource type="Script" uid="uid://dkjupqwcpqhl7" path="res://resources/power/powerResource.gd" id="2_5ygqt"]
+
+[resource]
+script = ExtResource("2_5ygqt")
+id = 3
+icon = ExtResource("1_f0ybl")
+description = "gives a 10% discount
+
+"
+rarity = 50
+metadata/_custom_type_script = "uid://dkjupqwcpqhl7"
