@@ -7,7 +7,9 @@
 [resource]
 script = ExtResource("2_o7yhv")
 id = 2
+name = "Shark"
 portrait = ExtResource("1_a868h")
 spawnable = ExtResource("3_m3ec2")
 rarity = 80
+price = 0
 metadata/_custom_type_script = "uid://cyfrwajrr2bdy"

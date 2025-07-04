@@ -7,7 +7,9 @@
 [resource]
 script = ExtResource("2_jj8l4")
 id = 3
+name = "Algae"
 portrait = ExtResource("1_dssie")
 spawnable = ExtResource("3_dssie")
 rarity = 80
+price = 500
 metadata/_custom_type_script = "uid://cyfrwajrr2bdy"

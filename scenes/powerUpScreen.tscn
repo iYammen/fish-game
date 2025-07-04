@@ -14,6 +14,10 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 240.0
+offset_top = 56.0
+offset_right = -176.0
+offset_bottom = -80.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_jlpm1")
@@ -27,10 +31,6 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 177.0
-offset_top = 46.0
-offset_right = -221.0
-offset_bottom = -70.0
 grow_horizontal = 2
 grow_vertical = 2
 
@@ -53,6 +53,7 @@ grow_vertical = 2
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 0
+mouse_default_cursor_shape = 2
 icon = ExtResource("2_guw8m")
 
 [node name="Button2" type="Button" parent="Panel/HBoxContainer"]
@@ -60,6 +61,7 @@ layout_mode = 2
 size_flags_horizontal = 6
 size_flags_vertical = 4
 size_flags_stretch_ratio = 2.2
+mouse_default_cursor_shape = 2
 icon = ExtResource("2_guw8m")
 
 [node name="Button3" type="Button" parent="Panel/HBoxContainer"]
@@ -67,15 +69,16 @@ layout_mode = 2
 size_flags_horizontal = 8
 size_flags_vertical = 0
 size_flags_stretch_ratio = 0.0
+mouse_default_cursor_shape = 2
 icon = ExtResource("2_guw8m")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
-offset_left = 184.0
-offset_top = 56.0
-offset_right = 234.0
-offset_bottom = 71.0
-text = "Power ups"
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 58.0
+offset_bottom = 23.0
+text = "Perks"
 
 [connection signal="button_down" from="Panel/HBoxContainer/Button" to="." method="_on_button_pressed"]
 [connection signal="button_down" from="Panel/HBoxContainer/Button2" to="." method="_on_button_2_pressed"]

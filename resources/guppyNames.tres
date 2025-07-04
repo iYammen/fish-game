@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="nameResource" load_steps=2 format=3 uid="uid://b686y7lc2vewf"]
-
-[ext_resource type="Script" uid="uid://mkxluchrqwru" path="res://resources/nameResource.gd" id="1_v3hn0"]
-
-[resource]
-script = ExtResource("1_v3hn0")
-firstNames = Array[String](["Vincent", "Chonky", "Fares", "Fugly", "Froppy", "Isaac"])
-lastNames = Array[String](["Keety", "Vateek", "WoodStock", "The Third", "Charlie"])
-metadata/_custom_type_script = "uid://mkxluchrqwru"

@@ -38,6 +38,7 @@ size = Vector2(57, 97)
 collision_layer = 16
 collision_mask = 2
 script = ExtResource("1_qfjev")
+value = 50
 health = NodePath("healthComponent")
 
 [node name="healthComponent" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("2_ska6x")]

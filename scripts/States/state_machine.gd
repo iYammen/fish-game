@@ -1,5 +1,5 @@
 extends Node
-
+class_name stateMachine
 @export var initial_state : State
 @onready var label: Label = $"../Label"
 

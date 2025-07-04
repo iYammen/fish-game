@@ -1,5 +1,6 @@
 extends Area2D
 
+@export var value: int
 @export var health: healthComponent
 @onready var move_timer: Timer = $moveTimer
 var game_manager: GameManager
@@ -26,8 +27,10 @@ func _physics_process(delta: float) -> void:
 		animated_sprite_2d.play("Idle")
 
 func die():
+	var finalValue: int = calculator.calculateScore(value)
+	game_manager.addCoin(finalValue)
+	game_manager.ShowNumb(finalValue, global_position)
 	queue_free()
-	process_mode = Node.PROCESS_MODE_DISABLED
 
 func _on_timer_timeout() -> void:
 	if entered:

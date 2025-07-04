@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cc3qvorsgdiqt"]
+[gd_scene load_steps=15 format=3 uid="uid://cc3qvorsgdiqt"]
 
 [ext_resource type="PackedScene" uid="uid://cok1q8vialda1" path="res://scenes/boundary.tscn" id="1_2q6dc"]
 [ext_resource type="PackedScene" uid="uid://d1hiqisxkn60e" path="res://scenes/game_manager.tscn" id="1_mx8sn"]
@@ -13,7 +13,6 @@
 [ext_resource type="Shader" uid="uid://caa5ttiuq3bxx" path="res://scripts/background.gdshader" id="10_t1rx8"]
 [ext_resource type="Texture2D" uid="uid://d2oigyt1gepdc" path="res://assets/background.png" id="11_8iemx"]
 [ext_resource type="Texture2D" uid="uid://dnpmvgddqquja" path="res://assets/sidebar.png" id="12_8iemx"]
-[ext_resource type="Texture2D" uid="uid://cqfx21eafffr3" path="res://assets/nothing.png" id="12_fpun6"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_64w2a"]
 shader = ExtResource("10_t1rx8")
@@ -70,7 +69,6 @@ offset_right = 128.0
 offset_bottom = 180.0
 grow_vertical = 2
 size_flags_horizontal = 0
-theme = ExtResource("5_64w2a")
 texture = ExtResource("12_8iemx")
 stretch_mode = 2
 script = ExtResource("6_64w2a")
@@ -123,76 +121,20 @@ script = ExtResource("4_ppgk2")
 custom_minimum_size = Vector2(0, 30)
 layout_mode = 2
 focus_mode = 0
-mouse_default_cursor_shape = 2
 theme = ExtResource("5_64w2a")
 text = "shop"
-
-[node name="stageButton" type="Button" parent="CanvasLayer/Sidebar/buttons" groups=["Stage Button"]]
-layout_mode = 2
-focus_mode = 0
-mouse_default_cursor_shape = 2
-text = "Stage 2: "
 
 [node name="Slot_machine" parent="CanvasLayer" groups=["Slot Machine"] instance=ExtResource("4_mx8sn")]
 visible = false
 
-[node name="shop" parent="CanvasLayer" instance=ExtResource("7_64w2a")]
+[node name="powerUpScreen" parent="CanvasLayer" instance=ExtResource("6_klq6b")]
 visible = false
+
+[node name="shop" parent="CanvasLayer" instance=ExtResource("7_64w2a")]
 offset_left = 208.0
 offset_top = 24.0
 offset_right = -152.0
 offset_bottom = -24.0
-
-[node name="Error Message" type="Panel" parent="CanvasLayer" groups=["Error Message"]]
-visible = false
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -184.0
-offset_bottom = 96.0
-grow_horizontal = 0
-size_flags_horizontal = 8
-theme = ExtResource("5_64w2a")
-
-[node name="errorMessageLabel" type="Label" parent="CanvasLayer/Error Message"]
-modulate = Color(0, 0, 0, 1)
-layout_mode = 0
-offset_left = 56.0
-offset_top = 40.0
-offset_right = 183.0
-offset_bottom = 73.0
-text = "not enough money to
-buy stage"
-
-[node name="Label2" type="Label" parent="CanvasLayer/Error Message"]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 8.0
-offset_right = 135.0
-offset_bottom = 23.0
-text = "Error Buying Stage"
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Error Message"]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 32.0
-offset_right = 40.0
-offset_bottom = 64.0
-texture = ExtResource("12_fpun6")
-
-[node name="Button" type="Button" parent="CanvasLayer/Error Message"]
-layout_mode = 0
-offset_left = 160.0
-offset_top = 8.0
-offset_right = 176.0
-offset_bottom = 24.0
-mouse_default_cursor_shape = 2
-flat = true
-
-[node name="powerUpScreen" parent="CanvasLayer" instance=ExtResource("6_klq6b")]
-visible = false
-offset_top = 48.0
-offset_bottom = -88.0
 
 [node name="Background" type="Sprite2D" parent="."]
 z_index = -10
@@ -201,5 +143,3 @@ texture = ExtResource("11_8iemx")
 
 [connection signal="pressed" from="CanvasLayer/Sidebar/buttons/buyButton" to="CanvasLayer/Sidebar/buttons/buyButton" method="_on_pressed"]
 [connection signal="pressed" from="CanvasLayer/Sidebar/buttons/Button" to="Game Manager" method="_on_button_pressed"]
-[connection signal="pressed" from="CanvasLayer/Sidebar/buttons/stageButton" to="Game Manager" method="_on_stage_button_pressed"]
-[connection signal="button_down" from="CanvasLayer/Error Message/Button" to="Game Manager" method="_on_button_button_down"]

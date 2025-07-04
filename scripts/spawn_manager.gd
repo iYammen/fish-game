@@ -17,7 +17,7 @@ func _ready() -> void:
 		
 func _process(delta: float) -> void:
 	if monster_spawn_timer.time_left < 5 and monster_spawn_timer.time_left > 1:
-		warning.Show()
+		warning.ShowAll()
 	elif monster_spawn_timer.time_left < 0.2:
 		warning.Hide()
 

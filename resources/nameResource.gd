@@ -1,4 +1,4 @@
 extends Resource
 class_name nameResource
-@export var firstNames: Array[String]
-@export var lastNames: Array[String]
+@export var names: Array[String]
+@export var articles: Array[String]

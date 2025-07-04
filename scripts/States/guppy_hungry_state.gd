@@ -10,18 +10,17 @@ func Enter() -> void:
 	move_timer.stop()
 
 func Update(_delta:float):
-	if fish.global_position.x - target.x < 0:
-		fish.sprite_2d.flip_h = true
-	else:
-		fish.sprite_2d.flip_h = false
+	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func Physics_Update(delta: float):
 	_update_closest_food()
 	move_timer.stop()
 	if closestFood:
-		target = closestFood.global_position
-		fish.global_position = fish.global_position.move_toward(target, 150 * delta)
+		var direction = (closestFood.global_position - fish.global_position).normalized()
+		fish.sprite_2d.flip_h = direction.x > 0
+		fish.linear_velocity = direction * 110
+
 
 func _update_closest_food() -> void:
 	closestFood = null
@@ -39,9 +38,10 @@ func Exit():
 
 
 func _on_hit_box_area_entered(area: Area2D) -> void:
-	if hunger_timer.time_left < hunger_timer.wait_time / 1.5:
-		hunger_timer.start(randf_range(fish.hungerTimerRange.x,fish.hungerTimerRange.y))
-		fish.feedCount += area.foodQuality
-		fish.checkFoodCount()
-		area.health.takeDamage(100)
-		state_transition.emit(self, "wander")
+	if area.is_in_group("Food"):
+		if hunger_timer.time_left < hunger_timer.wait_time / 1.5:
+			hunger_timer.start(randf_range(fish.hungerTimerRange.x,fish.hungerTimerRange.y))
+			fish.feedCount += area.foodQuality
+			fish.checkFoodCount()
+			area.health.takeDamage(100)
+			state_transition.emit(self, "wander")

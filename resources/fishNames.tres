@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="nameResource" load_steps=2 format=3 uid="uid://b686y7lc2vewf"]
+
+[ext_resource type="Script" uid="uid://mkxluchrqwru" path="res://resources/nameResource.gd" id="1_368mk"]
+
+[resource]
+script = ExtResource("1_368mk")
+names = Array[String](["Angry", "Adam", "Vateek", "Keety", "Prince", "Princess", "King", "Fares", "Destroyer", "Cursed", "Hater", "Crazy", "Isaac", "Seaman", "Smith", "Will", "Wood", "Melanie", "Rio", "Romeo", "Chappell", "Roan", "Cheese", "The Third", "Metnak", "Richard", "Dick", "Petite", "Donald", "Butcher", "Willy", "Dingle", "Cocky", "Unreliable", "Stupid", "Desprate", "Forgotten", "Vermin", "Insane", "Nubby", "Dave", "Moldy", "Mad", "Bud", "Hollow", "Bob", "Wirt", "Mr.", "Khawal", "Beast", "Waddles", "Lazy", "Lovely", "Cute", "Big"])
+articles = Array[String](["The", "El"])
+metadata/_custom_type_script = "uid://mkxluchrqwru"

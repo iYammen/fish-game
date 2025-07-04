@@ -13,35 +13,48 @@
 [ext_resource type="Texture2D" uid="uid://dvjoomqvhlffj" path="res://assets/algae_icon.png" id="10_heatd"]
 [ext_resource type="Texture2D" uid="uid://cqfx21eafffr3" path="res://assets/nothing.png" id="12_44xle"]
 
-[node name="shop" type="Control" groups=["Shop"]]
+[node name="shop" type="Control" node_paths=PackedStringArray("buttons") groups=["Shop"]]
 process_mode = 3
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 168.0
-offset_top = 24.0
-offset_right = -176.0
-offset_bottom = -24.0
+offset_right = -360.0
+offset_bottom = -48.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_xfvoa")
 script = ExtResource("2_2fc2m")
 fish = Array[ExtResource("3_y6sft")]([ExtResource("4_m4ofw"), ExtResource("5_heatd"), ExtResource("6_m4ofw"), ExtResource("7_1v8qu")])
+buttons = [NodePath("Panel/HBoxContainer/VBoxContainer/Button2"), NodePath("Panel/HBoxContainer/VBoxContainer/Button3"), NodePath("Panel/HBoxContainer/VBoxContainer/Button"), NodePath("Panel/HBoxContainer/VBoxContainer/Button4")]
+
+[node name="CloseButton2" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -336.0
+offset_top = -136.0
+offset_right = 416.0
+offset_bottom = 80.0
+grow_horizontal = 2
+grow_vertical = 2
+flat = true
 
 [node name="Panel" type="Panel" parent="."]
-layout_mode = 0
-offset_left = 16.0
-offset_top = 8.0
-offset_right = 280.0
-offset_bottom = 304.0
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
 layout_mode = 0
-offset_left = 8.0
-offset_top = 32.0
-offset_right = 254.0
-offset_bottom = 230.0
+offset_left = 16.0
+offset_top = 40.0
+offset_right = 266.0
+offset_bottom = 242.0
 
 [node name="VBoxContainer" type="VBoxContainer" parent="Panel/HBoxContainer"]
 custom_minimum_size = Vector2(250, 0)
@@ -49,25 +62,38 @@ layout_mode = 2
 
 [node name="Button2" type="Button" parent="Panel/HBoxContainer/VBoxContainer"]
 layout_mode = 2
+mouse_default_cursor_shape = 2
 text = "Guppy: 20$"
 icon = ExtResource("3_1l46r")
 
 [node name="Button3" type="Button" parent="Panel/HBoxContainer/VBoxContainer"]
 layout_mode = 2
+mouse_default_cursor_shape = 2
 text = "Crab: 40$"
 icon = ExtResource("3_032fp")
 
 [node name="Button" type="Button" parent="Panel/HBoxContainer/VBoxContainer"]
 layout_mode = 2
+mouse_default_cursor_shape = 2
 text = "Shark: 3 grown Guppies
 "
 icon = ExtResource("2_1l46r")
 
 [node name="Button4" type="Button" parent="Panel/HBoxContainer/VBoxContainer"]
 layout_mode = 2
+mouse_default_cursor_shape = 2
 text = "Algae: 100$
 "
 icon = ExtResource("10_heatd")
+
+[node name="CloseButton" type="Button" parent="Panel"]
+layout_mode = 0
+offset_left = 256.0
+offset_top = 8.0
+offset_right = 272.0
+offset_bottom = 24.0
+mouse_default_cursor_shape = 2
+flat = true
 
 [node name="Label" type="Label" parent="Panel"]
 layout_mode = 0
@@ -75,7 +101,7 @@ offset_left = 8.0
 offset_top = 8.0
 offset_right = 48.0
 offset_bottom = 23.0
-text = "shop"
+text = "Shop"
 
 [node name="Error Message" type="Panel" parent="."]
 layout_mode = 0
@@ -87,10 +113,10 @@ offset_bottom = 72.0
 [node name="errorMessageLabel" type="Label" parent="Error Message"]
 modulate = Color(0, 0, 0, 1)
 layout_mode = 0
-offset_left = 48.0
-offset_top = 48.0
-offset_right = 175.0
-offset_bottom = 63.0
+offset_left = 56.0
+offset_top = 40.0
+offset_right = 183.0
+offset_bottom = 73.0
 text = "not enough money to
 buy stock"
 
@@ -105,18 +131,29 @@ text = "Error Buying Stock"
 [node name="TextureRect" type="TextureRect" parent="Error Message"]
 layout_mode = 0
 offset_left = 8.0
-offset_top = 40.0
-offset_right = 48.0
-offset_bottom = 80.0
+offset_top = 32.0
+offset_right = 40.0
+offset_bottom = 64.0
 texture = ExtResource("12_44xle")
+
+[node name="ErrorExitButton" type="Button" parent="Error Message"]
+layout_mode = 0
+offset_left = 160.0
+offset_right = 184.0
+offset_bottom = 24.0
+mouse_default_cursor_shape = 2
+flat = true
 
 [node name="popUpTimer" type="Timer" parent="."]
 process_callback = 0
 wait_time = 2.0
 one_shot = true
 
+[connection signal="button_down" from="CloseButton2" to="." method="_on_close_button_button_down"]
 [connection signal="button_down" from="Panel/HBoxContainer/VBoxContainer/Button2" to="." method="_on_button_2_button_down"]
 [connection signal="button_down" from="Panel/HBoxContainer/VBoxContainer/Button3" to="." method="_on_button_3_button_down"]
 [connection signal="button_down" from="Panel/HBoxContainer/VBoxContainer/Button" to="." method="_on_button_button_down"]
 [connection signal="button_down" from="Panel/HBoxContainer/VBoxContainer/Button4" to="." method="_on_button_4_button_down"]
+[connection signal="button_down" from="Panel/CloseButton" to="." method="_on_close_button_button_down"]
+[connection signal="button_down" from="Error Message/ErrorExitButton" to="." method="_on_error_exit_button_button_down"]
 [connection signal="timeout" from="popUpTimer" to="." method="_on_pop_up_timer_timeout"]

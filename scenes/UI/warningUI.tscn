@@ -4,21 +4,6 @@
 [ext_resource type="Texture2D" uid="uid://cqfx21eafffr3" path="res://assets/nothing.png" id="2_5oxe2"]
 [ext_resource type="Script" uid="uid://c13515ap5d0yu" path="res://scripts/warning_ui.gd" id="2_gbk7i"]
 
-[sub_resource type="Animation" id="Animation_ae1bv"]
-resource_name = "idle"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:visible")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": [false]
-}
-
 [sub_resource type="Animation" id="Animation_5oxe2"]
 length = 0.001
 tracks/0/type = "value"
@@ -92,6 +77,21 @@ tracks/5/keys = {
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_ae1bv"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
 }
 
 [sub_resource type="Animation" id="Animation_gbk7i"]
@@ -206,23 +206,6 @@ offset_top = 8.0
 offset_right = 75.0
 offset_bottom = 23.0
 text = "System Failure"
-
-[node name="Label2" type="Label" parent="Panel"]
-modulate = Color(0, 0, 0, 1)
-layout_mode = 0
-offset_left = 48.0
-offset_top = 56.0
-offset_right = 115.0
-offset_bottom = 71.0
-text = "Critical ERROR: ATTACK imminent "
-
-[node name="TextureRect" type="TextureRect" parent="Panel"]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 40.0
-offset_right = 48.0
-offset_bottom = 80.0
-texture = ExtResource("2_5oxe2")
 
 [node name="Panel2" type="Panel" parent="."]
 visible = false

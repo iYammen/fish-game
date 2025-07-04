@@ -15,11 +15,9 @@ health = NodePath("healthComponent")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(-0.0126557, -0.99992)
-scale = Vector2(1, 1)
 texture = ExtResource("3_370ap")
 
 [node name="healthComponent" type="Node2D" parent="."]
-scale = Vector2(1, 1)
 script = ExtResource("2_370ap")
 metadata/_custom_type_script = "uid://bycubtbusx4jl"
 
