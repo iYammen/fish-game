@@ -13,7 +13,7 @@ func Update(_delta:float):
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func Physics_Update(delta: float):
+func Physics_Update(_delta: float):
 	_update_closest_food()
 	move_timer.stop()
 	if closestFood:

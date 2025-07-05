@@ -10,12 +10,12 @@ var boundray: Vector2 = Vector2(500, 200)
 
 func _ready() -> void:
 	warning = get_tree().get_first_node_in_group("Warning UI")
-	monster_spawn_timer.start(randf_range(120, 200))
+	monster_spawn_timer.start(randf_range(1, 3))
 	for guppy in spawnNum:
 		var spawn: RigidBody2D = GUPPY.instantiate()
 		get_tree().current_scene.add_child.call_deferred(spawn)
 		
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if monster_spawn_timer.time_left < 5 and monster_spawn_timer.time_left > 1:
 		warning.ShowAll()
 	elif monster_spawn_timer.time_left < 0.2:

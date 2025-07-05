@@ -77,7 +77,6 @@ func checkFoodCount():
 	elif feedCount >= 6:
 		sprite_2d.frame = 2
 		hungerTimerRange = hungerAdultTimerRange
-	print(hungerTimerRange)
 
 func die():
 	blood.play("default")
@@ -114,3 +113,7 @@ func _on_button_button_down() -> void:
 
 func _on_button_button_up() -> void:
 	state_transition.emit(state_machine.current_state, "wander")
+
+
+func _on_tree_exited() -> void:
+	game_manager.checkFishAmount()

@@ -13,17 +13,19 @@ var currentGuppyArray: Array
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	game_manager = get_tree().get_first_node_in_group("Game Manager")
-	#visible = false
+	visible = false
 	error_message.visible = false
 	for i in buttons.size():
 		var btn := buttons[i]
-		btn.text = "%s: %d" % [fish[i].name, fish[i].price * game_manager.discount]
-		btn.icon = fish[i].portrait
 		btn.button_down.connect(Callable(self, "_on_shop_button_down").bind(i))
 
 
 
 func showShop():
+	for i in buttons.size():
+		var btn := buttons[i]
+		btn.text = "%s: %d" % [fish[i].name, fish[i].price * game_manager.discount]
+		btn.icon = fish[i].portrait
 	var grownGuppies: Array
 	visible = true
 	get_tree().paused = true
@@ -58,27 +60,6 @@ func spawn_fish(data: entityResource) -> void:
 			inst.global_position = Vector2(game_manager.GetDirection().x, 168)
 		_:
 			inst.global_position = game_manager.GetDirection()
-
-func spawn(number: int):
-	match fish[number].id:
-		0:
-			var spawn:= fish[number].spawnable.instantiate()
-			get_tree().current_scene.add_child(spawn)
-			spawn.global_position = game_manager.GetDirection()
-		1:
-			var spawn:= fish[number].spawnable.instantiate()
-			get_tree().current_scene.add_child(spawn)
-			spawn.global_position.y = 180
-			spawn.global_position.x = game_manager.GetDirection().x
-		2:
-			var spawn:= fish[number].spawnable.instantiate()
-			get_tree().current_scene.add_child(spawn)
-			spawn.global_position = game_manager.GetDirection()
-		3:
-			var spawn:= fish[number].spawnable.instantiate()
-			get_tree().current_scene.add_child(spawn)
-			spawn.global_position.y = 168
-			spawn.global_position.x = game_manager.GetDirection().x
 
 
 

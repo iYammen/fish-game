@@ -5,7 +5,7 @@ func _ready() -> void:
 	animation_player.play("idle")
 
 func ShowAll():
-	animation_player.play("popUpAll")
+	animation_player.play("popUp")
 	
 func ShowOne():
 	animation_player.play("popUpOne")

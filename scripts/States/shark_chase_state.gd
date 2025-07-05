@@ -1,13 +1,11 @@
 extends State
 @export var fish: RigidBody2D
 @onready var move_timer: Timer = $"../../MoveTimer"
-var game_manager: GameManager
 var closestEnemy: Area2D
 var target: Vector2
 @onready var attack_cool_down_timer: Timer = $"../../attackCoolDownTimer"
 
 func Enter() -> void:
-	game_manager = get_tree().get_first_node_in_group("Game Manager")
 	move_timer.stop()
 
 func Update(_delta:float):
@@ -41,5 +39,6 @@ func Exit():
 func _on_hit_box_area_entered(area: Area2D) -> void:
 	if attack_cool_down_timer.is_stopped():
 		attack_cool_down_timer.start()
-		area.health.takeDamage(20)
+		area.health.takeDamage(fish.damage)
+		fish.game_manager.ShowDamageNumb(fish.damage, area.global_position)
 		fish.linear_velocity += Vector2(randf_range(-200,200), randf_range(-200,200))

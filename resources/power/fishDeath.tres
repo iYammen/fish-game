@@ -1,11 +1,11 @@
 [gd_resource type="Resource" script_class="powerResource" load_steps=3 format=3 uid="uid://xw78gbwdt5il"]
 
-[ext_resource type="Texture2D" uid="uid://dckhptjcbwcqd" path="res://assets/icons/TimeUpIcon.png" id="1_601cl"]
+[ext_resource type="Texture2D" uid="uid://cylwj1brlnwwm" path="res://assets/icons/deadFish.png" id="1_601cl"]
 [ext_resource type="Script" uid="uid://dkjupqwcpqhl7" path="res://resources/power/powerResource.gd" id="2_etlkf"]
 
 [resource]
 script = ExtResource("2_etlkf")
-id = 4
+id = 3
 icon = ExtResource("1_601cl")
 description = "every time a fish dies times amount of money earned 0.005X"
 rarity = 50

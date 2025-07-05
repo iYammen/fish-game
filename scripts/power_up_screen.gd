@@ -1,6 +1,5 @@
 extends Control
 class_name powerUpScreen
-@export var powerUps: Array[powerResource]
 @export var powerButtons: Array[Button]
 var rng := RandomNumberGenerator.new()
 var game_manager: GameManager
@@ -10,10 +9,10 @@ var powerWonArray: Array[powerResource]
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	visible = false
+	game_manager = get_tree().get_first_node_in_group("Game Manager")
 	rng.randomize()
 	setUpPowers()
 	powerWonArray.resize(powerButtons.size())
-	game_manager = get_tree().get_first_node_in_group("Game Manager")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -21,7 +20,7 @@ func _process(_delta: float) -> void:
 	pass
 
 func setUpPowers():
-	var available_powers := powerUps.duplicate() # Copy so we don't destroy original
+	var available_powers := game_manager.powerUps.duplicate() # Copy so we don't destroy original
 	powerWonArray.clear()
 	powerWonArray.resize(powerButtons.size())
 
@@ -55,6 +54,11 @@ func buttonClick(buttonNumb: int):
 			game_manager.foodQuality += 1
 		2:
 			game_manager.foodMax += 3
+		3:
+			pass
+		4:
+			game_manager.discount -= 0.1
+	game_manager.editPowerUpBar(powerWonArray[buttonNumb].id)
 	visible = false
 	get_tree().paused = false
 

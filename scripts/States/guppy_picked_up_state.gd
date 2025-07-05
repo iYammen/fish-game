@@ -14,7 +14,7 @@ func Update(_delta: float):
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func Physics_Update(delta: float):
+func Physics_Update(_delta: float):
 	mouse_pos = fish.get_global_mouse_position()
 	target = fish.global_position
 

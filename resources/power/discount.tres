@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("2_5ygqt")
-id = 5
+id = 4
 icon = ExtResource("1_f0ybl")
 description = "gives a 10% discount
 

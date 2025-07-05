@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://cc3qvorsgdiqt"]
+[gd_scene load_steps=17 format=3 uid="uid://cc3qvorsgdiqt"]
 
 [ext_resource type="PackedScene" uid="uid://cok1q8vialda1" path="res://scenes/boundary.tscn" id="1_2q6dc"]
 [ext_resource type="PackedScene" uid="uid://d1hiqisxkn60e" path="res://scenes/game_manager.tscn" id="1_mx8sn"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://d0xn38x3lbxjw" path="res://scenes/slot_machine.tscn" id="4_mx8sn"]
 [ext_resource type="Script" uid="uid://81k4bhdlyj6o" path="res://scripts/buy_button.gd" id="4_ppgk2"]
 [ext_resource type="Theme" uid="uid://c6jbdk3trmuen" path="res://resources/theme/microsoftClassic.tres" id="5_64w2a"]
+[ext_resource type="PackedScene" uid="uid://c1ikmva1frhfk" path="res://scenes/UI/powerUpBar.tscn" id="5_wc255"]
 [ext_resource type="Script" uid="uid://du2xevweuqewb" path="res://scripts/sidebar.gd" id="6_64w2a"]
 [ext_resource type="PackedScene" uid="uid://blaycr1vpl0y8" path="res://scenes/powerUpScreen.tscn" id="6_klq6b"]
 [ext_resource type="PackedScene" uid="uid://ce2efrqeqkwis" path="res://scenes/shop.tscn" id="7_64w2a"]
@@ -60,6 +61,15 @@ position = Vector2(-1, -179)
 rotation = -3.14159
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="powerUpBar" parent="CanvasLayer" instance=ExtResource("5_wc255")]
+custom_minimum_size = Vector2(512, 0)
+anchor_top = 0.0
+anchor_bottom = 0.089
+offset_top = 0.0
+offset_right = 0.0
+offset_bottom = -0.0400009
+grow_vertical = 1
 
 [node name="Sidebar" type="TextureRect" parent="CanvasLayer"]
 anchors_preset = 4
