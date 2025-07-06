@@ -1,23 +1,23 @@
 [gd_scene load_steps=33 format=3 uid="uid://bcao21iwjnai5"]
 
-[ext_resource type="Texture2D" uid="uid://ctlnu8quyodjq" path="res://assets/Monsters/monster_1.png" id="1_2cfiq"]
 [ext_resource type="Script" uid="uid://cplxict5vg20u" path="res://scripts/monster_1.gd" id="1_qfjev"]
 [ext_resource type="PackedScene" uid="uid://70q8lok643df" path="res://scenes/components/health_component.tscn" id="2_ska6x"]
+[ext_resource type="Texture2D" uid="uid://c27bunu4mpnao" path="res://assets/Monsters/virus_fish_game_1-sheet.png" id="3_nchrr"]
 [ext_resource type="Texture2D" uid="uid://6iy7rl3y58oa" path="res://assets/particles/blood.png" id="4_nchrr"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_2cfiq"]
-atlas = ExtResource("1_2cfiq")
-region = Rect2(128, 0, 128, 128)
+[sub_resource type="AtlasTexture" id="AtlasTexture_qimyh"]
+atlas = ExtResource("3_nchrr")
+region = Rect2(96, 0, 96, 96)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_qfjev"]
-atlas = ExtResource("1_2cfiq")
-region = Rect2(0, 0, 128, 128)
+[sub_resource type="AtlasTexture" id="AtlasTexture_4aadx"]
+atlas = ExtResource("3_nchrr")
+region = Rect2(0, 0, 96, 96)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_ska6x"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_2cfiq")
+"texture": SubResource("AtlasTexture_qimyh")
 }],
 "loop": true,
 "name": &"Eat",
@@ -25,7 +25,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_qfjev")
+"texture": SubResource("AtlasTexture_4aadx")
 }],
 "loop": true,
 "name": &"Idle",
@@ -33,7 +33,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2cfiq"]
-size = Vector2(57, 97)
+size = Vector2(57, 57)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8ckny"]
 atlas = ExtResource("4_nchrr")
@@ -216,19 +216,21 @@ sprite = NodePath("../AnimatedSprite2D")
 
 [node name="Button" type="Button" parent="."]
 offset_left = -38.0
-offset_top = -56.0
+offset_top = -31.0
 offset_right = 35.0
-offset_bottom = 50.0
+offset_bottom = 42.0
 focus_mode = 0
 mouse_default_cursor_shape = 3
 flat = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+z_index = -1
 sprite_frames = SubResource("SpriteFrames_ska6x")
 animation = &"Idle"
+frame_progress = 0.0445773
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-2.5, -5.5)
+position = Vector2(-2.5, 5.5)
 shape = SubResource("RectangleShape2D_2cfiq")
 
 [node name="moveTimer" type="Timer" parent="."]
@@ -242,6 +244,7 @@ one_shot = true
 
 [node name="blood" type="AnimatedSprite2D" parent="."]
 process_mode = 3
+visible = false
 z_index = 1
 scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_qimyh")

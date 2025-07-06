@@ -90,7 +90,7 @@ icon = ExtResource("10_heatd")
 layout_mode = 0
 offset_left = 256.0
 offset_top = 8.0
-offset_right = 272.0
+offset_right = 280.0
 offset_bottom = 24.0
 mouse_default_cursor_shape = 2
 flat = true
@@ -104,6 +104,7 @@ offset_bottom = 23.0
 text = "Shop"
 
 [node name="Error Message" type="Panel" parent="."]
+visible = false
 layout_mode = 0
 offset_left = 248.0
 offset_top = -24.0

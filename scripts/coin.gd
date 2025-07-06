@@ -27,9 +27,10 @@ func _on_button_down() -> void:
 		queue_free()
 
 
-func _on_area_2d_body_entered(_body: Node2D) -> void:
-	hitFloor = true
-	timer.start()
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if body.is_in_group("Ground Boundary"):
+		hitFloor = true
+		timer.start()
 
 
 func _on_timer_timeout() -> void:

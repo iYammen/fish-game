@@ -1,0 +1,13 @@
+[gd_scene load_steps=2 format=3 uid="uid://dbh3cna7ugwab"]
+
+[ext_resource type="Script" uid="uid://c6map1djj2o0t" path="res://scripts/fish_died_component.gd" id="1_s2ptj"]
+
+[node name="fishDiedComponent" type="Node" groups=["Fish Dead Component"]]
+script = ExtResource("1_s2ptj")
+
+[node name="Timer" type="Timer" parent="."]
+process_callback = 0
+wait_time = 2.0
+one_shot = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

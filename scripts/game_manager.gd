@@ -16,7 +16,7 @@ var powerScreen: powerUpScreen
 var shop: Control
 var stageButton: Button
 var discount: float = 1
-var boundray: Vector2 = Vector2(300, 200)
+var boundray: Vector2 = Vector2(300, 144)
 var goal: int = 10
 var stage: int = 1
 var money: int = 200
@@ -30,6 +30,7 @@ var damage: int = 10
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Engine.time_scale = 1
+	calculator.reset()
 	Input.set_custom_mouse_cursor(MOUSE_POINTING, Input.CURSOR_POINTING_HAND, Vector2(32,16))
 	Input.set_custom_mouse_cursor(MOUSE_SHOOTING, Input.CURSOR_CROSS, Vector2(32,32))
 	shop = get_tree().get_first_node_in_group("Shop")

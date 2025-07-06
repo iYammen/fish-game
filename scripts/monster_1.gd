@@ -22,6 +22,10 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
+	if global_position.x - target.x < 0:
+		animated_sprite_2d.flip_h = true
+	else:
+		animated_sprite_2d.flip_h = false
 	global_position = lerp(global_position, target, 0.25 * delta)
 	if entered: 
 		animated_sprite_2d.play("Eat")

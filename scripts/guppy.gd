@@ -10,6 +10,8 @@ class_name Guppy
 @onready var hunger_timer: Timer = $hungerTimer
 @onready var blood: AnimatedSprite2D = $blood
 @onready var name_label: Label = $nameLabel
+@onready var button: Button = $Button
+
 
 var feedCount: int = 0
 var game_manager: GameManager
@@ -79,9 +81,14 @@ func checkFoodCount():
 		hungerTimerRange = hungerAdultTimerRange
 
 func die():
+	button.mouse_filter = Control.MOUSE_FILTER_PASS
 	blood.play("default")
 	sprite_2d.visible = false
 	process_mode = Node.PROCESS_MODE_DISABLED
+	if get_tree().get_nodes_in_group("Fish Dead Component").is_empty() != true:
+		var fishDeadComponents :=  get_tree().get_nodes_in_group("Fish Dead Component")
+		for component in fishDeadComponents:
+			component.AddMult()
 	await get_tree().create_timer(0.8).timeout
 	queue_free()
 

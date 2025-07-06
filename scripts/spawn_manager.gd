@@ -1,27 +1,41 @@
 extends Node
 class_name spawnManager
 
+var spawnPos: Vector2
+var spawned: bool = false
+const SPAWN_POINT_UI = preload("res://scenes/UI/spawn_point_ui.tscn")
 @onready var monster_spawn_timer: Timer = $monsterSpawnTimer
+@export var monsterSpawnTimerRange: Vector2
 var warning: Control
 const GUPPY = preload("res://scenes/Fish/guppy.tscn")
 const MONSTER_1 = preload("res://scenes/monsters/monster_1.tscn")
 var boundray: Vector2 = Vector2(500, 200)
 @export var spawnNum: int = 5
+var game_manager: GameManager
+
 
 func _ready() -> void:
-	warning = get_tree().get_first_node_in_group("Warning UI")
-	monster_spawn_timer.start(randf_range(1, 3))
+	game_manager = get_tree().get_first_node_in_group("Game Manager")
+	monster_spawn_timer.start(randf_range(monsterSpawnTimerRange.x, monsterSpawnTimerRange.y))
 	for guppy in spawnNum:
 		var spawn: RigidBody2D = GUPPY.instantiate()
 		get_tree().current_scene.add_child.call_deferred(spawn)
-		
+	warning = get_tree().get_first_node_in_group("Warning UI")
+
 func _process(_delta: float) -> void:
-	if monster_spawn_timer.time_left < 5 and monster_spawn_timer.time_left > 1:
+	if monster_spawn_timer.time_left < 5 and monster_spawn_timer.time_left > 1 and !spawned:
+		spawnPos = game_manager.GetDirection()
+		var ins = SPAWN_POINT_UI.instantiate()
+		get_tree().current_scene.add_child(ins)
+		ins.global_position = spawnPos
 		warning.ShowAll()
+		spawned = true
 	elif monster_spawn_timer.time_left < 0.2:
 		warning.Hide()
 
 func _on_monster_spawn_timer_timeout() -> void:
 	var spawn: Area2D = MONSTER_1.instantiate()
 	get_tree().current_scene.add_child(spawn)
-	monster_spawn_timer.start(randf_range(30, 60))
+	spawn.global_position = spawnPos
+	monster_spawn_timer.start(randf_range(monsterSpawnTimerRange.x, monsterSpawnTimerRange.y))
+	spawned = false

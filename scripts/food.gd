@@ -22,5 +22,6 @@ func die():
 func _process(delta: float) -> void:
 	position.y += 50 * delta
 
-func _on_body_entered(_body: Node2D) -> void:
-	die()
+func _on_body_entered(body: Node2D) -> void:
+	if body.is_in_group("Ground Boundary"):
+		die()

@@ -29,6 +29,7 @@ shader_parameter/frame_count = 12
 [node name="Level" type="Node2D"]
 
 [node name="warningUI" parent="." instance=ExtResource("10_fpun6")]
+z_index = -5
 offset_left = 72.0
 offset_top = 16.0
 offset_right = 72.0
@@ -41,11 +42,12 @@ process_mode = 3
 visible = false
 
 [node name="spawnManager" parent="." instance=ExtResource("1_w8frs")]
+monsterSpawnTimerRange = Vector2(5, 5)
 spawnNum = 1
 
 [node name="boundrays" type="Node2D" parent="."]
 
-[node name="boundary" parent="boundrays" instance=ExtResource("1_2q6dc")]
+[node name="boundary" parent="boundrays" groups=["Ground Boundary"] instance=ExtResource("1_2q6dc")]
 position = Vector2(0, 178)
 
 [node name="boundary2" parent="boundrays" instance=ExtResource("1_2q6dc")]
@@ -57,7 +59,7 @@ position = Vector2(-190, -7)
 rotation = 1.5708
 
 [node name="boundary4" parent="boundrays" instance=ExtResource("1_2q6dc")]
-position = Vector2(-1, -179)
+position = Vector2(0, -144)
 rotation = -3.14159
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
