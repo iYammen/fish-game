@@ -22,7 +22,7 @@ var stage: int = 1
 var money: int = 200
 var Fish: Array
 
-var Food: Array
+var FoodCountArray: Array
 var foodMax: int = 3
 var foodQuality: int = 1
 var damage: int = 10
@@ -62,12 +62,12 @@ func editPowerUpBar(id: int):
 	powerUpBar.powerUpIcons[id].addCount()
 
 func _unhandled_input(event: InputEvent) -> void:
-	Food = get_tree().get_nodes_in_group("Player Food")
+	FoodCountArray = get_tree().get_nodes_in_group("Player Food")
 	if event.is_action_pressed("press"):
 		if money >= 5:
 			var inBourders: bool = get_global_mouse_position().x > -183 and get_global_mouse_position().x < 310 and get_global_mouse_position().y > -170 and get_global_mouse_position().y < 170
 			if inBourders:
-				if Food.size() < foodMax:
+				if FoodCountArray.size() < foodMax:
 					var food = FOOD.instantiate()
 					get_tree().current_scene.add_child(food)
 					food.position =  get_global_mouse_position()
@@ -84,19 +84,19 @@ func subtractCoin(value: int):
 
 func ShowNumb(numbValue: int, currentPos: Vector2):
 	var number = NUMBER_UI.instantiate()
-	get_tree().root.get_child(0).add_child(number)
+	get_tree().current_scene.add_child(number)
 	number.setNumber(numbValue)
 	number.global_position = currentPos
 
 func ShowDamageNumb(numbValue: int, currentPos: Vector2):
 	var number = NUMBER_UI.instantiate()
-	get_tree().root.get_child(0).add_child(number)
+	get_tree().current_scene.add_child(number)
 	number.setDamageNumber(numbValue)
 	number.global_position = currentPos
 
 func ShowText(words: String, currentPos: Vector2, color: Color):
 	var number = NUMBER_UI.instantiate()
-	get_tree().root.get_child(0).add_child(number)
+	get_tree().current_scene.add_child(number)
 	number.modulate = color
 	number.setText(words)
 	number.global_position = currentPos
