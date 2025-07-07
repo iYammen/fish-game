@@ -24,6 +24,7 @@ func Physics_Update(_delta: float):
 		target.y = mouse_pos.y
 	fish.global_position = target
 
+
 func Exit():
 	fish.freeze = false
 	sprite_2d.scale = Vector2(1, 1)

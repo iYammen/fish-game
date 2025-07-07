@@ -1,18 +1,19 @@
 extends RigidBody2D
 class_name Guppy
 
+var chosenName: String = ""
 @export var nameRes: nameResource
+var hungerWaitTime: float = 0
 @export var hungerTimerRange: Vector2
 @export var hungerAdultTimerRange: Vector2
 @export var speed: float = 20
 @export var health: healthComponent
+
 var move_t := 0.0
 var hunger_t := 0.0
 var money_t := 0.0
 var is_hungry := false
 
-@onready var blood: AnimatedSprite2D = $blood
-@onready var name_label: Label = $nameLabel
 @onready var button: Button = $Button
 
 
@@ -30,12 +31,12 @@ var hunger_state := 0
 func _ready() -> void:
 	state_transition.connect(state_machine.change_state)
 	input_pickable = true
-	name_label.visible = false
-	set_random_name()
+	#set_random_name()
 	game_manager = get_tree().get_first_node_in_group("Game Manager")
 	health.died.connect(die)
 	move_t   = randf_range(0.3, 4.0)
-	hunger_t = randf_range(hungerTimerRange.x, hungerTimerRange.y)
+	hungerWaitTime = randf_range(hungerTimerRange.x, hungerTimerRange.y)
+	hunger_t = hungerWaitTime
 	money_t  = randf_range(5.0, 10.0)
 
 func set_random_name() -> void:
@@ -59,25 +60,20 @@ func set_random_name() -> void:
 				var article: String = nameRes.articles[randi_range(0, nameRes.articles.size() - 1)]
 				chosen.insert(chosen.size() - 1, article)  # before the last name
 
-	name_label.text = " ".join(chosen)
+	chosenName = " ".join(chosen)
 
 func _physics_process(delta: float) -> void:
-	print(is_hungry)
 	move_t -= delta
 	hunger_t -= delta
 	if makingMoney:
 		money_t -= delta
-
-	if move_t <= 0.0:
-		state_transition.emit(state_machine.current_state, "wander")
-		move_t = randf_range(0.3, 4.0)
 
 	if hunger_t <= 0.0:
 		die()
 	else:
 		_update_hunger_tint()
 	
-	if hunger_t < hungerTimerRange.y / 1.5:
+	if hunger_t < hungerWaitTime / 1.5:
 		is_hungry = true
 
 	if makingMoney and money_t <= 0.0:
@@ -86,7 +82,7 @@ func _physics_process(delta: float) -> void:
 
 
 func _update_hunger_tint() -> void:
-	var ratio := hunger_t / hungerTimerRange.y
+	var ratio := hunger_t / hungerWaitTime
 	var s := 2 if ratio < 1.0 / 3.0 else 1 if ratio < 0.5 else 0
 	if s == hunger_state:
 		return
@@ -105,8 +101,8 @@ func checkFoodCount():
 		hungerTimerRange = hungerAdultTimerRange
 
 func die():
+	BloodManager.createBlood(global_position)
 	button.mouse_filter = Control.MOUSE_FILTER_PASS
-	blood.play("default")
 	sprite_2d.visible = false
 	process_mode = Node.PROCESS_MODE_DISABLED
 	if get_tree().get_nodes_in_group("Fish Dead Component").is_empty() != true:
@@ -117,19 +113,21 @@ func die():
 	queue_free()
 
 func _on_mouse_entered() -> void:
-	name_label.visible = true
+	#NameTagManager.assign_follow(self, chosenName)
+	pass
 
 func _on_mouse_exited() -> void:
-	name_label.visible = false
+	#NameTagManager.unassign_follow()
+	pass
 
 func _on_money_timer_timeout() -> void:
 	if feedCount >= 3 and feedCount < 6:
 		var coin: Button = BRONZE_COIN.instantiate()
-		get_tree().root.add_child(coin)
+		get_tree().current_scene.add_child(coin)
 		coin.global_position = global_position
 	elif feedCount >= 6:
 		var coin: Button = SILVER_COIN.instantiate()
-		get_tree().root.add_child(coin)
+		get_tree().current_scene.add_child(coin)
 		coin.global_position = global_position
 	money_t = randf_range(5, 10)
 
@@ -139,7 +137,7 @@ func _on_button_button_down() -> void:
 
 
 func _on_button_button_up() -> void:
-	state_transition.emit(state_machine.current_state, "wander")
+	state_transition.emit(state_machine.current_state, "Wander")
 
 
 func _on_tree_exited() -> void:

@@ -30,6 +30,11 @@ func Physics_Update(delta: float):
 	if food_scan_t <= 0.0:
 		CheckHunger()
 		food_scan_t = randf_range(0.3, 1.0)
+	
+	if fish.move_t <= 0.0:
+		target = fish.game_manager.GetDirection()
+		fish.move_t = randf_range(0.3, 4.0)
+
 
 func CheckHunger():
 	if fish.is_hungry:
@@ -38,7 +43,7 @@ func CheckHunger():
 		else:
 			if fish.game_manager.allFood.size() > 0:
 				for food in fish.game_manager.allFood:
-					if closestFood == null or fish.global_position.distance_squared_to(food.global_position) < fish.global_position.distance_to(closestFood.global_position):
+					if closestFood == null or fish.global_position.distance_squared_to(food.global_position) < fish.global_position.distance_squared_to(closestFood.global_position):
 						if food != null:
 							closestFood = food
 

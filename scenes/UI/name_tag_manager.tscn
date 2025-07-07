@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://bnd55owvitp8y"]
+
+[ext_resource type="Script" uid="uid://daxsttdes06an" path="res://scripts/name_tag_manager.gd" id="1_dn3nj"]
+[ext_resource type="Theme" uid="uid://c6jbdk3trmuen" path="res://resources/theme/microsoftClassic.tres" id="2_t4xpx"]
+
+[node name="NameTagManager" type="Node2D"]
+script = ExtResource("1_dn3nj")
+
+[node name="nameLabel" type="Label" parent="."]
+offset_left = -113.0
+offset_top = -34.0
+offset_right = 115.0
+offset_bottom = -11.0
+theme = ExtResource("2_t4xpx")
+horizontal_alignment = 1
+vertical_alignment = 1

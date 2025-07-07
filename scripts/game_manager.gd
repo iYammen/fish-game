@@ -33,7 +33,6 @@ var damage: int = 10
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	randomize()
-	get_tree().paused = false
 	Engine.time_scale = 1
 	calculator.reset()
 	Input.set_custom_mouse_cursor(MOUSE_POINTING, Input.CURSOR_POINTING_HAND, Vector2(32,16))
@@ -48,6 +47,7 @@ func _ready() -> void:
 	stageButton = get_tree().get_first_node_in_group("Stage Button")
 	stageButton.text = "Next Stage: " + str(goal) + "$"
 	errorMessage =  get_tree().get_first_node_in_group("Error Message")
+	BloodManager.Reset()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
