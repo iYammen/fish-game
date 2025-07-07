@@ -6,8 +6,11 @@ class_name Guppy
 @export var hungerAdultTimerRange: Vector2
 @export var speed: float = 20
 @export var health: healthComponent
-@onready var move_timer: Timer = $MoveTimer
-@onready var hunger_timer: Timer = $hungerTimer
+var move_t := 0.0
+var hunger_t := 0.0
+var money_t := 0.0
+var is_hungry := false
+
 @onready var blood: AnimatedSprite2D = $blood
 @onready var name_label: Label = $nameLabel
 @onready var button: Button = $Button
@@ -17,7 +20,6 @@ var feedCount: int = 0
 var game_manager: GameManager
 var makingMoney:bool = false
 @onready var sprite_2d: Sprite2D = $sprite2D
-@onready var money_timer: Timer = $moneyTimer
 const BRONZE_COIN = preload("res://scenes/bronze_coin.tscn")
 const SILVER_COIN = preload("res://scenes/silver_coin.tscn")
 @onready var state_machine: stateMachine = $state_machine
@@ -32,7 +34,9 @@ func _ready() -> void:
 	set_random_name()
 	game_manager = get_tree().get_first_node_in_group("Game Manager")
 	health.died.connect(die)
-	hunger_timer.start(randf_range(hungerTimerRange.x,hungerTimerRange.y))
+	move_t   = randf_range(0.3, 4.0)
+	hunger_t = randf_range(hungerTimerRange.x, hungerTimerRange.y)
+	money_t  = randf_range(5.0, 10.0)
 
 func set_random_name() -> void:
 	var parts: int = randi_range(1, 3)
@@ -57,12 +61,32 @@ func set_random_name() -> void:
 
 	name_label.text = " ".join(chosen)
 
-func _process(_delta: float) -> void:
-	if hunger_timer.time_left > 0:
+func _physics_process(delta: float) -> void:
+	print(is_hungry)
+	move_t -= delta
+	hunger_t -= delta
+	if makingMoney:
+		money_t -= delta
+
+	if move_t <= 0.0:
+		state_transition.emit(state_machine.current_state, "wander")
+		move_t = randf_range(0.3, 4.0)
+
+	if hunger_t <= 0.0:
+		die()
+	else:
 		_update_hunger_tint()
+	
+	if hunger_t < hungerTimerRange.y / 1.5:
+		is_hungry = true
+
+	if makingMoney and money_t <= 0.0:
+		_on_money_timer_timeout()
+		money_t = randf_range(5.0, 10.0)
+
 
 func _update_hunger_tint() -> void:
-	var ratio := hunger_timer.time_left / hunger_timer.wait_time
+	var ratio := hunger_t / hungerTimerRange.y
 	var s := 2 if ratio < 1.0 / 3.0 else 1 if ratio < 0.5 else 0
 	if s == hunger_state:
 		return
@@ -72,7 +96,7 @@ func _update_hunger_tint() -> void:
 
 func checkFoodCount():
 	if !makingMoney and feedCount >= 3:
-		money_timer.start(randf_range(5, 10))
+		money_t = randf_range(5, 10)
 		makingMoney = true
 	if feedCount >= 3 and feedCount < 6:
 		sprite_2d.frame = 1
@@ -92,10 +116,6 @@ func die():
 	await get_tree().create_timer(0.8).timeout
 	queue_free()
 
-func _on_hunger_timer_timeout() -> void:
-	die()
-
-
 func _on_mouse_entered() -> void:
 	name_label.visible = true
 
@@ -111,7 +131,7 @@ func _on_money_timer_timeout() -> void:
 		var coin: Button = SILVER_COIN.instantiate()
 		get_tree().root.add_child(coin)
 		coin.global_position = global_position
-	money_timer.start(randf_range(5, 10))
+	money_t = randf_range(5, 10)
 
 
 func _on_button_button_down() -> void:

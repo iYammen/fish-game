@@ -199,6 +199,16 @@ hungerTimerRange = Vector2(20, 40)
 hungerAdultTimerRange = Vector2(40, 60)
 health = NodePath("healthComponent")
 
+[node name="Label" type="Label" parent="."]
+visible = false
+offset_left = -26.0
+offset_top = -34.0
+offset_right = 29.0
+offset_bottom = -11.0
+text = "hungry"
+horizontal_alignment = 1
+vertical_alignment = 1
+
 [node name="Button" type="Button" parent="."]
 offset_left = -17.0
 offset_top = -12.0
@@ -224,6 +234,15 @@ fish = NodePath("../..")
 script = ExtResource("7_m3ecp")
 fish = NodePath("../..")
 
+[node name="healthComponent" parent="." instance=ExtResource("2_3y8gv")]
+maxHealth = 1
+
+[node name="sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+position = Vector2(0, 1)
+texture = ExtResource("3_2njgj")
+hframes = 3
+
 [node name="nameLabel" type="Label" parent="."]
 offset_left = -113.0
 offset_top = -34.0
@@ -232,42 +251,6 @@ offset_bottom = -11.0
 theme = ExtResource("3_8ckny")
 horizontal_alignment = 1
 vertical_alignment = 1
-
-[node name="sprite2D" type="Sprite2D" parent="."]
-texture_filter = 1
-position = Vector2(0, 1)
-texture = ExtResource("3_2njgj")
-hframes = 3
-
-[node name="healthComponent" parent="." instance=ExtResource("2_3y8gv")]
-maxHealth = 1
-
-[node name="Label" type="Label" parent="."]
-visible = false
-offset_left = -26.0
-offset_top = -34.0
-offset_right = 29.0
-offset_bottom = -11.0
-text = "hungry"
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="MoveTimer" type="Timer" parent="."]
-process_callback = 0
-one_shot = true
-autostart = true
-
-[node name="hungerTimer" type="Timer" parent="."]
-process_callback = 0
-one_shot = true
-
-[node name="moneyTimer" type="Timer" parent="."]
-process_callback = 0
-one_shot = true
-
-[node name="foodScanCoolDown" type="Timer" parent="."]
-wait_time = 0.3
-one_shot = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.499999, -0.5)
@@ -297,8 +280,4 @@ frame_progress = 1.0
 [connection signal="button_up" from="Button" to="." method="_on_button_button_up"]
 [connection signal="mouse_entered" from="Button" to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="Button" to="." method="_on_mouse_exited"]
-[connection signal="timeout" from="MoveTimer" to="." method="_on_timer_timeout"]
-[connection signal="timeout" from="hungerTimer" to="." method="_on_hunger_timer_timeout"]
-[connection signal="timeout" from="moneyTimer" to="." method="_on_money_timer_timeout"]
-[connection signal="timeout" from="foodScanCoolDown" to="state_machine/wander" method="_on_food_scan_cool_down_timeout"]
 [connection signal="area_entered" from="hitBox" to="state_machine/hungry" method="_on_hit_box_area_entered"]

@@ -20,6 +20,8 @@ func _ready() -> void:
 	for guppy in spawnNum:
 		var spawn: RigidBody2D = GUPPY.instantiate()
 		get_tree().current_scene.add_child.call_deferred(spawn)
+		spawn.global_position = game_manager.GetDirection()
+
 	warning = get_tree().get_first_node_in_group("Warning UI")
 
 func _process(_delta: float) -> void:

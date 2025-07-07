@@ -69,6 +69,9 @@ func editPowerUpBar(id: int):
 
 func _unhandled_input(event: InputEvent) -> void:
 	FoodCountArray = get_tree().get_nodes_in_group("Player Food")
+	if event.is_action_pressed("restart"):
+		get_tree().reload_current_scene()
+	
 	if event.is_action_pressed("press"):
 		if money >= 5:
 			var inBourders: bool = get_global_mouse_position().x > -183 and get_global_mouse_position().x < 310 and get_global_mouse_position().y > -170 and get_global_mouse_position().y < 170
