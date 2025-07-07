@@ -18,7 +18,7 @@ func _ready():
 		current_state = initial_state
 
 func _process(delta: float):
-	label.text = current_state.name
+	#label.text = current_state.name
 	if current_state:
 		current_state.Update(delta)
 

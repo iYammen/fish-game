@@ -5,6 +5,8 @@ const MOUSE_SHOOTING = preload("res://assets/mouse_shooting.png")
 const MOUSE_POINTING = preload("res://assets/mouse_pointing.png")
 const FOOD = preload("res://scenes/food.tscn")
 const NUMBER_UI = preload("res://scenes/numberUI.tscn")
+@onready var fps_label: Label = $"../CanvasLayer/fpsLabel"
+
 
 @export var powerUps: Array[powerResource]
 
@@ -23,12 +25,15 @@ var money: int = 200
 var Fish: Array
 
 var FoodCountArray: Array
+var allFood: Array
 var foodMax: int = 3
 var foodQuality: int = 1
 var damage: int = 10
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	randomize()
+	get_tree().paused = false
 	Engine.time_scale = 1
 	calculator.reset()
 	Input.set_custom_mouse_cursor(MOUSE_POINTING, Input.CURSOR_POINTING_HAND, Vector2(32,16))
@@ -38,16 +43,17 @@ func _ready() -> void:
 	stageGoalLabel = get_tree().get_first_node_in_group("Stage Goal Label")
 	powerScreen = get_tree().get_first_node_in_group("Power Screen")
 	powerUpBar = get_tree().get_first_node_in_group("Power Up Bar")
-	stageGoalLabel.text = "Stage " + str(stage) + ": " + str(goal) + "$"
+	stageGoalLabel.text = "Stage " + str(stage)
 	moneyLabel.text = "$: " + str(money)
 	stageButton = get_tree().get_first_node_in_group("Stage Button")
-	stageButton.text = "Stage " + str(stage) + ": " + str(goal) + "$"
+	stageButton.text = "Next Stage: " + str(goal) + "$"
 	errorMessage =  get_tree().get_first_node_in_group("Error Message")
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float) -> void:
-	pass
+	fps_label.text = "fps: " + str(Engine.get_frames_per_second())
+	allFood = get_tree().get_nodes_in_group("Food")
 
 func checkFishAmount():
 	if is_inside_tree():
@@ -106,8 +112,8 @@ func checkScore():
 		subtractCoin(goal)
 		goal = goal * 2
 		stage += 1
-		stageGoalLabel.text = "Stage " + str(stage) + ": " + str(goal) + "$"
-		stageButton.text = "Stage " + str(stage) + ": " + str(goal) + "$"
+		stageGoalLabel.text = "Stage " + str(stage)
+		stageButton.text = "Next Stage: " + str(goal) + "$"
 		powerScreen.setUpPowers()
 		powerScreen.visible = true
 		get_tree().paused = true

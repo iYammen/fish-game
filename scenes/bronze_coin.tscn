@@ -32,6 +32,7 @@ shape = SubResource("RectangleShape2D_kyq3r")
 
 [node name="Timer" type="Timer" parent="."]
 process_callback = 0
+wait_time = 2.0
 one_shot = true
 
 [connection signal="button_down" from="." to="." method="_on_button_down"]

@@ -22,10 +22,10 @@ const BRONZE_COIN = preload("res://scenes/bronze_coin.tscn")
 const SILVER_COIN = preload("res://scenes/silver_coin.tscn")
 @onready var state_machine: stateMachine = $state_machine
 signal state_transition
+var hunger_state := 0
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	randomize()
 	state_transition.connect(state_machine.change_state)
 	input_pickable = true
 	name_label.visible = false
@@ -58,17 +58,17 @@ func set_random_name() -> void:
 	name_label.text = " ".join(chosen)
 
 func _process(_delta: float) -> void:
-	if Input.is_action_just_pressed("ui_accept"):
-		die()
-	if hunger_timer.time_left > hunger_timer.wait_time / 2:
-		sprite_2d.modulate = Color.WHITE
-	else:
-		sprite_2d.modulate = Color.LIME
-		if hunger_timer.time_left < hunger_timer.wait_time / 3:
-			sprite_2d.modulate = Color.DARK_GREEN
+	if hunger_timer.time_left > 0:
+		_update_hunger_tint()
 
-func _physics_process(_delta: float) -> void:
-	pass
+func _update_hunger_tint() -> void:
+	var ratio := hunger_timer.time_left / hunger_timer.wait_time
+	var s := 2 if ratio < 1.0 / 3.0 else 1 if ratio < 0.5 else 0
+	if s == hunger_state:
+		return
+	hunger_state = s
+	sprite_2d.modulate = [Color.WHITE, Color.LIME, Color.DARK_GREEN][s]
+
 
 func checkFoodCount():
 	if !makingMoney and feedCount >= 3:

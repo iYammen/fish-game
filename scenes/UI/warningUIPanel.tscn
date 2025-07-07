@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://chvem2f4542oa"]
+[gd_scene load_steps=4 format=3 uid="uid://chvem2f4542oa"]
 
 [ext_resource type="Texture2D" uid="uid://cqfx21eafffr3" path="res://assets/nothing.png" id="1_251lb"]
 [ext_resource type="Theme" uid="uid://c6jbdk3trmuen" path="res://resources/theme/microsoftClassic.tres" id="1_yy4nm"]
+[ext_resource type="Script" uid="uid://b0y1s2qpswtj5" path="res://scripts/warning_ui_panel.gd" id="2_mmb03"]
 
 [node name="warningUIPanel" type="Panel"]
 offset_left = 168.0
@@ -11,6 +12,7 @@ offset_bottom = 240.0
 pivot_offset = Vector2(100, 70)
 mouse_filter = 1
 theme = ExtResource("1_yy4nm")
+script = ExtResource("2_mmb03")
 
 [node name="Label" type="Label" parent="."]
 layout_mode = 0
@@ -36,3 +38,14 @@ offset_top = 40.0
 offset_right = 48.0
 offset_bottom = 80.0
 texture = ExtResource("1_251lb")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 184.0
+offset_right = 216.0
+offset_bottom = 24.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+flat = true
+
+[connection signal="button_down" from="Button" to="." method="_on_button_button_down"]

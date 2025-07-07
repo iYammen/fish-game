@@ -23,7 +23,7 @@ func _ready() -> void:
 	warning = get_tree().get_first_node_in_group("Warning UI")
 
 func _process(_delta: float) -> void:
-	if monster_spawn_timer.time_left < 5 and monster_spawn_timer.time_left > 1 and !spawned:
+	if monster_spawn_timer.time_left < 5 and monster_spawn_timer.time_left > 0.5 and !spawned:
 		spawnPos = game_manager.GetDirection()
 		var ins = SPAWN_POINT_UI.instantiate()
 		get_tree().current_scene.add_child(ins)

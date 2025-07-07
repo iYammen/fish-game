@@ -196,8 +196,7 @@ lock_rotation = true
 script = ExtResource("1_5al4j")
 nameRes = ExtResource("3_stxjv")
 hungerTimerRange = Vector2(20, 40)
-hungerAdultTimerRange = Vector2(40, 80)
-speed = 0.5
+hungerAdultTimerRange = Vector2(40, 60)
 health = NodePath("healthComponent")
 
 [node name="Button" type="Button" parent="."]
@@ -266,6 +265,10 @@ one_shot = true
 process_callback = 0
 one_shot = true
 
+[node name="foodScanCoolDown" type="Timer" parent="."]
+wait_time = 0.3
+one_shot = true
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0.499999, -0.5)
 scale = Vector2(0.322606, 0.322606)
@@ -295,7 +298,7 @@ frame_progress = 1.0
 [connection signal="mouse_entered" from="Button" to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="Button" to="." method="_on_mouse_exited"]
 [connection signal="timeout" from="MoveTimer" to="." method="_on_timer_timeout"]
-[connection signal="timeout" from="MoveTimer" to="state_machine/wander" method="_on_move_timer_timeout"]
 [connection signal="timeout" from="hungerTimer" to="." method="_on_hunger_timer_timeout"]
 [connection signal="timeout" from="moneyTimer" to="." method="_on_money_timer_timeout"]
+[connection signal="timeout" from="foodScanCoolDown" to="state_machine/wander" method="_on_food_scan_cool_down_timeout"]
 [connection signal="area_entered" from="hitBox" to="state_machine/hungry" method="_on_hit_box_area_entered"]

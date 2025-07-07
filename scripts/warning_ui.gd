@@ -1,16 +1,21 @@
 extends Control
-@onready var animation_player: AnimationPlayer = $AnimationPlayer
+
 var number: int
-@export var warningPanels: Array[Panel]
+var warningPanels: Array[Panel]
+var boundsX: Vector2 = Vector2(-192.0, 104.0)
+var boundsY: Vector2 = Vector2(-144.0, 72.0)
+const WARNING_UI_PANEL = preload("res://scenes/UI/warningUIPanel.tscn")
 
 func _ready() -> void:
-	animation_player.play("idle")
+	pass
 
 func ShowAll():
-	animation_player.play("popUp")
-	
-func ShowOne():
-	animation_player.play("popUpOne")
+	var ins: Panel = WARNING_UI_PANEL.instantiate()
+	add_child(ins)
+	ins.global_position = Vector2(randf_range(boundsX.x, boundsX.y),randf_range(boundsY.x, boundsY.y))
+	warningPanels.append(ins)
 
 func Hide():
-	animation_player.play("idle")
+	if warningPanels.size() > 0:
+		warningPanels[0].queue_free()
+		warningPanels.resize(warningPanels.size() - 1)
