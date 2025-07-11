@@ -41,7 +41,6 @@ func createMonsterBlood(pos: Vector2):
 		monsterBloodArray.append(ins)
 		ins.global_position = pos
 		ins.play()
-	print(monsterBloodArray.size())
 
 func Reset():
 	bloodArray.resize(0)

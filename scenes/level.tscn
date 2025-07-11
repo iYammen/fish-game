@@ -42,8 +42,8 @@ process_mode = 3
 visible = false
 
 [node name="spawnManager" parent="." instance=ExtResource("1_w8frs")]
-monsterSpawnTimerRange = Vector2(40, 40)
-spawnNum = 1
+monsterSpawnTimerRange = Vector2(40, 60)
+spawnNum = 10
 
 [node name="boundrays" type="Node2D" parent="."]
 

@@ -1,7 +1,7 @@
 extends Node
 class_name stateMachine
 @export var initial_state : State
-@onready var label: Label = $"../Label"
+#@onready var label: Label = $"../Label"
 
 var current_state: State
 var states: Dictionary = {}

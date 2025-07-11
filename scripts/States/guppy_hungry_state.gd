@@ -30,8 +30,8 @@ func Exit():
 	pass
 
 func _on_hit_box_area_entered(area: Area2D) -> void:
-	if area.is_in_group("Food"):
-		if fish.is_hungry:
+	if fish.is_hungry:
+		if area.is_in_group("Food"):
 			fish.is_hungry = false
 			fish.hungerWaitTime = randf_range(fish.hungerTimerRange.x, fish.hungerTimerRange.y)
 			fish.hunger_t = fish.hungerWaitTime
@@ -39,4 +39,3 @@ func _on_hit_box_area_entered(area: Area2D) -> void:
 			fish.checkFoodCount()
 			area.health.takeDamage(100)
 			state_transition.emit(self, "wander")
-			print("hungry")

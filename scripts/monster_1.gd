@@ -49,8 +49,6 @@ func die():
 	game_manager.ShowNumb(finalValue, global_position + Vector2(0, -15))
 	BloodManager.createMonsterBlood(global_position)
 	animated_sprite_2d.visible = false
-	process_mode = Node.PROCESS_MODE_DISABLED
-	await get_tree().create_timer(0.8).timeout
 	queue_free()
 
 func _on_button_pressed() -> void:

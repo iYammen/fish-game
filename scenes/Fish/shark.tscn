@@ -9,10 +9,10 @@
 [ext_resource type="Texture2D" uid="uid://ymhhbshnc8sx" path="res://assets/fish/shark.png" id="5_q88iu"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_363uy"]
-size = Vector2(223.182, 40.2968)
+size = Vector2(170.487, 37.1971)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vxi2w"]
-size = Vector2(235.581, 58.8954)
+size = Vector2(182.886, 58.8954)
 
 [node name="shark" type="RigidBody2D" node_paths=PackedStringArray("health") groups=["Fish"]]
 texture_filter = 1
@@ -38,6 +38,7 @@ script = ExtResource("3_dwrfc")
 fish = NodePath("../..")
 
 [node name="Label" type="Label" parent="."]
+visible = false
 offset_left = -26.0
 offset_top = -45.0
 offset_right = 29.0
@@ -51,17 +52,8 @@ texture_filter = 1
 position = Vector2(0, 1)
 texture = ExtResource("5_q88iu")
 
-[node name="MoveTimer" type="Timer" parent="."]
-process_callback = 0
-one_shot = true
-
-[node name="attackCoolDownTimer" type="Timer" parent="."]
-process_callback = 0
-one_shot = true
-autostart = true
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-6, -1.5)
+position = Vector2(-0.499999, -1)
 scale = Vector2(0.322606, 0.322606)
 shape = SubResource("RectangleShape2D_363uy")
 
@@ -71,8 +63,7 @@ collision_layer = 2
 collision_mask = 16
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitBox"]
-position = Vector2(-21.6983, -1.54988)
+position = Vector2(1.54987, -1.54988)
 shape = SubResource("RectangleShape2D_vxi2w")
 
-[connection signal="timeout" from="MoveTimer" to="state_machine/wander" method="_on_move_timer_timeout"]
 [connection signal="area_entered" from="hitBox" to="state_machine/chase" method="_on_hit_box_area_entered"]

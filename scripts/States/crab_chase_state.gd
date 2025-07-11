@@ -1,14 +1,12 @@
 extends State
 @export var crab: Crab
-@onready var move_timer: Timer = $"../../moveTimer"
-@onready var cool_down_timer: Timer = $"../../coolDownTimer"
 
 
 var closestCoin: Button
 var target: Vector2
 
 func Enter() -> void:
-	move_timer.stop()
+	pass
 
 func Update(_delta:float):
 	if crab.global_position.x - target.x < 0:
@@ -41,5 +39,4 @@ func Exit():
 func _on_crab_area_entered(area: Area2D) -> void:
 	if area != null:
 		area.owner._on_button_down()
-		cool_down_timer.start()
 		state_transition.emit(self, "wander")

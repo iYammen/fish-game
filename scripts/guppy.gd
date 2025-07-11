@@ -17,7 +17,7 @@ var is_hungry := false
 @onready var button: Button = $Button
 
 
-var feedCount: int = 0
+var feedCount: int = 6
 var game_manager: GameManager
 var makingMoney:bool = false
 @onready var sprite_2d: Sprite2D = $sprite2D
@@ -65,20 +65,17 @@ func set_random_name() -> void:
 func _physics_process(delta: float) -> void:
 	move_t -= delta
 	hunger_t -= delta
-	if makingMoney:
-		money_t -= delta
-
 	if hunger_t <= 0.0:
 		die()
 	else:
 		_update_hunger_tint()
+		is_hungry = hunger_t < hungerWaitTime * 0.66
 	
-	if hunger_t < hungerWaitTime / 1.5:
-		is_hungry = true
-
-	if makingMoney and money_t <= 0.0:
-		_on_money_timer_timeout()
-		money_t = randf_range(5.0, 10.0)
+	if makingMoney:
+		money_t -= delta
+		if money_t <= 0.0:
+			_on_money_timer_timeout()
+			money_t = randf_range(5.0, 10.0)
 
 
 func _update_hunger_tint() -> void:
@@ -104,12 +101,10 @@ func die():
 	BloodManager.createBlood(global_position)
 	button.mouse_filter = Control.MOUSE_FILTER_PASS
 	sprite_2d.visible = false
-	process_mode = Node.PROCESS_MODE_DISABLED
 	if get_tree().get_nodes_in_group("Fish Dead Component").is_empty() != true:
 		var fishDeadComponents :=  get_tree().get_nodes_in_group("Fish Dead Component")
 		for component in fishDeadComponents:
 			component.AddMult()
-	await get_tree().create_timer(0.8).timeout
 	queue_free()
 
 func _on_mouse_entered() -> void:

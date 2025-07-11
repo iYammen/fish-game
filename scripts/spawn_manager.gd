@@ -9,6 +9,9 @@ const SPAWN_POINT_UI = preload("res://scenes/UI/spawn_point_ui.tscn")
 var warning: Control
 const GUPPY = preload("res://scenes/Fish/guppy.tscn")
 const MONSTER_1 = preload("res://scenes/monsters/monster_1.tscn")
+const SHARK = preload("res://scenes/Fish/shark.tscn")
+const CRAB = preload("res://scenes/Fish/Crab.tscn")
+const ALGAE = preload("res://scenes/algae.tscn")
 var boundray: Vector2 = Vector2(500, 200)
 @export var spawnNum: int = 5
 var game_manager: GameManager
