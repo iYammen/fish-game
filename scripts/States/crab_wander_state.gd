@@ -26,7 +26,7 @@ func Physics_Update(delta: float) -> void:
 		dir = -1
 	elif left_wall_check.is_colliding():
 		dir = 1
-
+	
 	# Movement
 	crab.position.x += speed * dir * delta
 	

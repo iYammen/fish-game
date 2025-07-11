@@ -4,88 +4,61 @@ const BLOOD = preload("res://scenes/particles/blood.tscn")
 const SILVER_COIN = preload("res://scenes/silver_coin.tscn")
 const BRONZE_COIN = preload("res://scenes/bronze_coin.tscn")
 
-var bloodArray: Array[AnimatedSprite2D]
-var avaliableBlood: AnimatedSprite2D = null
- 
-var monsterBloodArray: Array[AnimatedSprite2D]
-var monsterAvaliableBlood: AnimatedSprite2D = null
-
-var silverCoinArray: Array[Button]
-var silverCoinAvaliable: Button
-
-var bronzeCoinArray: Array[Button]
-var bronzeCoinAvaliable: Button
+var bloodArray: Array[AnimatedSprite2D] = []
+var monsterBloodArray: Array[AnimatedSprite2D] = []
+var silverCoinArray: Array[Button] = []
+var bronzeCoinArray: Array[Button] = []
 
 func createBlood(pos: Vector2):
-	if avaliableBlood == null:
-		for blood in bloodArray:
-			if !blood.is_playing():
-				avaliableBlood = blood
-				break
-	if avaliableBlood != null:
-		avaliableBlood.play()
-		avaliableBlood.global_position = pos
-		avaliableBlood = null
-	else:
-		var ins = BLOOD.instantiate()
-		get_tree().current_scene.add_child(ins)
-		bloodArray.append(ins)
-		ins.global_position = pos
-		ins.play()
+	for blood in bloodArray:
+		if !blood.is_playing():
+			blood.global_position = pos
+			blood.play()
+			return
+	var new_blood: AnimatedSprite2D = BLOOD.instantiate()
+	new_blood.global_position = pos
+	get_tree().current_scene.add_child(new_blood)
+	new_blood.play()
+	bloodArray.append(new_blood)
 
 func createMonsterBlood(pos: Vector2):
-	if monsterAvaliableBlood == null:
-		for blood in monsterBloodArray:
-			if !blood.is_playing():
-				monsterAvaliableBlood = blood
-				break
-	if monsterAvaliableBlood != null:
-		monsterAvaliableBlood.play()
-		monsterAvaliableBlood.global_position = pos
-		monsterAvaliableBlood = null
-	else:
-		var ins = BLOOD.instantiate()
-		get_tree().current_scene.add_child(ins)
-		ins.scale = Vector2(2,2)
-		monsterBloodArray.append(ins)
-		ins.global_position = pos
-		ins.play()
+	for blood in monsterBloodArray:
+		if !blood.is_playing():
+			blood.global_position = pos
+			blood.play()
+			return
+	var new_blood: AnimatedSprite2D = BLOOD.instantiate()
+	new_blood.scale = Vector2(2, 2)
+	new_blood.global_position = pos
+	get_tree().current_scene.add_child(new_blood)
+	new_blood.play()
+	monsterBloodArray.append(new_blood)
 
 func createSilverCoin(pos: Vector2):
-	if silverCoinAvaliable == null:
-		for silverCoin in silverCoinArray:
-			if silverCoin.avaliable:
-				silverCoinAvaliable = silverCoin
-				break
-	if silverCoinAvaliable != null:
-		silverCoinAvaliable.resetCoin()
-		silverCoinAvaliable.global_position = pos
-		silverCoinAvaliable = null
-	else:
-		var ins = SILVER_COIN.instantiate()
-		get_tree().current_scene.add_child(ins)
-		silverCoinArray.append(ins)
-		ins.global_position = pos
+	for coin in silverCoinArray:
+		if coin.available:
+			coin.global_position = pos
+			coin.resetCoin()
+			print(silverCoinArray.size())
+			return
+	var new_coin: Button = SILVER_COIN.instantiate()
+	new_coin.global_position = pos
+	get_tree().current_scene.add_child(new_coin)
+	silverCoinArray.append(new_coin)
 
 func createBronzeCoin(pos: Vector2):
-	if bronzeCoinAvaliable == null:
-		for bronzeCoin in bronzeCoinArray:
-			if bronzeCoin.avaliable:
-				bronzeCoinAvaliable = bronzeCoin
-				break
-	if bronzeCoinAvaliable != null:
-		bronzeCoinAvaliable.resetCoin()
-		bronzeCoinAvaliable.global_position = pos
-		bronzeCoinAvaliable = null
-	else:
-		var ins = BRONZE_COIN.instantiate()
-		get_tree().current_scene.add_child(ins)
-		bronzeCoinArray.append(ins)
-		ins.global_position = pos
-	print(bronzeCoinArray.size())
+	for coin in bronzeCoinArray:
+		if coin.available:
+			coin.global_position = pos
+			coin.resetCoin()
+			return
+	var new_coin: Button = BRONZE_COIN.instantiate()
+	new_coin.global_position = pos
+	get_tree().current_scene.add_child(new_coin)
+	bronzeCoinArray.append(new_coin)
 
 func Reset():
-	bloodArray.resize(0)
-	monsterBloodArray.resize(0)
-	silverCoinArray.resize(0)
-	bronzeCoinArray.resize(0)
+	bloodArray.clear()
+	monsterBloodArray.clear()
+	silverCoinArray.clear()
+	bronzeCoinArray.clear()

@@ -5,7 +5,7 @@ var game_manager: GameManager
 var hitFloor: bool = false
 @onready var timer: Timer = $Timer
 var collected: bool = false
-var avaliable: bool = false
+var available: bool = false
 @onready var ray_cast_2d: RayCast2D = $RayCast2D
 
 # Called when the node enters the scene tree for the first time.
@@ -34,17 +34,19 @@ func _on_button_down() -> void:
 		collected = true
 		game_manager.addCoin(finalValue)
 		game_manager.ShowNumb(finalValue, global_position)
-		avaliable = true
+		available = true
 		global_position = Vector2(1000,1000)
+		remove_from_group("Coin")
 
 func _on_timer_timeout() -> void:
-	avaliable = true
+	available = true
 	global_position = Vector2(1000,1000)
+	remove_from_group("Coin")
 
 func resetCoin():
 	hitFloor = false
 	modulate.a = 1
-	avaliable = false
+	available = false
 	collected = false
 	timer.stop()
-	
+	add_to_group("Coin")

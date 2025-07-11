@@ -17,7 +17,7 @@ var is_hungry := false
 @onready var button: Button = $Button
 
 
-var feedCount: int = 3
+var feedCount: int = 6
 var game_manager: GameManager
 var makingMoney:bool = false
 @onready var sprite_2d: Sprite2D = $sprite2D
