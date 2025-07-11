@@ -5,6 +5,8 @@ var game_manager: GameManager
 var hitFloor: bool = false
 @onready var timer: Timer = $Timer
 var collected: bool = false
+var avaliable: bool = false
+@onready var ray_cast_2d: RayCast2D = $RayCast2D
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -17,6 +19,12 @@ func _process(delta: float) -> void:
 		global_position.y += 50 * delta
 	else:
 		modulate.a -= 1 / timer.wait_time * delta
+	if ray_cast_2d.is_colliding() and !hitFloor:
+		var collidedWith = ray_cast_2d.get_collider()
+		if collidedWith.is_in_group("Ground Boundary"):
+			hitFloor = true
+			timer.start()
+			global_position.y = 144.0
 
 
 
@@ -26,15 +34,17 @@ func _on_button_down() -> void:
 		collected = true
 		game_manager.addCoin(finalValue)
 		game_manager.ShowNumb(finalValue, global_position)
-		queue_free()
-
-
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	if body.is_in_group("Ground Boundary"):
-		hitFloor = true
-		timer.start()
-		
-
+		avaliable = true
+		global_position = Vector2(1000,1000)
 
 func _on_timer_timeout() -> void:
-	queue_free()
+	avaliable = true
+	global_position = Vector2(1000,1000)
+
+func resetCoin():
+	hitFloor = false
+	modulate.a = 1
+	avaliable = false
+	collected = false
+	timer.stop()
+	

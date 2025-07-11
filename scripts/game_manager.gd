@@ -18,7 +18,7 @@ var powerScreen: powerUpScreen
 var shop: Control
 var stageButton: Button
 var discount: float = 1
-var boundray: Vector2 = Vector2(300, 144)
+var boundray: Vector2 = Vector2(300, 100)
 var goal: int = 10
 var stage: int = 1
 var money: int = 200
@@ -47,7 +47,7 @@ func _ready() -> void:
 	stageButton = get_tree().get_first_node_in_group("Stage Button")
 	stageButton.text = "Next Stage: " + str(goal) + "$"
 	errorMessage =  get_tree().get_first_node_in_group("Error Message")
-	BloodManager.Reset()
+	reuseManager.Reset()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

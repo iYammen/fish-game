@@ -27,7 +27,7 @@ func _update_closest_food() -> void:
 		state_transition.emit(self, "wander")
 
 func Exit():
-	pass
+	fish.tintCheck_t = 0
 
 func _on_hit_box_area_entered(area: Area2D) -> void:
 	if fish.is_hungry:

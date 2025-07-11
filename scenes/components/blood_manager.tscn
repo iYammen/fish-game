@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dbkorsg5womkg"]
-
-[ext_resource type="Script" uid="uid://fdycxkicqlsq" path="res://scripts/blood_manager.gd" id="1_ufqi2"]
-
-[node name="Blood Manager" type="Node"]
-script = ExtResource("1_ufqi2")

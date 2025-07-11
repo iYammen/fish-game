@@ -12,9 +12,11 @@ const MONSTER_1 = preload("res://scenes/monsters/monster_1.tscn")
 const SHARK = preload("res://scenes/Fish/shark.tscn")
 const CRAB = preload("res://scenes/Fish/Crab.tscn")
 const ALGAE = preload("res://scenes/algae.tscn")
+const SILVER_COIN = preload("res://scenes/silver_coin.tscn")
 var boundray: Vector2 = Vector2(500, 200)
 @export var spawnNum: int = 5
 var game_manager: GameManager
+
 
 
 func _ready() -> void:

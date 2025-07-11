@@ -11,7 +11,7 @@ func _ready() -> void:
 	game_manager = get_tree().get_first_node_in_group("Game Manager")
 
 func die():
-	BloodManager.createBlood(global_position)
+	reuseManager.createBlood(global_position)
 	queue_free()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

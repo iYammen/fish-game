@@ -17,7 +17,7 @@ var is_hungry := false
 @onready var button: Button = $Button
 
 
-var feedCount: int = 6
+var feedCount: int = 3
 var game_manager: GameManager
 var makingMoney:bool = false
 @onready var sprite_2d: Sprite2D = $sprite2D
@@ -26,6 +26,7 @@ const SILVER_COIN = preload("res://scenes/silver_coin.tscn")
 @onready var state_machine: stateMachine = $state_machine
 signal state_transition
 var hunger_state := 0
+var tintCheck_t: float
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -34,10 +35,12 @@ func _ready() -> void:
 	#set_random_name()
 	game_manager = get_tree().get_first_node_in_group("Game Manager")
 	health.died.connect(die)
-	move_t   = randf_range(0.3, 4.0)
+	move_t = randf_range(0.3, 4.0)
 	hungerWaitTime = randf_range(hungerTimerRange.x, hungerTimerRange.y)
 	hunger_t = hungerWaitTime
 	money_t  = randf_range(5.0, 10.0)
+	tintCheck_t = randf_range(2, 5)
+	checkFoodCount()
 
 func set_random_name() -> void:
 	var parts: int = randi_range(1, 3)
@@ -65,11 +68,14 @@ func set_random_name() -> void:
 func _physics_process(delta: float) -> void:
 	move_t -= delta
 	hunger_t -= delta
+	tintCheck_t -= delta
 	if hunger_t <= 0.0:
 		die()
 	else:
-		_update_hunger_tint()
 		is_hungry = hunger_t < hungerWaitTime * 0.66
+		if tintCheck_t <= 0:
+			_update_hunger_tint()
+			tintCheck_t = randf_range(0, 1)
 	
 	if makingMoney:
 		money_t -= delta
@@ -98,7 +104,7 @@ func checkFoodCount():
 		hungerTimerRange = hungerAdultTimerRange
 
 func die():
-	BloodManager.createBlood(global_position)
+	reuseManager.createBlood(global_position)
 	button.mouse_filter = Control.MOUSE_FILTER_PASS
 	sprite_2d.visible = false
 	if get_tree().get_nodes_in_group("Fish Dead Component").is_empty() != true:
@@ -117,13 +123,9 @@ func _on_mouse_exited() -> void:
 
 func _on_money_timer_timeout() -> void:
 	if feedCount >= 3 and feedCount < 6:
-		var coin: Button = BRONZE_COIN.instantiate()
-		get_tree().current_scene.add_child(coin)
-		coin.global_position = global_position
+		reuseManager.createBronzeCoin(global_position)
 	elif feedCount >= 6:
-		var coin: Button = SILVER_COIN.instantiate()
-		get_tree().current_scene.add_child(coin)
-		coin.global_position = global_position
+		reuseManager.createSilverCoin(global_position)
 	money_t = randf_range(5, 10)
 
 

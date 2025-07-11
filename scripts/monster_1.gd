@@ -47,7 +47,7 @@ func die():
 	var finalValue: int = calculator.calculateScore(value)
 	game_manager.addCoin(finalValue)
 	game_manager.ShowNumb(finalValue, global_position + Vector2(0, -15))
-	BloodManager.createMonsterBlood(global_position)
+	reuseManager.createMonsterBlood(global_position)
 	animated_sprite_2d.visible = false
 	queue_free()
 
