@@ -7,7 +7,7 @@
 script = ExtResource("2_etlkf")
 id = 3
 icon = ExtResource("1_601cl")
-description = "When a guppy dies any money earned is
+description = "When a fish dies any money earned is
 multiplied by 1.5X for 2 seconds"
 rarity = 10
 metadata/_custom_type_script = "uid://dkjupqwcpqhl7"

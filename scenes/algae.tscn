@@ -8,6 +8,8 @@
 size = Vector2(32, 32)
 
 [node name="Algae" type="Area2D" node_paths=PackedStringArray("health")]
+z_index = -2
+collision_mask = 0
 script = ExtResource("1_4s5ym")
 health = NodePath("healthComponent")
 

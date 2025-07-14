@@ -1,12 +1,13 @@
-[gd_scene load_steps=8 format=3 uid="uid://c1ikmva1frhfk"]
+[gd_scene load_steps=9 format=3 uid="uid://c1ikmva1frhfk"]
 
-[ext_resource type="Script" uid="uid://x4llxxnqu4n5" path="res://scenes/UI/power_up_bar.gd" id="1_glm8f"]
+[ext_resource type="Script" uid="uid://x4llxxnqu4n5" path="res://scripts/power_up_bar.gd" id="1_glm8f"]
 [ext_resource type="PackedScene" uid="uid://coalao7fl8f4f" path="res://scenes/UI/powerUpIcon.tscn" id="1_mivr8"]
 [ext_resource type="Theme" uid="uid://c6jbdk3trmuen" path="res://resources/theme/microsoftClassic.tres" id="2_qdmi4"]
 [ext_resource type="Texture2D" uid="uid://dckhptjcbwcqd" path="res://assets/icons/TimeUpIcon.png" id="2_vmjaw"]
 [ext_resource type="Texture2D" uid="uid://dtm8eh8r5htxo" path="res://assets/icons/hungerDownIcon.png" id="3_glm8f"]
 [ext_resource type="Texture2D" uid="uid://b2ctf4ie0ync8" path="res://assets/icons/foodUpIcon.png" id="4_qdmi4"]
 [ext_resource type="Texture2D" uid="uid://cylwj1brlnwwm" path="res://assets/icons/deadFish.png" id="5_ntgq5"]
+[ext_resource type="Texture2D" uid="uid://dp45tbndhwy5u" path="res://assets/icons/gunUpIcon.png" id="8_ntgq5"]
 
 [node name="Panel" type="Panel" node_paths=PackedStringArray("powerUpIcons") groups=["Power Up Bar"]]
 self_modulate = Color(1, 1, 1, 0.641)
@@ -16,19 +17,19 @@ anchor_top = 0.889
 anchor_right = 1.0
 anchor_bottom = 1.0
 offset_top = 7.95999
-offset_right = 8.0
+offset_right = 32.0
 grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_glm8f")
-powerUpIcons = [NodePath("HBoxContainer/powerUpIcon"), NodePath("HBoxContainer/powerUpIcon2"), NodePath("HBoxContainer/powerUpIcon3"), NodePath("HBoxContainer/powerUpIcon4"), NodePath("HBoxContainer/powerUpIcon5")]
+powerUpIcons = [NodePath("HBoxContainer/powerUpIcon"), NodePath("HBoxContainer/powerUpIcon2"), NodePath("HBoxContainer/powerUpIcon3"), NodePath("HBoxContainer/powerUpIcon4"), NodePath("HBoxContainer/powerUpIcon5"), NodePath("HBoxContainer/powerUpIcon6")]
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_right = -337.885
+offset_right = -332.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -57,4 +58,9 @@ id = 3
 
 [node name="powerUpIcon5" parent="HBoxContainer" instance=ExtResource("1_mivr8")]
 layout_mode = 2
+id = 4
+
+[node name="powerUpIcon6" parent="HBoxContainer" instance=ExtResource("1_mivr8")]
+layout_mode = 2
+texture = ExtResource("8_ntgq5")
 id = 4

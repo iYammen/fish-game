@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bas3xamo6g2rb"
-path="res://.godot/imported/mouse_shooting.png-7579399d36cb87a527d1b306f4d7d39d.ctex"
+uid="uid://cij4fgoi6qml8"
+path="res://.godot/imported/mouse_pointing.png-59d15bcc8419d48647f229371fe31335.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/mouse_shooting.png"
-dest_files=["res://.godot/imported/mouse_shooting.png-7579399d36cb87a527d1b306f4d7d39d.ctex"]
+source_file="res://assets/UI/mouse_pointing.png"
+dest_files=["res://.godot/imported/mouse_pointing.png-59d15bcc8419d48647f229371fe31335.ctex"]
 
 [params]
 

@@ -1,16 +1,26 @@
-[gd_scene load_steps=7 format=3 uid="uid://bi0ro5luavxdu"]
+[gd_scene load_steps=9 format=3 uid="uid://bi0ro5luavxdu"]
 
 [ext_resource type="Script" uid="uid://bh77r8leevuyk" path="res://scripts/States/state_machine.gd" id="1_0uds8"]
 [ext_resource type="Texture2D" uid="uid://cu4x5sphqq51h" path="res://assets/fish/crab.png" id="1_47adp"]
 [ext_resource type="Script" uid="uid://cnc3hr5cjrj6p" path="res://scripts/crab.gd" id="1_rvtk1"]
 [ext_resource type="Script" uid="uid://dij5f5oxqe2as" path="res://scripts/States/crab_wander_state.gd" id="2_fj44x"]
+[ext_resource type="Script" uid="uid://bycubtbusx4jl" path="res://scripts/health_component.gd" id="2_vn8wo"]
 [ext_resource type="Script" uid="uid://dll8akdyj4vkw" path="res://scripts/States/crab_chase_state.gd" id="4_0jwad"]
+[ext_resource type="Script" uid="uid://dvktduucdvajs" path="res://scripts/hitbox.gd" id="6_rj886"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_0uds8"]
 radius = 20.3961
 
-[node name="Crab" type="Node2D"]
+[node name="Crab" type="Node2D" node_paths=PackedStringArray("health") groups=["Fish"]]
+z_index = -1
 script = ExtResource("1_rvtk1")
+health = NodePath("healthComponent")
+
+[node name="healthComponent" type="Node2D" parent="." node_paths=PackedStringArray("sprite")]
+script = ExtResource("2_vn8wo")
+maxHealth = 10
+sprite = NodePath("../sprite2D")
+metadata/_custom_type_script = "uid://bycubtbusx4jl"
 
 [node name="Label" type="Label" parent="."]
 offset_left = -20.0
@@ -44,9 +54,11 @@ position = Vector2(-16, -11)
 target_position = Vector2(-20, 0)
 hit_from_inside = true
 
-[node name="hitbox" type="Area2D" parent="."]
+[node name="hitbox" type="Area2D" parent="." node_paths=PackedStringArray("health")]
 collision_layer = 2
 collision_mask = 8
+script = ExtResource("6_rj886")
+health = NodePath("../healthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitbox"]
 position = Vector2(0, -17)

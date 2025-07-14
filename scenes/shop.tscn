@@ -11,7 +11,7 @@
 [ext_resource type="Resource" uid="uid://kr4dgngu88kd" path="res://resources/Fish/Shark.tres" id="6_m4ofw"]
 [ext_resource type="Resource" uid="uid://chxbrefwiflu6" path="res://resources/Fish/Algae.tres" id="7_1v8qu"]
 [ext_resource type="Texture2D" uid="uid://dvjoomqvhlffj" path="res://assets/algae_icon.png" id="10_heatd"]
-[ext_resource type="Texture2D" uid="uid://cqfx21eafffr3" path="res://assets/nothing.png" id="12_44xle"]
+[ext_resource type="Texture2D" uid="uid://cqfx21eafffr3" path="res://assets/icons/nothing.png" id="12_44xle"]
 
 [node name="shop" type="Control" node_paths=PackedStringArray("buttons") groups=["Shop"]]
 process_mode = 3

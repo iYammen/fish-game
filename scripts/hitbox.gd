@@ -1,6 +1,6 @@
-extends AnimatedSprite2D
+extends Area2D
 
-@onready var timer: Timer = $Timer
+@export var health: healthComponent
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -8,9 +8,5 @@ func _ready() -> void:
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func setTimer(time: float):
-	timer.start(time)
-
-
-func _on_timer_timeout() -> void:
-	queue_free()
+func _process(_delta: float) -> void:
+	pass

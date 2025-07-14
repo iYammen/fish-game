@@ -53,12 +53,14 @@ func buttonClick(buttonNumb: int):
 		1:
 			game_manager.foodQuality += 1
 		2:
-			game_manager.foodMax += 3
+			game_manager.foodMax += 1
 		3:
 			var inst := FISH_DIED_COMPONENT.instantiate()
 			get_tree().current_scene.add_child(inst)
 		4:
 			game_manager.discount -= 0.1
+		5:
+			game_manager.damage += 10
 	game_manager.editPowerUpBar(powerWonArray[buttonNumb].id)
 	visible = false
 	get_tree().paused = false

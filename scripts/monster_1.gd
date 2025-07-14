@@ -22,7 +22,8 @@ func _ready() -> void:
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
 	move_t -= delta
-	eat_t -= delta
+	if entered:
+		eat_t -= delta
 	
 	if move_t <= 0.0:
 		target = game_manager.GetDirection()
@@ -59,7 +60,7 @@ func _on_body_entered(body: Node2D) -> void:
 	if body is RigidBody2D and not entered:
 		fish = body
 		entered = true
-		eat_t = 1.0
+		eat_t = 0.5
 
 func _on_body_exited(body: Node2D) -> void:
 	if body == fish:

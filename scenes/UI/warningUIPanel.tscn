@@ -1,6 +1,6 @@
 [gd_scene load_steps=4 format=3 uid="uid://chvem2f4542oa"]
 
-[ext_resource type="Texture2D" uid="uid://cqfx21eafffr3" path="res://assets/nothing.png" id="1_251lb"]
+[ext_resource type="Texture2D" uid="uid://cqfx21eafffr3" path="res://assets/icons/nothing.png" id="1_251lb"]
 [ext_resource type="Theme" uid="uid://c6jbdk3trmuen" path="res://resources/theme/microsoftClassic.tres" id="1_yy4nm"]
 [ext_resource type="Script" uid="uid://b0y1s2qpswtj5" path="res://scripts/warning_ui_panel.gd" id="2_mmb03"]
 

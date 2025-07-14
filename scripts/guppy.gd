@@ -6,6 +6,7 @@ var chosenName: String = ""
 var hungerWaitTime: float = 0
 @export var hungerTimerRange: Vector2
 @export var hungerAdultTimerRange: Vector2
+@export var moneyTimerRange: Vector2
 @export var speed: float = 20
 @export var health: healthComponent
 
@@ -14,10 +15,8 @@ var hunger_t := 0.0
 var money_t := 0.0
 var is_hungry := false
 
-@onready var button: Button = $Button
 
-
-var feedCount: int = 6
+var feedCount: int = 0
 var game_manager: GameManager
 var makingMoney:bool = false
 @onready var sprite_2d: Sprite2D = $sprite2D
@@ -31,39 +30,38 @@ var tintCheck_t: float
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	state_transition.connect(state_machine.change_state)
-	input_pickable = true
 	#set_random_name()
 	game_manager = get_tree().get_first_node_in_group("Game Manager")
 	health.died.connect(die)
 	move_t = randf_range(0.3, 4.0)
 	hungerWaitTime = randf_range(hungerTimerRange.x, hungerTimerRange.y)
 	hunger_t = hungerWaitTime
-	money_t  = randf_range(5.0, 10.0)
+	money_t = randf_range(moneyTimerRange.x, moneyTimerRange.y)
 	tintCheck_t = randf_range(2, 5)
 	checkFoodCount()
 
-func set_random_name() -> void:
-	var parts: int = randi_range(1, 3)
-
-	var names_copy: Array = nameRes.names.duplicate()
-	names_copy.shuffle()
-	var chosen: Array = names_copy.slice(0, parts)
-	
-	if chosen.size() >= 2 and randi_range(1, 3) == 1:  # 10 % roll
-			# Check whether any article is already inside the chosen words
-			var lower_chosen: Array = chosen.map(func(n): return String(n).to_lower())
-			var article_found: bool = false
-			for art in nameRes.articles:
-				if lower_chosen.has(art.to_lower()):
-					article_found = true
-					break
-			
-			# Insert only if none were found
-			if not article_found and nameRes.articles.size() > 0:
-				var article: String = nameRes.articles[randi_range(0, nameRes.articles.size() - 1)]
-				chosen.insert(chosen.size() - 1, article)  # before the last name
-
-	chosenName = " ".join(chosen)
+#func set_random_name() -> void:
+	#var parts: int = randi_range(1, 3)
+#
+	#var names_copy: Array = nameRes.names.duplicate()
+	#names_copy.shuffle()
+	#var chosen: Array = names_copy.slice(0, parts)
+	#
+	#if chosen.size() >= 2 and randi_range(1, 3) == 1:  # 10 % roll
+			## Check whether any article is already inside the chosen words
+			#var lower_chosen: Array = chosen.map(func(n): return String(n).to_lower())
+			#var article_found: bool = false
+			#for art in nameRes.articles:
+				#if lower_chosen.has(art.to_lower()):
+					#article_found = true
+					#break
+			#
+			## Insert only if none were found
+			#if not article_found and nameRes.articles.size() > 0:
+				#var article: String = nameRes.articles[randi_range(0, nameRes.articles.size() - 1)]
+				#chosen.insert(chosen.size() - 1, article)  # before the last name
+#
+	#chosenName = " ".join(chosen)
 
 func _physics_process(delta: float) -> void:
 	move_t -= delta
@@ -81,7 +79,7 @@ func _physics_process(delta: float) -> void:
 		money_t -= delta
 		if money_t <= 0.0:
 			_on_money_timer_timeout()
-			money_t = randf_range(5.0, 10.0)
+			money_t = randf_range(moneyTimerRange.x, moneyTimerRange.y)
 
 
 func _update_hunger_tint() -> void:
@@ -95,7 +93,7 @@ func _update_hunger_tint() -> void:
 
 func checkFoodCount():
 	if !makingMoney and feedCount >= 3:
-		money_t = randf_range(5, 10)
+		money_t = randf_range(moneyTimerRange.x, moneyTimerRange.y)
 		makingMoney = true
 	if feedCount >= 3 and feedCount < 6:
 		sprite_2d.frame = 1
@@ -105,7 +103,6 @@ func checkFoodCount():
 
 func die():
 	reuseManager.createBlood(global_position)
-	button.mouse_filter = Control.MOUSE_FILTER_PASS
 	sprite_2d.visible = false
 	if get_tree().get_nodes_in_group("Fish Dead Component").is_empty() != true:
 		var fishDeadComponents :=  get_tree().get_nodes_in_group("Fish Dead Component")
@@ -113,28 +110,12 @@ func die():
 			component.AddMult()
 	queue_free()
 
-func _on_mouse_entered() -> void:
-	#NameTagManager.assign_follow(self, chosenName)
-	pass
-
-func _on_mouse_exited() -> void:
-	#NameTagManager.unassign_follow()
-	pass
-
 func _on_money_timer_timeout() -> void:
 	if feedCount >= 3 and feedCount < 6:
 		reuseManager.createBronzeCoin(global_position)
 	elif feedCount >= 6:
 		reuseManager.createSilverCoin(global_position)
-	money_t = randf_range(5, 10)
-
-
-func _on_button_button_down() -> void:
-	state_transition.emit(state_machine.current_state, "pickUp")
-
-
-func _on_button_button_up() -> void:
-	state_transition.emit(state_machine.current_state, "Wander")
+	money_t = randf_range(moneyTimerRange.x, moneyTimerRange.y)
 
 
 func _on_tree_exited() -> void:

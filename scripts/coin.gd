@@ -25,6 +25,7 @@ func _process(delta: float) -> void:
 			hitFloor = true
 			timer.start()
 			global_position.y = 144.0
+			ray_cast_2d.enabled = false
 
 
 
@@ -44,6 +45,7 @@ func _on_timer_timeout() -> void:
 	remove_from_group("Coin")
 
 func resetCoin():
+	ray_cast_2d.enabled = true
 	hitFloor = false
 	modulate.a = 1
 	available = false

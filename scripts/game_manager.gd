@@ -1,8 +1,8 @@
 extends Node2D
 class_name  GameManager
 
-const MOUSE_SHOOTING = preload("res://assets/mouse_shooting.png")
-const MOUSE_POINTING = preload("res://assets/mouse_pointing.png")
+const MOUSE_POINTING = preload("res://assets/UI/mouse_pointing.png")
+const MOUSE_SHOOTING = preload("res://assets/UI/mouse_shooting.png")
 const FOOD = preload("res://scenes/food.tscn")
 const NUMBER_UI = preload("res://scenes/numberUI.tscn")
 @onready var fps_label: Label = $"../CanvasLayer/fpsLabel"
@@ -17,16 +17,17 @@ var stageGoalLabel: Label
 var powerScreen: powerUpScreen
 var shop: Control
 var stageButton: Button
+var spawn_manager: spawnManager
 var discount: float = 1
 var boundray: Vector2 = Vector2(300, 100)
-var goal: int = 10
+var goal: int = 400
 var stage: int = 1
 var money: int = 200
 var Fish: Array
 
 var FoodCountArray: Array
 var allFood: Array
-var foodMax: int = 3
+var foodMax: int = 1
 var foodQuality: int = 1
 var damage: int = 10
 
@@ -45,6 +46,7 @@ func _ready() -> void:
 	stageGoalLabel.text = "Stage " + str(stage)
 	moneyLabel.text = "$: " + str(money)
 	stageButton = get_tree().get_first_node_in_group("Stage Button")
+	spawn_manager = get_tree().get_first_node_in_group("Spawn Manager")
 	stageButton.text = "Next Stage: " + str(goal) + "$"
 	errorMessage =  get_tree().get_first_node_in_group("Error Message")
 	reuseManager.Reset()
@@ -62,6 +64,7 @@ func checkFishAmount():
 		else:
 			Fish.resize(0)
 		if Fish.size() == 0:
+			await get_tree().create_timer(1.5).timeout
 			get_tree().reload_current_scene()
 
 func editPowerUpBar(id: int):
@@ -74,7 +77,7 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 	if event.is_action_pressed("press"):
 		if money >= 5:
-			var inBourders: bool = get_global_mouse_position().x > -183 and get_global_mouse_position().x < 310 and get_global_mouse_position().y > -170 and get_global_mouse_position().y < 170
+			var inBourders: bool = get_global_mouse_position().x > -200 and get_global_mouse_position().x < 315 and get_global_mouse_position().y > -170 and get_global_mouse_position().y < 170
 			if inBourders:
 				if FoodCountArray.size() < foodMax:
 					var food = FOOD.instantiate()
@@ -112,14 +115,19 @@ func ShowText(words: String, currentPos: Vector2, color: Color):
 
 func checkScore():
 	if money >= goal:
+		spawn_manager.riseSpawnRate()
 		subtractCoin(goal)
-		goal = goal * 2
 		stage += 1
+		if stage % 5 == 0 or stage == 2:
+			goal = goal * 1.7
+			powerScreen.setUpPowers()
+			powerScreen.visible = true
+			get_tree().paused = true
+		else:
+			goal = goal * 1.5
+		
 		stageGoalLabel.text = "Stage " + str(stage)
 		stageButton.text = "Next Stage: " + str(goal) + "$"
-		powerScreen.setUpPowers()
-		powerScreen.visible = true
-		get_tree().paused = true
 	else:
 		errorMessage.visible = true
 		await get_tree().create_timer(2).timeout

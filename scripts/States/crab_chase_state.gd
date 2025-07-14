@@ -17,7 +17,6 @@ func Update(_delta:float):
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func Physics_Update(delta: float):
 	_update_closest_coin()
-	
 	if closestCoin:
 		target = closestCoin.global_position
 		crab.global_position.x = move_toward(crab.global_position.x, target.x, randf_range(30, 50) * delta)
@@ -29,6 +28,8 @@ func _update_closest_coin() -> void:
 					closestCoin = coin
 		elif crab.global_position.distance_to(coin.global_position) < crab.global_position.distance_to(closestCoin.global_position):
 			closestCoin = coin
+	if closestCoin != null and !closestCoin.is_in_group("Coin"):
+		closestCoin = null
 	if closestCoin == null:
 		state_transition.emit(self, "wander")
 

@@ -32,7 +32,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2cfiq"]
-size = Vector2(57, 57)
+size = Vector2(57, 74.5)
 
 [node name="Monster_1" type="Area2D" node_paths=PackedStringArray("health") groups=["Enemy"]]
 collision_layer = 16
@@ -63,8 +63,6 @@ frame_progress = 0.0445773
 position = Vector2(-2.5, 5.5)
 shape = SubResource("RectangleShape2D_2cfiq")
 
-[connection signal="area_entered" from="." to="." method="_on_area_entered"]
-[connection signal="area_exited" from="." to="." method="_on_area_exited"]
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]
 [connection signal="button_down" from="Button" to="." method="_on_button_pressed"]

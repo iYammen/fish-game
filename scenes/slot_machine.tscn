@@ -7,7 +7,7 @@
 [ext_resource type="Resource" uid="uid://blghhqawk5nf" path="res://resources/Fish/Nothing.tres" id="4_h3s22"]
 [ext_resource type="Resource" uid="uid://bfvyxhqsom57s" path="res://resources/Fish/Crab.tres" id="5_h3s22"]
 [ext_resource type="Theme" uid="uid://c6jbdk3trmuen" path="res://resources/theme/microsoftClassic.tres" id="6_7v1fh"]
-[ext_resource type="Texture2D" uid="uid://cqfx21eafffr3" path="res://assets/nothing.png" id="6_puwce"]
+[ext_resource type="Texture2D" uid="uid://cqfx21eafffr3" path="res://assets/icons/nothing.png" id="6_puwce"]
 
 [node name="Slot_machine" type="Control"]
 process_mode = 3

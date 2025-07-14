@@ -2,7 +2,7 @@ extends Node2D
 class_name healthComponent
 
 @export var maxHealth: int = 100
-@export var sprite: AnimatedSprite2D
+@export var sprite: Node
 var currentHealth: int
 signal died
 

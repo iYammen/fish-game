@@ -1,27 +1,23 @@
-[gd_scene load_steps=24 format=3 uid="uid://cc3qvorsgdiqt"]
+[gd_scene load_steps=20 format=3 uid="uid://cc3qvorsgdiqt"]
 
 [ext_resource type="PackedScene" uid="uid://cok1q8vialda1" path="res://scenes/boundary.tscn" id="1_2q6dc"]
 [ext_resource type="PackedScene" uid="uid://d1hiqisxkn60e" path="res://scenes/game_manager.tscn" id="1_mx8sn"]
 [ext_resource type="PackedScene" uid="uid://58gka0bukx6r" path="res://scenes/spawn_manager.tscn" id="1_w8frs"]
-[ext_resource type="Script" uid="uid://dkjupqwcpqhl7" path="res://resources/power/powerResource.gd" id="3_pqd0y"]
-[ext_resource type="Resource" uid="uid://6lqv8u6negot" path="res://resources/power/timeUp.tres" id="4_5k0ak"]
 [ext_resource type="PackedScene" uid="uid://d0xn38x3lbxjw" path="res://scenes/slot_machine.tscn" id="4_mx8sn"]
 [ext_resource type="Script" uid="uid://81k4bhdlyj6o" path="res://scripts/buy_button.gd" id="4_ppgk2"]
 [ext_resource type="Theme" uid="uid://c6jbdk3trmuen" path="res://resources/theme/microsoftClassic.tres" id="5_64w2a"]
 [ext_resource type="PackedScene" uid="uid://c1ikmva1frhfk" path="res://scenes/UI/powerUpBar.tscn" id="5_wc255"]
-[ext_resource type="Resource" uid="uid://d0vhfinvg20ux" path="res://resources/power/hungerDown.tres" id="5_wu01b"]
-[ext_resource type="Resource" uid="uid://cb01gwuri5d3h" path="res://resources/power/foodUp.tres" id="6_3ies3"]
 [ext_resource type="Script" uid="uid://du2xevweuqewb" path="res://scripts/sidebar.gd" id="6_64w2a"]
 [ext_resource type="PackedScene" uid="uid://blaycr1vpl0y8" path="res://scenes/powerUpScreen.tscn" id="6_klq6b"]
 [ext_resource type="PackedScene" uid="uid://ce2efrqeqkwis" path="res://scenes/shop.tscn" id="7_64w2a"]
-[ext_resource type="Texture2D" uid="uid://bwew6rr24t1rm" path="res://assets/UI/button.png" id="7_wc255"]
-[ext_resource type="Resource" uid="uid://xw78gbwdt5il" path="res://resources/power/fishDeath.tres" id="7_xy2fk"]
-[ext_resource type="Resource" uid="uid://cakfaucs507k6" path="res://resources/power/discount.tres" id="8_cmcjb"]
-[ext_resource type="Resource" uid="uid://8f3r7jpqfkb2" path="res://resources/power/gunUp.tres" id="9_556r4"]
 [ext_resource type="PackedScene" uid="uid://2l1a8m2hgowd" path="res://scenes/UI/warningUI.tscn" id="10_fpun6"]
 [ext_resource type="Shader" uid="uid://caa5ttiuq3bxx" path="res://scripts/background.gdshader" id="10_t1rx8"]
 [ext_resource type="Texture2D" uid="uid://d2oigyt1gepdc" path="res://assets/background.png" id="11_8iemx"]
-[ext_resource type="Texture2D" uid="uid://cqfx21eafffr3" path="res://assets/icons/nothing.png" id="12_fpun6"]
+[ext_resource type="Texture2D" uid="uid://dnpmvgddqquja" path="res://assets/sidebar.png" id="12_8iemx"]
+[ext_resource type="Texture2D" uid="uid://cqfx21eafffr3" path="res://assets/nothing.png" id="12_fpun6"]
+[ext_resource type="PackedScene" uid="uid://ik25k8ktn4kn" path="res://scenes/silver_coin.tscn" id="14_ux5qa"]
+[ext_resource type="PackedScene" uid="uid://bi0ro5luavxdu" path="res://scenes/Fish/Crab.tscn" id="18_82cfe"]
+[ext_resource type="PackedScene" uid="uid://cjwj00aulp6xw" path="res://scenes/monsters/monster_ground.tscn" id="18_gunhw"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_64w2a"]
 shader = ExtResource("10_t1rx8")
@@ -47,11 +43,10 @@ offset_bottom = 72.0
 [node name="Game Manager" parent="." groups=["Game Manager"] instance=ExtResource("1_mx8sn")]
 process_mode = 3
 visible = false
-powerUps = Array[ExtResource("3_pqd0y")]([ExtResource("4_5k0ak"), ExtResource("5_wu01b"), ExtResource("6_3ies3"), ExtResource("7_xy2fk"), ExtResource("8_cmcjb"), ExtResource("9_556r4")])
 
 [node name="spawnManager" parent="." instance=ExtResource("1_w8frs")]
-monsterSpawnTimerRange = Vector2(60, 120)
-spawnNum = 1000
+monsterSpawnTimerRange = Vector2(1, 1)
+spawnNum = 10
 
 [node name="boundrays" type="Node2D" parent="."]
 
@@ -63,7 +58,7 @@ position = Vector2(320, -4)
 rotation = -1.5708
 
 [node name="boundary3" parent="boundrays" instance=ExtResource("1_2q6dc")]
-position = Vector2(-208, -8)
+position = Vector2(-190, -7)
 rotation = 1.5708
 
 [node name="boundary4" parent="boundrays" instance=ExtResource("1_2q6dc")]
@@ -76,28 +71,23 @@ rotation = -3.14159
 custom_minimum_size = Vector2(512, 0)
 anchor_top = 0.0
 anchor_bottom = 0.089
-offset_left = -16.0
 offset_top = 0.0
 offset_right = 0.0
 offset_bottom = -0.0400009
 grow_vertical = 1
 
-[node name="Sidebar" type="NinePatchRect" parent="CanvasLayer"]
+[node name="Sidebar" type="TextureRect" parent="CanvasLayer"]
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_top = -180.0
-offset_right = 112.0
+offset_right = 128.0
 offset_bottom = 180.0
 grow_vertical = 2
 size_flags_horizontal = 0
 theme = ExtResource("5_64w2a")
-texture = ExtResource("7_wc255")
-region_rect = Rect2(64, 32, 48, 63)
-patch_margin_left = 3
-patch_margin_top = 47
-patch_margin_right = 4
-patch_margin_bottom = 1
+texture = ExtResource("12_8iemx")
+stretch_mode = 2
 script = ExtResource("6_64w2a")
 
 [node name="moneyLabel" type="Label" parent="CanvasLayer/Sidebar" groups=["Money Label"]]
@@ -119,9 +109,9 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -104.0
+offset_left = -120.0
 offset_top = 8.0
-offset_right = 1.0
+offset_right = -15.0
 offset_bottom = 34.0
 grow_horizontal = 0
 size_flags_horizontal = 8
@@ -132,7 +122,7 @@ text = "Stage 1: 400$"
 layout_mode = 0
 offset_left = 8.0
 offset_top = 64.0
-offset_right = 104.0
+offset_right = 120.0
 offset_bottom = 248.0
 
 [node name="buyButton" type="Button" parent="CanvasLayer/Sidebar/buttons"]
@@ -233,6 +223,19 @@ text = "fps: 40"
 z_index = -10
 material = SubResource("ShaderMaterial_64w2a")
 texture = ExtResource("11_8iemx")
+
+[node name="Crab" parent="." instance=ExtResource("18_82cfe")]
+position = Vector2(288, 176)
+
+[node name="Coin" parent="." instance=ExtResource("14_ux5qa")]
+offset_left = 288.0
+offset_top = 96.0
+offset_right = 312.0
+offset_bottom = 133.0
+
+[node name="Monster_1" parent="." instance=ExtResource("18_gunhw")]
+position = Vector2(192, 128)
+speed = 50.0
 
 [connection signal="pressed" from="CanvasLayer/Sidebar/buttons/buyButton" to="CanvasLayer/Sidebar/buttons/buyButton" method="_on_pressed"]
 [connection signal="pressed" from="CanvasLayer/Sidebar/buttons/Button" to="Game Manager" method="_on_button_pressed"]

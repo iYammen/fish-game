@@ -1,13 +1,18 @@
 extends Node2D
 class_name Crab
 @onready var sprite_2d: Sprite2D = $sprite2D
-
+@export var health: healthComponent
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass # Replace with function body.
+	health.died.connect(die)
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
+func die():
+	reuseManager.createBlood(global_position)
+	sprite_2d.visible = false
+	if get_tree().get_nodes_in_group("Fish Dead Component").is_empty() != true:
+		var fishDeadComponents :=  get_tree().get_nodes_in_group("Fish Dead Component")
+		for component in fishDeadComponents:
+			component.AddMult()
+	queue_free()

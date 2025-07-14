@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cij4fgoi6qml8"
-path="res://.godot/imported/mouse_pointing.png-5be84d0d9f5715ba3f0623af4564140d.ctex"
+uid="uid://dp45tbndhwy5u"
+path="res://.godot/imported/gunUpIcon.png-0dc97e70a7d9b7c4790c4ead9ae8f8d0.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/mouse_pointing.png"
-dest_files=["res://.godot/imported/mouse_pointing.png-5be84d0d9f5715ba3f0623af4564140d.ctex"]
+source_file="res://assets/icons/gunUpIcon.png"
+dest_files=["res://.godot/imported/gunUpIcon.png-0dc97e70a7d9b7c4790c4ead9ae8f8d0.ctex"]
 
 [params]
 

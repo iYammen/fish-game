@@ -37,9 +37,8 @@ func createMonsterBlood(pos: Vector2):
 func createSilverCoin(pos: Vector2):
 	for coin in silverCoinArray:
 		if coin.available:
-			coin.global_position = pos
 			coin.resetCoin()
-			print(silverCoinArray.size())
+			coin.global_position = pos
 			return
 	var new_coin: Button = SILVER_COIN.instantiate()
 	new_coin.global_position = pos
@@ -49,8 +48,8 @@ func createSilverCoin(pos: Vector2):
 func createBronzeCoin(pos: Vector2):
 	for coin in bronzeCoinArray:
 		if coin.available:
-			coin.global_position = pos
 			coin.resetCoin()
+			coin.global_position = pos
 			return
 	var new_coin: Button = BRONZE_COIN.instantiate()
 	new_coin.global_position = pos

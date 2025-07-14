@@ -11,5 +11,5 @@ name = "Crab"
 portrait = ExtResource("1_0ctby")
 spawnable = ExtResource("3_ailyc")
 rarity = 50
-price = 40
+price = 250
 metadata/_custom_type_script = "uid://cyfrwajrr2bdy"
