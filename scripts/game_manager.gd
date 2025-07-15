@@ -19,7 +19,7 @@ var shop: Control
 var stageButton: Button
 var spawn_manager: spawnManager
 var discount: float = 1
-var boundray: Vector2 = Vector2(300, 100)
+var boundray: Vector2 = Vector2(300, 128)
 var goal: int = 400
 var stage: int = 1
 var money: int = 200
@@ -134,7 +134,7 @@ func checkScore():
 		errorMessage.visible = false
 
 func GetDirection():
-	var targetPos: Vector2 = Vector2(randf_range(-170, boundray.x), randf_range(-boundray.y, boundray.y))
+	var targetPos: Vector2 = Vector2(randf_range(-200, boundray.x), randf_range(-100, boundray.y))
 	return targetPos
 
 

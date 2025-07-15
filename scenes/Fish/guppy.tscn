@@ -1,6 +1,5 @@
-[gd_scene load_steps=11 format=3 uid="uid://baaen8igoytc4"]
+[gd_scene load_steps=10 format=3 uid="uid://baaen8igoytc4"]
 
-[ext_resource type="PhysicsMaterial" uid="uid://bjex6o0duh8ty" path="res://physics material/bouncy.tres" id="1_3y8gv"]
 [ext_resource type="Script" uid="uid://vx7tj6vdhvv6" path="res://scripts/guppy.gd" id="1_5al4j"]
 [ext_resource type="PackedScene" uid="uid://70q8lok643df" path="res://scenes/components/health_component.tscn" id="2_3y8gv"]
 [ext_resource type="Script" uid="uid://bh77r8leevuyk" path="res://scripts/States/state_machine.gd" id="2_6eadt"]
@@ -8,35 +7,19 @@
 [ext_resource type="Script" uid="uid://ca1ym6vuspvmb" path="res://scripts/States/guppy_wander_state.gd" id="3_3y8gv"]
 [ext_resource type="Resource" uid="uid://b686y7lc2vewf" path="res://resources/fishNames.tres" id="3_stxjv"]
 [ext_resource type="Script" uid="uid://d14i0sacaiadn" path="res://scripts/States/guppy_hungry_state.gd" id="4_2njgj"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3y8gv"]
-size = Vector2(108.491, 71.2944)
+[ext_resource type="Script" uid="uid://dvktduucdvajs" path="res://scripts/hitbox.gd" id="8_2njgj"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2njgj"]
 size = Vector2(123.99, 86.7932)
 
-[node name="guppy" type="RigidBody2D" node_paths=PackedStringArray("health") groups=["Fish", "Guppy"]]
+[node name="guppy" type="Node2D" node_paths=PackedStringArray("health") groups=["Fish", "Guppy"]]
 texture_filter = 1
-collision_layer = 2
-physics_material_override = ExtResource("1_3y8gv")
-gravity_scale = 0.0
-lock_rotation = true
 script = ExtResource("1_5al4j")
 nameRes = ExtResource("3_stxjv")
 hungerTimerRange = Vector2(20, 40)
 hungerAdultTimerRange = Vector2(40, 60)
 moneyTimerRange = Vector2(5, 15)
 health = NodePath("healthComponent")
-
-[node name="Label" type="Label" parent="."]
-visible = false
-offset_left = -26.0
-offset_top = -34.0
-offset_right = 29.0
-offset_bottom = -11.0
-text = "hungry"
-horizontal_alignment = 1
-vertical_alignment = 1
 
 [node name="state_machine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("2_6eadt")
@@ -54,20 +37,15 @@ fish = NodePath("../..")
 maxHealth = 1
 
 [node name="sprite2D" type="Sprite2D" parent="."]
-texture_filter = 1
-position = Vector2(0, 1)
 texture = ExtResource("3_2njgj")
 hframes = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0.499999, -0.5)
+[node name="hitBox" type="Area2D" parent="." node_paths=PackedStringArray("health") groups=["Fish"]]
 scale = Vector2(0.322606, 0.322606)
-shape = SubResource("RectangleShape2D_3y8gv")
-
-[node name="hitBox" type="Area2D" parent="."]
-scale = Vector2(0.322606, 0.322606)
-collision_layer = 0
+collision_layer = 2
 collision_mask = 5
+script = ExtResource("8_2njgj")
+health = NodePath("../healthComponent")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="hitBox"]
 position = Vector2(3.09976, -3.09976)

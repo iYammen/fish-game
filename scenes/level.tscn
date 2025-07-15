@@ -51,7 +51,7 @@ powerUps = Array[ExtResource("3_pqd0y")]([ExtResource("4_5k0ak"), ExtResource("5
 
 [node name="spawnManager" parent="." instance=ExtResource("1_w8frs")]
 monsterSpawnTimerRange = Vector2(60, 120)
-spawnNum = 1000
+spawnNum = 10
 
 [node name="boundrays" type="Node2D" parent="."]
 

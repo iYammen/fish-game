@@ -2,17 +2,19 @@ extends State
 @export var fish: Guppy
 
 var closestFood: Area2D
-var target: Vector2
 
 func Enter() -> void:
 	pass
 
-func Physics_Update(_delta: float):
+func Physics_Update(delta: float):
 	_update_closest_food()
 	if closestFood:
 		var direction = (closestFood.global_position - fish.global_position).normalized()
-		fish.sprite_2d.flip_h = direction.x > 0
-		fish.linear_velocity = direction * 110
+		fish.global_position += direction * 110 * delta
+		
+		var flip_now := fish.global_position.x - closestFood.global_position.x < 0
+		if flip_now != fish.sprite_2d.flip_h:
+			fish.sprite_2d.flip_h = flip_now
 
 
 func _update_closest_food() -> void:

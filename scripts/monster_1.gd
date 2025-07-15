@@ -3,7 +3,7 @@ extends Area2D
 @export var value: int
 @export var health: healthComponent
 var game_manager: GameManager
-var fish: RigidBody2D
+var fish: Area2D
 var target: Vector2
 var speed: float
 var entered: bool = false
@@ -56,13 +56,14 @@ func _on_button_pressed() -> void:
 	health.takeDamage(game_manager.damage)
 	game_manager.ShowDamageNumb(game_manager.damage, get_global_mouse_position())
 
-func _on_body_entered(body: Node2D) -> void:
-	if body is RigidBody2D and not entered:
-		fish = body
-		entered = true
-		eat_t = 0.5
 
-func _on_body_exited(body: Node2D) -> void:
-	if body == fish:
+func _on_area_entered(area: Area2D) -> void:
+	fish = area
+	entered = true
+	eat_t = 0.5
+
+
+func _on_area_exited(area: Area2D) -> void:
+	if area == fish:
 		entered = false
 		fish = null
