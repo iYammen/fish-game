@@ -164,6 +164,7 @@ health = NodePath("healthComponent")
 value = 75
 
 [node name="healthComponent" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("2_7o5an")]
+maxHealth = 200
 sprite = NodePath("../AnimatedSprite2D")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]

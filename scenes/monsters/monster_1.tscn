@@ -32,7 +32,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2cfiq"]
-size = Vector2(57, 74.5)
+size = Vector2(52.5, 40)
 
 [node name="Monster_1" type="Area2D" node_paths=PackedStringArray("health") groups=["Enemy"]]
 collision_layer = 16
@@ -42,6 +42,7 @@ value = 50
 health = NodePath("healthComponent")
 
 [node name="healthComponent" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("2_ska6x")]
+maxHealth = 300
 sprite = NodePath("../AnimatedSprite2D")
 
 [node name="Button" type="Button" parent="."]
@@ -60,7 +61,7 @@ animation = &"Idle"
 frame_progress = 0.0445773
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-2.5, 5.5)
+position = Vector2(-2.25, 4)
 shape = SubResource("RectangleShape2D_2cfiq")
 
 [connection signal="area_entered" from="." to="." method="_on_area_entered"]

@@ -32,6 +32,9 @@ func Physics_Update(delta: float):
 	# Step forward only if not already at the target
 	if distance > fish.speed * delta:
 		fish.global_position += direction * fish.speed * delta
+	else:
+		target = fish.game_manager.GetDirection()
+		fish.move_t = randf_range(0.3, 4.0)
 
 	# Arc motion: vertical bob (up/down)
 	arc_time += delta * arc_frequency

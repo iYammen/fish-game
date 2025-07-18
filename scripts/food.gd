@@ -7,6 +7,7 @@ var game_manager: GameManager
 @onready var sprite_2d: Sprite2D = $Sprite2D
 var hitFloor: bool = false
 @onready var timer: Timer = $Timer
+var eaten: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

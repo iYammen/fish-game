@@ -1,21 +1,21 @@
 extends Control
 class_name SlotMachine
 
-@export var prizes: Array[entityResource]
+@export var prizes: Array[powerResource]
 
 @onready var slot_1: TextureRect   = $TextureRect/HBoxContainer/Slot1
 @onready var slot_delay_time: Timer = $slotDelayTime
 @onready var spin_time: Timer       = $spinTime
 @onready var button: Button         = $Button
 
-var prizeWon: entityResource     # the prize we actually won
+var prizeWon: powerResource     # the prize we actually won
 var slotNum: int = 0                 # index that drives the spinning animation
 var target_index: int = 0            # index of the chosen prize – where the reel must end
 
 var rng := RandomNumberGenerator.new()
 
 func _ready() -> void:
-	visible = false
+
 	rng.randomize()
 
 func _on_slot_delay_time_timeout() -> void:
@@ -24,7 +24,7 @@ func _on_slot_delay_time_timeout() -> void:
 
 func _on_spin_time_timeout() -> void:
 	# Snap to the actual prize and handle it
-	slot_1.texture = prizeWon.portrait
+	slot_1.texture = prizeWon.icon
 	SpawnPrize()
 
 	# Reset for next spin
@@ -32,11 +32,11 @@ func _on_spin_time_timeout() -> void:
 
 func Spin():
 	# Show the next portrait (purely visual)
-	slot_1.texture = prizes[slotNum].portrait
+	slot_1.texture = prizes[slotNum].icon
 	slotNum = (slotNum + 1) % prizes.size()
 	slot_delay_time.start()
 
-func pick_weighted_prize(list: Array[entityResource]) -> entityResource:
+func pick_weighted_prize(list: Array[powerResource]) -> powerResource:
 	var total := 0
 	for p in list:
 		total += p.rarity
@@ -53,13 +53,7 @@ func SpawnPrize():
 	match prizeWon.id:
 		0:
 			pass
-		1:
-			var spawn:= prizeWon.spawnable.instantiate()
-			get_tree().root.add_child(spawn)
-		2:
-			var spawn:= prizeWon.spawnable.instantiate()
-			get_tree().root.add_child(spawn)
-			spawn.global_position.y = 180
+
 
 	# Small pause before returning control to the player
 	await get_tree().create_timer(1).timeout

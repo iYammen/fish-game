@@ -32,6 +32,18 @@ func setUpPowers():
 		powerButtons[i].tooltip_text = picked.description
 		available_powers.erase(picked) # Remove so it can't repeat
 
+func setUpBasicPowers():
+	var available_powers := game_manager.basicPowerUps.duplicate() # Copy so we don't destroy original
+	powerWonArray.clear()
+	powerWonArray.resize(powerButtons.size())
+
+	for i in powerButtons.size():
+		# Pick a prize from the remaining ones
+		var picked := pick_weighted_prize(available_powers)
+		powerWonArray[i] = picked
+		powerButtons[i].icon = picked.icon
+		powerButtons[i].tooltip_text = picked.description
+		available_powers.erase(picked) # Remove so it can't repeat
 
 func pick_weighted_prize(list: Array[powerResource]) -> powerResource:
 	var total := 0

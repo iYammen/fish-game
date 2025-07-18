@@ -9,6 +9,7 @@ const NUMBER_UI = preload("res://scenes/numberUI.tscn")
 
 
 @export var powerUps: Array[powerResource]
+@export var basicPowerUps: Array[powerResource]
 
 var powerUpBar: Control
 var errorMessage: Panel
@@ -71,12 +72,12 @@ func editPowerUpBar(id: int):
 	powerUpBar.powerUpIcons[id].addCount()
 
 func _unhandled_input(event: InputEvent) -> void:
-	FoodCountArray = get_tree().get_nodes_in_group("Player Food")
 	if event.is_action_pressed("restart"):
 		get_tree().reload_current_scene()
 	
 	if event.is_action_pressed("press"):
 		if money >= 5:
+			FoodCountArray = get_tree().get_nodes_in_group("Player Food")
 			var inBourders: bool = get_global_mouse_position().x > -200 and get_global_mouse_position().x < 315 and get_global_mouse_position().y > -170 and get_global_mouse_position().y < 170
 			if inBourders:
 				if FoodCountArray.size() < foodMax:
@@ -118,13 +119,16 @@ func checkScore():
 		spawn_manager.riseSpawnRate()
 		subtractCoin(goal)
 		stage += 1
-		if stage % 5 == 0 or stage == 2:
+		if stage % 3 == 0:
 			goal = goal * 1.7
 			powerScreen.setUpPowers()
 			powerScreen.visible = true
 			get_tree().paused = true
 		else:
 			goal = goal * 1.5
+			powerScreen.setUpBasicPowers()
+			powerScreen.visible = true
+			get_tree().paused = true
 		
 		stageGoalLabel.text = "Stage " + str(stage)
 		stageButton.text = "Next Stage: " + str(goal) + "$"
@@ -137,14 +141,11 @@ func GetDirection():
 	var targetPos: Vector2 = Vector2(randf_range(-200, boundray.x), randf_range(-100, boundray.y))
 	return targetPos
 
-
 func _on_button_pressed() -> void:
 	shop.showShop()
 
-
 func _on_stage_button_pressed() -> void:
 	checkScore()
-
 
 func _on_button_button_down() -> void:
 	errorMessage.visible = false

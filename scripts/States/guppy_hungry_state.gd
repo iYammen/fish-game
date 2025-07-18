@@ -1,6 +1,6 @@
 extends State
 @export var fish: Guppy
-
+@export var speed: float
 var closestFood: Area2D
 
 func Enter() -> void:
@@ -10,7 +10,7 @@ func Physics_Update(delta: float):
 	_update_closest_food()
 	if closestFood:
 		var direction = (closestFood.global_position - fish.global_position).normalized()
-		fish.global_position += direction * 110 * delta
+		fish.global_position += direction * speed * delta
 		
 		var flip_now := fish.global_position.x - closestFood.global_position.x < 0
 		if flip_now != fish.sprite_2d.flip_h:
@@ -29,15 +29,18 @@ func _update_closest_food() -> void:
 		state_transition.emit(self, "wander")
 
 func Exit():
-	fish.tintCheck_t = 0
+	pass
 
 func _on_hit_box_area_entered(area: Area2D) -> void:
 	if fish.is_hungry:
 		if area.is_in_group("Food"):
-			fish.is_hungry = false
-			fish.hungerWaitTime = randf_range(fish.hungerTimerRange.x, fish.hungerTimerRange.y)
-			fish.hunger_t = fish.hungerWaitTime
-			fish.feedCount += area.foodQuality
-			fish.checkFoodCount()
-			area.health.takeDamage(100)
-			state_transition.emit(self, "wander")
+			if area.eaten == false:
+				area.eaten = true
+				fish.is_hungry = false
+				fish.hungerWaitTime = randf_range(fish.hungerTimerRange.x, fish.hungerTimerRange.y)
+				fish.hunger_t = fish.hungerWaitTime
+				fish.feedCount += area.foodQuality
+				fish.checkFoodCount()
+				fish._update_hunger_tint()
+				area.health.takeDamage(100)
+				state_transition.emit(self, "wander")

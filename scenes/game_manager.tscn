@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://d1hiqisxkn60e"]
+[gd_scene load_steps=9 format=3 uid="uid://d1hiqisxkn60e"]
 
 [ext_resource type="Script" uid="uid://dxq57sl75csc2" path="res://scripts/game_manager.gd" id="1_hwd4i"]
 [ext_resource type="Script" uid="uid://dkjupqwcpqhl7" path="res://resources/power/powerResource.gd" id="2_q8mjp"]
@@ -7,7 +7,9 @@
 [ext_resource type="Resource" uid="uid://cb01gwuri5d3h" path="res://resources/power/foodUp.tres" id="5_frtjd"]
 [ext_resource type="Resource" uid="uid://xw78gbwdt5il" path="res://resources/power/fishDeath.tres" id="6_0rse5"]
 [ext_resource type="Resource" uid="uid://cakfaucs507k6" path="res://resources/power/discount.tres" id="7_aonbx"]
+[ext_resource type="Resource" uid="uid://8f3r7jpqfkb2" path="res://resources/power/gunUp.tres" id="7_jdad8"]
 
 [node name="Game Manager" type="Node2D"]
 script = ExtResource("1_hwd4i")
-powerUps = Array[ExtResource("2_q8mjp")]([ExtResource("3_jdad8"), ExtResource("4_k4jhu"), ExtResource("5_frtjd"), ExtResource("6_0rse5"), ExtResource("7_aonbx")])
+powerUps = Array[ExtResource("2_q8mjp")]([ExtResource("3_jdad8"), ExtResource("6_0rse5"), ExtResource("7_aonbx")])
+basicPowerUps = Array[ExtResource("2_q8mjp")]([ExtResource("5_frtjd"), ExtResource("7_jdad8"), ExtResource("4_k4jhu")])

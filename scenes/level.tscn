@@ -1,23 +1,16 @@
-[gd_scene load_steps=24 format=3 uid="uid://cc3qvorsgdiqt"]
+[gd_scene load_steps=17 format=3 uid="uid://cc3qvorsgdiqt"]
 
 [ext_resource type="PackedScene" uid="uid://cok1q8vialda1" path="res://scenes/boundary.tscn" id="1_2q6dc"]
 [ext_resource type="PackedScene" uid="uid://d1hiqisxkn60e" path="res://scenes/game_manager.tscn" id="1_mx8sn"]
 [ext_resource type="PackedScene" uid="uid://58gka0bukx6r" path="res://scenes/spawn_manager.tscn" id="1_w8frs"]
-[ext_resource type="Script" uid="uid://dkjupqwcpqhl7" path="res://resources/power/powerResource.gd" id="3_pqd0y"]
-[ext_resource type="Resource" uid="uid://6lqv8u6negot" path="res://resources/power/timeUp.tres" id="4_5k0ak"]
 [ext_resource type="PackedScene" uid="uid://d0xn38x3lbxjw" path="res://scenes/slot_machine.tscn" id="4_mx8sn"]
 [ext_resource type="Script" uid="uid://81k4bhdlyj6o" path="res://scripts/buy_button.gd" id="4_ppgk2"]
 [ext_resource type="Theme" uid="uid://c6jbdk3trmuen" path="res://resources/theme/microsoftClassic.tres" id="5_64w2a"]
 [ext_resource type="PackedScene" uid="uid://c1ikmva1frhfk" path="res://scenes/UI/powerUpBar.tscn" id="5_wc255"]
-[ext_resource type="Resource" uid="uid://d0vhfinvg20ux" path="res://resources/power/hungerDown.tres" id="5_wu01b"]
-[ext_resource type="Resource" uid="uid://cb01gwuri5d3h" path="res://resources/power/foodUp.tres" id="6_3ies3"]
 [ext_resource type="Script" uid="uid://du2xevweuqewb" path="res://scripts/sidebar.gd" id="6_64w2a"]
 [ext_resource type="PackedScene" uid="uid://blaycr1vpl0y8" path="res://scenes/powerUpScreen.tscn" id="6_klq6b"]
 [ext_resource type="PackedScene" uid="uid://ce2efrqeqkwis" path="res://scenes/shop.tscn" id="7_64w2a"]
 [ext_resource type="Texture2D" uid="uid://bwew6rr24t1rm" path="res://assets/UI/button.png" id="7_wc255"]
-[ext_resource type="Resource" uid="uid://xw78gbwdt5il" path="res://resources/power/fishDeath.tres" id="7_xy2fk"]
-[ext_resource type="Resource" uid="uid://cakfaucs507k6" path="res://resources/power/discount.tres" id="8_cmcjb"]
-[ext_resource type="Resource" uid="uid://8f3r7jpqfkb2" path="res://resources/power/gunUp.tres" id="9_556r4"]
 [ext_resource type="PackedScene" uid="uid://2l1a8m2hgowd" path="res://scenes/UI/warningUI.tscn" id="10_fpun6"]
 [ext_resource type="Shader" uid="uid://caa5ttiuq3bxx" path="res://scripts/background.gdshader" id="10_t1rx8"]
 [ext_resource type="Texture2D" uid="uid://d2oigyt1gepdc" path="res://assets/background.png" id="11_8iemx"]
@@ -47,7 +40,6 @@ offset_bottom = 72.0
 [node name="Game Manager" parent="." groups=["Game Manager"] instance=ExtResource("1_mx8sn")]
 process_mode = 3
 visible = false
-powerUps = Array[ExtResource("3_pqd0y")]([ExtResource("4_5k0ak"), ExtResource("5_wu01b"), ExtResource("6_3ies3"), ExtResource("7_xy2fk"), ExtResource("8_cmcjb"), ExtResource("9_556r4")])
 
 [node name="spawnManager" parent="." instance=ExtResource("1_w8frs")]
 monsterSpawnTimerRange = Vector2(60, 120)
@@ -72,15 +64,11 @@ rotation = -3.14159
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="powerUpBar" parent="CanvasLayer" instance=ExtResource("5_wc255")]
-custom_minimum_size = Vector2(512, 0)
-anchor_top = 0.0
-anchor_bottom = 0.089
+[node name="Panel" parent="CanvasLayer" instance=ExtResource("5_wc255")]
 offset_left = -16.0
-offset_top = 0.0
-offset_right = 0.0
-offset_bottom = -0.0400009
-grow_vertical = 1
+offset_top = -320.04
+offset_right = 16.0
+offset_bottom = -328.0
 
 [node name="Sidebar" type="NinePatchRect" parent="CanvasLayer"]
 anchors_preset = 4

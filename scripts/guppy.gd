@@ -92,12 +92,12 @@ func _update_hunger_tint() -> void:
 
 
 func checkFoodCount():
-	if !makingMoney and feedCount >= 3:
+	if !makingMoney and feedCount >= 4:
 		money_t = randf_range(moneyTimerRange.x, moneyTimerRange.y)
 		makingMoney = true
-	if feedCount >= 3 and feedCount < 6:
+	if feedCount >= 4 and feedCount < 10:
 		sprite_2d.frame = 1
-	elif feedCount >= 6:
+	elif feedCount >= 10:
 		sprite_2d.frame = 2
 		hungerTimerRange = hungerAdultTimerRange
 
@@ -111,9 +111,9 @@ func die():
 	queue_free()
 
 func _on_money_timer_timeout() -> void:
-	if feedCount >= 3 and feedCount < 6:
+	if feedCount >= 4 and feedCount < 10:
 		reuseManager.createBronzeCoin(global_position)
-	elif feedCount >= 6:
+	elif feedCount >= 10:
 		reuseManager.createSilverCoin(global_position)
 	money_t = randf_range(moneyTimerRange.x, moneyTimerRange.y)
 

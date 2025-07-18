@@ -2,10 +2,10 @@
 
 [ext_resource type="Texture2D" uid="uid://c8xjmx146q8ew" path="res://icon.svg" id="1_xixe3"]
 [ext_resource type="Script" uid="uid://bvhk1p7mviygg" path="res://scripts/slot_machine.gd" id="1_xjw1r"]
-[ext_resource type="Script" uid="uid://cyfrwajrr2bdy" path="res://resources/entityResource.gd" id="2_2e0ow"]
-[ext_resource type="Resource" uid="uid://dh1iwptcn86ga" path="res://resources/Fish/Guppy.tres" id="3_puwce"]
-[ext_resource type="Resource" uid="uid://blghhqawk5nf" path="res://resources/Fish/Nothing.tres" id="4_h3s22"]
-[ext_resource type="Resource" uid="uid://bfvyxhqsom57s" path="res://resources/Fish/Crab.tres" id="5_h3s22"]
+[ext_resource type="Script" uid="uid://dkjupqwcpqhl7" path="res://resources/power/powerResource.gd" id="2_7v1fh"]
+[ext_resource type="Resource" uid="uid://cb01gwuri5d3h" path="res://resources/power/foodUp.tres" id="3_pputl"]
+[ext_resource type="Resource" uid="uid://8f3r7jpqfkb2" path="res://resources/power/gunUp.tres" id="4_dgsef"]
+[ext_resource type="Resource" uid="uid://d0vhfinvg20ux" path="res://resources/power/hungerDown.tres" id="5_awi2f"]
 [ext_resource type="Theme" uid="uid://c6jbdk3trmuen" path="res://resources/theme/microsoftClassic.tres" id="6_7v1fh"]
 [ext_resource type="Texture2D" uid="uid://cqfx21eafffr3" path="res://assets/icons/nothing.png" id="6_puwce"]
 
@@ -18,7 +18,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_xjw1r")
-prizes = Array[ExtResource("2_2e0ow")]([ExtResource("4_h3s22"), ExtResource("3_puwce"), ExtResource("5_h3s22")])
+prizes = Array[ExtResource("2_7v1fh")]([ExtResource("3_pputl"), ExtResource("4_dgsef"), ExtResource("5_awi2f")])
 
 [node name="Panel" type="Panel" parent="."]
 custom_minimum_size = Vector2(300, 200)
