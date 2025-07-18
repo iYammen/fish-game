@@ -13,7 +13,6 @@ const SHARK = preload("res://scenes/Fish/shark.tscn")
 const CRAB = preload("res://scenes/Fish/Crab.tscn")
 const ALGAE = preload("res://scenes/algae.tscn")
 const SILVER_COIN = preload("res://scenes/silver_coin.tscn")
-var boundray: Vector2 = Vector2(500, 200)
 @export var spawnNum: int = 5
 var game_manager: GameManager
 var monsterToSpawn: int
@@ -22,7 +21,7 @@ func _ready() -> void:
 	game_manager = get_tree().get_first_node_in_group("Game Manager")
 	monster_spawn_timer.start(randf_range(monsterSpawnTimerRange.x, monsterSpawnTimerRange.y))
 	for guppy in spawnNum:
-		var spawn:= GUPPY.instantiate()
+		var spawn:= SHARK.instantiate()
 		get_tree().current_scene.add_child.call_deferred(spawn)
 		spawn.global_position = game_manager.GetDirection()
 
