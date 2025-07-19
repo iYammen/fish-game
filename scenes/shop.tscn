@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://ce2efrqeqkwis"]
+[gd_scene load_steps=14 format=3 uid="uid://ce2efrqeqkwis"]
 
 [ext_resource type="Theme" uid="uid://c6jbdk3trmuen" path="res://resources/theme/microsoftClassic.tres" id="1_xfvoa"]
 [ext_resource type="Texture2D" uid="uid://ymhhbshnc8sx" path="res://assets/fish/shark.png" id="2_1l46r"]
@@ -10,6 +10,7 @@
 [ext_resource type="Resource" uid="uid://bfvyxhqsom57s" path="res://resources/Fish/Crab.tres" id="5_heatd"]
 [ext_resource type="Resource" uid="uid://kr4dgngu88kd" path="res://resources/Fish/Shark.tres" id="6_m4ofw"]
 [ext_resource type="Resource" uid="uid://chxbrefwiflu6" path="res://resources/Fish/Algae.tres" id="7_1v8qu"]
+[ext_resource type="Resource" uid="uid://dihwc372qm8cu" path="res://resources/Fish/Piranha.tres" id="8_24it5"]
 [ext_resource type="Texture2D" uid="uid://dvjoomqvhlffj" path="res://assets/algae_icon.png" id="10_heatd"]
 [ext_resource type="Texture2D" uid="uid://cqfx21eafffr3" path="res://assets/icons/nothing.png" id="12_44xle"]
 
@@ -25,8 +26,8 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_xfvoa")
 script = ExtResource("2_2fc2m")
-fish = Array[ExtResource("3_y6sft")]([ExtResource("4_m4ofw"), ExtResource("5_heatd"), ExtResource("6_m4ofw"), ExtResource("7_1v8qu")])
-buttons = [NodePath("Panel/HBoxContainer/VBoxContainer/Button2"), NodePath("Panel/HBoxContainer/VBoxContainer/Button3"), NodePath("Panel/HBoxContainer/VBoxContainer/Button"), NodePath("Panel/HBoxContainer/VBoxContainer/Button4")]
+fish = Array[ExtResource("3_y6sft")]([ExtResource("4_m4ofw"), ExtResource("5_heatd"), ExtResource("6_m4ofw"), ExtResource("7_1v8qu"), ExtResource("8_24it5")])
+buttons = [NodePath("Panel/HBoxContainer/VBoxContainer/Button2"), NodePath("Panel/HBoxContainer/VBoxContainer/Button3"), NodePath("Panel/HBoxContainer/VBoxContainer/Button"), NodePath("Panel/HBoxContainer/VBoxContainer/Button4"), NodePath("Panel/HBoxContainer/VBoxContainer/Button5")]
 
 [node name="CloseButton2" type="Button" parent="."]
 layout_mode = 1
@@ -83,6 +84,13 @@ icon = ExtResource("2_1l46r")
 layout_mode = 2
 mouse_default_cursor_shape = 2
 text = "Algae: 100$
+"
+icon = ExtResource("10_heatd")
+
+[node name="Button5" type="Button" parent="Panel/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+mouse_default_cursor_shape = 2
+text = "Algae: 1000$
 "
 icon = ExtResource("10_heatd")
 
@@ -155,6 +163,7 @@ one_shot = true
 [connection signal="button_down" from="Panel/HBoxContainer/VBoxContainer/Button3" to="." method="_on_button_3_button_down"]
 [connection signal="button_down" from="Panel/HBoxContainer/VBoxContainer/Button" to="." method="_on_button_button_down"]
 [connection signal="button_down" from="Panel/HBoxContainer/VBoxContainer/Button4" to="." method="_on_button_4_button_down"]
+[connection signal="button_down" from="Panel/HBoxContainer/VBoxContainer/Button5" to="." method="_on_button_4_button_down"]
 [connection signal="button_down" from="Panel/CloseButton" to="." method="_on_close_button_button_down"]
 [connection signal="button_down" from="Error Message/ErrorExitButton" to="." method="_on_error_exit_button_button_down"]
 [connection signal="timeout" from="popUpTimer" to="." method="_on_pop_up_timer_timeout"]

@@ -3,11 +3,13 @@ extends Node
 const BLOOD = preload("res://scenes/particles/blood.tscn")
 const SILVER_COIN = preload("res://scenes/silver_coin.tscn")
 const BRONZE_COIN = preload("res://scenes/bronze_coin.tscn")
+const DIAMOND = preload("res://scenes/diamond.tscn")
 
 var bloodArray: Array[AnimatedSprite2D] = []
 var monsterBloodArray: Array[AnimatedSprite2D] = []
 var silverCoinArray: Array[Button] = []
 var bronzeCoinArray: Array[Button] = []
+var diamondArray: Array[Button] = []
 
 func createBlood(pos: Vector2):
 	for blood in bloodArray:
@@ -55,6 +57,17 @@ func createBronzeCoin(pos: Vector2):
 	new_coin.global_position = pos
 	get_tree().current_scene.add_child(new_coin)
 	bronzeCoinArray.append(new_coin)
+
+func createDiamondCoin(pos: Vector2):
+	for diamond in diamondArray:
+		if diamond.available:
+			diamond.resetCoin()
+			diamond.global_position = pos
+			return
+	var new_coin: Button = DIAMOND.instantiate()
+	new_coin.global_position = pos
+	get_tree().current_scene.add_child(new_coin)
+	diamondArray.append(new_coin)
 
 func Reset():
 	bloodArray.clear()

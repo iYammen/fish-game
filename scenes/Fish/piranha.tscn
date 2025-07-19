@@ -1,0 +1,53 @@
+[gd_scene load_steps=9 format=3 uid="uid://dyxpgh1kihn56"]
+
+[ext_resource type="Script" uid="uid://cpltgrngfbidf" path="res://scripts/piranha.gd" id="1_l4jkw"]
+[ext_resource type="Script" uid="uid://mp1hp6htuln7" path="res://scripts/States/piranha_wander_state.gd" id="3_6r0gv"]
+[ext_resource type="Script" uid="uid://bh77r8leevuyk" path="res://scripts/States/state_machine.gd" id="3_hxuuh"]
+[ext_resource type="Script" uid="uid://dcvv1y5w0kp00" path="res://scripts/States/piranha_hungry_state.gd" id="4_gd268"]
+[ext_resource type="PackedScene" uid="uid://70q8lok643df" path="res://scenes/components/health_component.tscn" id="6_3qu4x"]
+[ext_resource type="Texture2D" uid="uid://dam5l5knc82so" path="res://assets/fish/piranha.png" id="7_gd268"]
+[ext_resource type="Script" uid="uid://dvktduucdvajs" path="res://scripts/hitbox.gd" id="8_osm6a"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2njgj"]
+size = Vector2(148.788, 99.1922)
+
+[node name="piranha" type="Node2D" node_paths=PackedStringArray("health") groups=["Fish"]]
+texture_filter = 1
+script = ExtResource("1_l4jkw")
+hungerTimerRange = Vector2(20, 20)
+moneyTimerRange = Vector2(5, 15)
+speed = 30.0
+health = NodePath("healthComponent")
+
+[node name="state_machine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("3_hxuuh")
+initial_state = NodePath("wander")
+
+[node name="wander" type="Node" parent="state_machine" node_paths=PackedStringArray("fish")]
+script = ExtResource("3_6r0gv")
+fish = NodePath("../..")
+
+[node name="hungry" type="Node" parent="state_machine" node_paths=PackedStringArray("fish")]
+script = ExtResource("4_gd268")
+fish = NodePath("../..")
+speed = 110.0
+
+[node name="healthComponent" parent="." instance=ExtResource("6_3qu4x")]
+maxHealth = 1
+
+[node name="sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("7_gd268")
+
+[node name="hitBox" type="Area2D" parent="." node_paths=PackedStringArray("health") groups=["Fish"]]
+scale = Vector2(0.322606, 0.322606)
+collision_layer = 2
+collision_mask = 2
+script = ExtResource("8_osm6a")
+health = NodePath("../healthComponent")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="hitBox"]
+position = Vector2(-7.3904e-07, -2.21712e-06)
+shape = SubResource("RectangleShape2D_2njgj")
+
+[connection signal="tree_exited" from="." to="." method="_on_tree_exited"]
+[connection signal="area_entered" from="hitBox" to="state_machine/hungry" method="_on_hit_box_area_entered"]

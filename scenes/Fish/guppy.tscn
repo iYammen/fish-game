@@ -45,7 +45,7 @@ hframes = 3
 [node name="hitBox" type="Area2D" parent="." node_paths=PackedStringArray("health") groups=["Fish"]]
 scale = Vector2(0.322606, 0.322606)
 collision_layer = 2
-collision_mask = 5
+collision_mask = 4
 script = ExtResource("8_2njgj")
 health = NodePath("../healthComponent")
 

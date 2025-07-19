@@ -1,11 +1,8 @@
 extends Node2D
-class_name Guppy
 
 var chosenName: String = ""
-@export var nameRes: nameResource
 var hungerWaitTime: float = 0
 @export var hungerTimerRange: Vector2
-@export var hungerAdultTimerRange: Vector2
 @export var moneyTimerRange: Vector2
 @export var speed: float = 20
 @export var health: healthComponent
@@ -13,11 +10,9 @@ var hungerWaitTime: float = 0
 var move_t := 0.0
 var hunger_t := 0.0
 var money_t := 0.0
-var attackCoolDown_t: float 
 var is_hungry := false
+var attackCoolDown_t: float = 0
 
-
-var feedCount: int = 0
 var game_manager: GameManager
 var makingMoney:bool = false
 @onready var sprite_2d: Sprite2D = $sprite2D
@@ -39,35 +34,13 @@ func _ready() -> void:
 	hunger_t = hungerWaitTime
 	money_t = randf_range(moneyTimerRange.x, moneyTimerRange.y)
 	tintCheck_t = randf_range(2, 5)
-	checkFoodCount()
-
-#func set_random_name() -> void:
-	#var parts: int = randi_range(1, 3)
-#
-	#var names_copy: Array = nameRes.names.duplicate()
-	#names_copy.shuffle()
-	#var chosen: Array = names_copy.slice(0, parts)
-	#
-	#if chosen.size() >= 2 and randi_range(1, 3) == 1:  # 10 % roll
-			## Check whether any article is already inside the chosen words
-			#var lower_chosen: Array = chosen.map(func(n): return String(n).to_lower())
-			#var article_found: bool = false
-			#for art in nameRes.articles:
-				#if lower_chosen.has(art.to_lower()):
-					#article_found = true
-					#break
-			#
-			## Insert only if none were found
-			#if not article_found and nameRes.articles.size() > 0:
-				#var article: String = nameRes.articles[randi_range(0, nameRes.articles.size() - 1)]
-				#chosen.insert(chosen.size() - 1, article)  # before the last name
-#
-	#chosenName = " ".join(chosen)
+	money_t = randf_range(moneyTimerRange.x, moneyTimerRange.y)
 
 func _physics_process(delta: float) -> void:
 	move_t -= delta
 	hunger_t -= delta
 	tintCheck_t -= delta
+	attackCoolDown_t -= delta
 	if hunger_t <= 0.0:
 		die()
 	else:
@@ -76,11 +49,11 @@ func _physics_process(delta: float) -> void:
 			_update_hunger_tint()
 			tintCheck_t = randf_range(0, 1)
 	
-	if makingMoney:
-		money_t -= delta
-		if money_t <= 0.0:
-			_on_money_timer_timeout()
-			money_t = randf_range(moneyTimerRange.x, moneyTimerRange.y)
+	
+	money_t -= delta
+	if money_t <= 0.0:
+		_on_money_timer_timeout()
+		money_t = randf_range(moneyTimerRange.x, moneyTimerRange.y)
 
 
 func _update_hunger_tint() -> void:
@@ -92,16 +65,6 @@ func _update_hunger_tint() -> void:
 	sprite_2d.modulate = [Color.WHITE, Color.LIME, Color.DARK_GREEN][s]
 
 
-func checkFoodCount():
-	if !makingMoney and feedCount >= 4:
-		money_t = randf_range(moneyTimerRange.x, moneyTimerRange.y)
-		makingMoney = true
-	if feedCount >= 4 and feedCount < 10:
-		sprite_2d.frame = 1
-	elif feedCount >= 10:
-		sprite_2d.frame = 2
-		hungerTimerRange = hungerAdultTimerRange
-
 func die():
 	reuseManager.createBlood(global_position)
 	sprite_2d.visible = false
@@ -112,10 +75,7 @@ func die():
 	queue_free()
 
 func _on_money_timer_timeout() -> void:
-	if feedCount >= 4 and feedCount < 10:
-		reuseManager.createBronzeCoin(global_position)
-	elif feedCount >= 10:
-		reuseManager.createSilverCoin(global_position)
+	reuseManager.createDiamondCoin(global_position)
 	money_t = randf_range(moneyTimerRange.x, moneyTimerRange.y)
 
 
