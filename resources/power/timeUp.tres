@@ -7,7 +7,6 @@
 script = ExtResource("1_vcsed")
 id = 0
 icon = ExtResource("1_dn83t")
-description = "Speeds up time x2
-"
+description = "Speed Up Time"
 rarity = 20
 metadata/_custom_type_script = "uid://dkjupqwcpqhl7"

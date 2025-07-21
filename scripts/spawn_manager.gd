@@ -1,7 +1,7 @@
 extends Node
 class_name spawnManager
 
-var spawnPos: Vector2
+var spawnPos: Array[Vector2] = [Vector2(0,0)]
 var spawned: bool = false
 const SPAWN_POINT_UI = preload("res://scenes/UI/spawn_point_ui.tscn")
 @onready var monster_spawn_timer: Timer = $monsterSpawnTimer
@@ -13,15 +13,16 @@ const SHARK = preload("res://scenes/Fish/shark.tscn")
 const CRAB = preload("res://scenes/Fish/Crab.tscn")
 const ALGAE = preload("res://scenes/algae.tscn")
 const SILVER_COIN = preload("res://scenes/silver_coin.tscn")
-@export var spawnNum: int = 5
+@export var spawnNum: int = 1
 var game_manager: GameManager
-var monsterToSpawn: int
+var monsterToSpawn: Array[int] = [0]
+var monsterSpawnNum: int = 1
 
 func _ready() -> void:
 	game_manager = get_tree().get_first_node_in_group("Game Manager")
 	monster_spawn_timer.start(randf_range(monsterSpawnTimerRange.x, monsterSpawnTimerRange.y))
 	for guppy in spawnNum:
-		var spawn:= GUPPY.instantiate()
+		var spawn:= SHARK.instantiate()
 		get_tree().current_scene.add_child.call_deferred(spawn)
 		spawn.global_position = game_manager.GetDirection()
 
@@ -29,40 +30,44 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	if monster_spawn_timer.time_left < 5 and monster_spawn_timer.time_left > 0.5 and !spawned:
-		pickMonster()
-		var ins = SPAWN_POINT_UI.instantiate()
-		get_tree().current_scene.add_child(ins)
-		ins.global_position = spawnPos
-		ins.setTimer(monster_spawn_timer.time_left)
-		warning.ShowAll()
-		spawned = true
+		for i in monsterSpawnNum:
+			pickMonster(i)
+			var ins = SPAWN_POINT_UI.instantiate()
+			get_tree().current_scene.add_child(ins)
+			ins.global_position = spawnPos[i]
+			ins.setTimer(monster_spawn_timer.time_left)
+			warning.ShowAll()
+			AudioManager.playError()
+			spawned = true
 	elif monster_spawn_timer.time_left < 0.2:
-		warning.Hide()
+		for i in monsterSpawnNum:
+			warning.Hide(i)
 
-func pickMonster():
+func pickMonster(monsterNum):
 	if game_manager.stage <= 1:
-		monsterToSpawn = 0
+		monsterToSpawn[monsterNum] = 0
 	else:
-		monsterToSpawn = randi_range(0,1)
+		monsterToSpawn[monsterNum] = randi_range(0,1)
 	
-	match monsterToSpawn:
+	match monsterToSpawn[monsterNum]:
 		0:
-			spawnPos = game_manager.GetDirection()
+			spawnPos[monsterNum] = game_manager.GetDirection()
 		1:
-			spawnPos.x = game_manager.GetDirection().x
-			spawnPos.y = 128.0
+			spawnPos[monsterNum].x = game_manager.GetDirection().x
+			spawnPos[monsterNum].y = 128.0
 
 func spawnMonster():
-	var spawn:= monsters[monsterToSpawn].instantiate()
-	get_tree().current_scene.add_child(spawn)
-	spawn.global_position = spawnPos
-	monster_spawn_timer.start(randf_range(monsterSpawnTimerRange.x, monsterSpawnTimerRange.y))
-	spawned = false
+	AudioManager.playEnemySpawn()
+	for i in monsterSpawnNum:
+		var spawn:= monsters[monsterToSpawn[i]].instantiate()
+		get_tree().current_scene.add_child(spawn)
+		spawn.global_position = spawnPos[i]
+		monster_spawn_timer.start(randf_range(monsterSpawnTimerRange.x, monsterSpawnTimerRange.y))
+		spawned = false
 
 func riseSpawnRate():
 	if  monsterSpawnTimerRange.x > 5 or monsterSpawnTimerRange.y > 10:
 		monsterSpawnTimerRange -= Vector2(1, 1)
-		print(monsterSpawnTimerRange)
 
 func _on_monster_spawn_timer_timeout() -> void:
 	spawnMonster()

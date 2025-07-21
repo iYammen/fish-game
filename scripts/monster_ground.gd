@@ -29,6 +29,7 @@ func _ready() -> void:
 	health.died.connect(die)
 
 func die():
+	AudioManager.playBlood()
 	button.mouse_filter = Control.MOUSE_FILTER_PASS
 	var finalValue: int = calculator.calculateScore(value)
 	game_manager.addCoin(finalValue)
@@ -59,6 +60,7 @@ func _physics_process(delta: float) -> void:
 	else:
 		eat_t -= delta
 		if eat_t <= 0 and fish != null:
+			AudioManager.playFishEaten()
 			fish.health.takeDamage(100)
 			target_anim = "chomp"
 		else:
@@ -84,6 +86,7 @@ func _on_body_exited(body: Node2D) -> void:
 
 
 func _on_button_button_down() -> void:
+	AudioManager.playAttack()
 	health.takeDamage(game_manager.damage)
 	game_manager.ShowDamageNumb(game_manager.damage, get_global_mouse_position())
 

@@ -43,6 +43,7 @@ func _on_hit_box_area_entered(area: Area2D) -> void:
 	if fish.is_hungry:
 		if area.owner.is_in_group("Guppy"):
 			if area.owner.feedCount < 4:
+				AudioManager.playFishEaten()
 				fish.is_hungry = false
 				fish.hungerWaitTime = randf_range(fish.hungerTimerRange.x, fish.hungerTimerRange.y)
 				fish.hunger_t = fish.hungerWaitTime

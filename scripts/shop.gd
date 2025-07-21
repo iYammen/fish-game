@@ -20,7 +20,6 @@ func _ready() -> void:
 		btn.button_down.connect(Callable(self, "_on_shop_button_down").bind(i))
 
 
-
 func showShop():
 	for i in buttons.size():
 		var btn := buttons[i]
@@ -43,9 +42,12 @@ func _on_shop_button_down(index: int):
 	var data = fish[index]
 	var discountedPrice = data.price * game_manager.discount
 	if game_manager.money < discountedPrice:
+		AudioManager.playError()
 		_display_error("not enough money to\nbuy stock")
 		return
-	
+	else:
+		AudioManager.playSplash()
+	AudioManager.playButtonClick()
 	game_manager.subtractCoin(discountedPrice)
 	spawn_fish(data)
 
@@ -74,8 +76,10 @@ func _on_pop_up_timer_timeout() -> void:
 
 
 func _on_close_button_button_down() -> void:
+	AudioManager.playButtonClick()
 	closeShop()
 
 
 func _on_error_exit_button_button_down() -> void:
+	AudioManager.playButtonClick()
 	error_message.visible = false

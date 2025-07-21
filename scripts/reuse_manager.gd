@@ -74,3 +74,4 @@ func Reset():
 	monsterBloodArray.clear()
 	silverCoinArray.clear()
 	bronzeCoinArray.clear()
+	diamondArray.clear()

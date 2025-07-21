@@ -9,6 +9,7 @@ func _ready() -> void:
 
 
 func die():
+	AudioManager.playBlood()
 	reuseManager.createBlood(global_position)
 	sprite_2d.visible = false
 	if get_tree().get_nodes_in_group("Fish Dead Component").is_empty() != true:

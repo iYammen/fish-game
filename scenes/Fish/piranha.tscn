@@ -14,8 +14,8 @@ size = Vector2(148.788, 99.1922)
 [node name="piranha" type="Node2D" node_paths=PackedStringArray("health") groups=["Fish"]]
 texture_filter = 1
 script = ExtResource("1_l4jkw")
-hungerTimerRange = Vector2(20, 20)
-moneyTimerRange = Vector2(5, 15)
+hungerTimerRange = Vector2(60, 120)
+moneyTimerRange = Vector2(10, 15)
 speed = 30.0
 health = NodePath("healthComponent")
 

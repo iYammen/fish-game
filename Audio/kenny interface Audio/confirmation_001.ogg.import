@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dg5h0rlwlg015"
+path="res://.godot/imported/confirmation_001.ogg-06512e727b450e0fae50a8d3a742e8e2.oggvorbisstr"
+
+[deps]
+
+source_file="res://Audio/kenny interface Audio/confirmation_001.ogg"
+dest_files=["res://.godot/imported/confirmation_001.ogg-06512e727b450e0fae50a8d3a742e8e2.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

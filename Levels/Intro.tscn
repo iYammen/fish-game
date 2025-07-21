@@ -1,0 +1,141 @@
+[gd_scene load_steps=14 format=3 uid="uid://brttm71c5yaa"]
+
+[ext_resource type="Script" uid="uid://ccfluk0ouw52j" path="res://scripts/intro.gd" id="1_cntf0"]
+[ext_resource type="Texture2D" uid="uid://dm1u1k1wblnyu" path="res://assets/UI/intro-sheet.png" id="2_d556c"]
+[ext_resource type="Theme" uid="uid://c6jbdk3trmuen" path="res://resources/theme/microsoftClassic.tres" id="2_v0be5"]
+[ext_resource type="Shader" uid="uid://caa5ttiuq3bxx" path="res://scripts/background.gdshader" id="3_jj4wx"]
+[ext_resource type="Texture2D" uid="uid://d2oigyt1gepdc" path="res://assets/background.png" id="4_cntf0"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_v0be5"]
+atlas = ExtResource("2_d556c")
+region = Rect2(0, 0, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jj4wx"]
+atlas = ExtResource("2_d556c")
+region = Rect2(640, 0, 640, 360)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cntf0"]
+atlas = ExtResource("2_d556c")
+region = Rect2(1280, 0, 640, 360)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_golbo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_v0be5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jj4wx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cntf0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_golbo"]
+shader = ExtResource("3_jj4wx")
+shader_parameter/base_displacement = Vector2(0, 0)
+shader_parameter/repetion_x = 17.56
+shader_parameter/scale_x = 13.02
+shader_parameter/speed_x = 0.37
+shader_parameter/color_count = 0
+shader_parameter/fps = 12.0
+shader_parameter/frame_count = 12
+
+[sub_resource type="Animation" id="Animation_jj4wx"]
+resource_name = "line"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/ColorRect/Label:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 1,
+"values": ["Starting Game", "Starting Game.", "Starting Game..", "Starting Game..."]
+}
+
+[sub_resource type="Animation" id="Animation_cntf0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/ColorRect/Label:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Starting Game"]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_golbo"]
+_data = {
+&"RESET": SubResource("Animation_cntf0"),
+&"line": SubResource("Animation_jj4wx")
+}
+
+[node name="Intro" type="Node2D"]
+script = ExtResource("1_cntf0")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0, 0, 0, 1)
+
+[node name="Label" type="Label" parent="CanvasLayer/ColorRect"]
+layout_mode = 0
+offset_left = 200.0
+offset_top = 264.0
+offset_right = 273.0
+offset_bottom = 287.0
+theme = ExtResource("2_v0be5")
+text = "Starting Game"
+
+[node name="Label2" type="Label" parent="CanvasLayer/ColorRect"]
+layout_mode = 0
+offset_left = 192.0
+offset_top = 216.0
+offset_right = 265.0
+offset_bottom = 239.0
+theme = ExtResource("2_v0be5")
+text = "Guppy farm:"
+
+[node name="Label3" type="Label" parent="CanvasLayer/ColorRect"]
+layout_mode = 0
+offset_left = 200.0
+offset_top = 240.0
+offset_right = 401.0
+offset_bottom = 263.0
+theme = ExtResource("2_v0be5")
+text = "You need to always keep one guppy alive."
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CanvasLayer"]
+position = Vector2(320, 184)
+sprite_frames = SubResource("SpriteFrames_golbo")
+autoplay = "default"
+
+[node name="Background" type="Sprite2D" parent="CanvasLayer"]
+z_index = -10
+material = SubResource("ShaderMaterial_golbo")
+position = Vector2(320, 176)
+texture = ExtResource("4_cntf0")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="CanvasLayer"]
+root_node = NodePath("../..")
+libraries = {
+&"": SubResource("AnimationLibrary_golbo")
+}
+autoplay = "line"

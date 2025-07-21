@@ -30,6 +30,7 @@ func _physics_process(delta: float) -> void:
 		move_t = randf_range(3, 6)
 		
 	if eat_t <= 0.0 and entered and fish:
+		AudioManager.playFishEaten()
 		fish.health.takeDamage(100)
 		eat_t = 1.0
 	
@@ -44,6 +45,7 @@ func _physics_process(delta: float) -> void:
 		animated_sprite_2d.play(target_anim)
 
 func die():
+	AudioManager.playBlood()
 	button.mouse_filter = Control.MOUSE_FILTER_PASS
 	var finalValue: int = calculator.calculateScore(value)
 	game_manager.addCoin(finalValue)
@@ -53,6 +55,7 @@ func die():
 	queue_free()
 
 func _on_button_pressed() -> void:
+	AudioManager.playAttack()
 	health.takeDamage(game_manager.damage)
 	game_manager.ShowDamageNumb(game_manager.damage, get_global_mouse_position())
 

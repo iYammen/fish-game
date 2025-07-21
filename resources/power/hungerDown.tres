@@ -7,7 +7,7 @@
 script = ExtResource("2_ekwfb")
 id = 1
 icon = ExtResource("1_vtj8o")
-description = "fish are less hungry
+description = "Better quality food. Doesnt affect Algae.
 "
 rarity = 30
 metadata/_custom_type_script = "uid://dkjupqwcpqhl7"

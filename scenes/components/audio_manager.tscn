@@ -1,0 +1,86 @@
+[gd_scene load_steps=16 format=3 uid="uid://bvfq416e4l1ih"]
+
+[ext_resource type="Script" uid="uid://b7rln32qbtd1c" path="res://scripts/audio_manager.gd" id="1_h5u4l"]
+[ext_resource type="AudioStream" uid="uid://d31bkvxyouemi" path="res://Audio/kenny interface Audio/click_002.ogg" id="2_5uach"]
+[ext_resource type="AudioStream" uid="uid://bermoxxhodlre" path="res://Audio/Music/youtube-jazz-seabreeze-harmony-375543.mp3" id="2_xngj1"]
+[ext_resource type="AudioStream" uid="uid://bjc06ianddd70" path="res://Audio/kenny interface Audio/select_006.ogg" id="3_t0ifg"]
+[ext_resource type="AudioStream" uid="uid://7ptt442kbfgj" path="res://Audio/mouse-single-click.mp3" id="4_4e087"]
+[ext_resource type="AudioStream" uid="uid://ce7algvugk28w" path="res://Audio/kenny interface Audio/error_005.ogg" id="4_q7pj8"]
+[ext_resource type="AudioStream" uid="uid://c4j012yt1be5q" path="res://Audio/kenny interface Audio/error_008.ogg" id="5_v7pfr"]
+[ext_resource type="AudioStream" uid="uid://r5hkvmmxipi0" path="res://Audio/kenny interface Audio/minimize_008.ogg" id="6_xu4a8"]
+[ext_resource type="AudioStream" uid="uid://pta6ohv56fra" path="res://Audio/kenny interface Audio/close_004.ogg" id="7_li0p0"]
+[ext_resource type="AudioStream" uid="uid://c5uokr5v3waev" path="res://Audio/eat_crunchy.mp3" id="8_nhqt3"]
+[ext_resource type="AudioStream" uid="uid://bbuaseus5brmy" path="res://Audio/gulp-37759.mp3" id="10_m8mku"]
+[ext_resource type="AudioStream" uid="uid://drttawg14s7cw" path="res://Audio/pop.mp3" id="11_chxat"]
+[ext_resource type="AudioStream" uid="uid://dl2w6110ees13" path="res://Audio/splash-6213.mp3" id="12_05mkw"]
+[ext_resource type="AudioStream" uid="uid://60pfqilnh6dl" path="res://Audio/hit-flesh-03-266308.mp3" id="13_c64uk"]
+[ext_resource type="AudioStream" uid="uid://bixsas3iox2vs" path="res://Audio/mixkit-unlock-game-notification-253.wav" id="15_v3l6q"]
+
+[node name="audioManager" type="Node"]
+process_mode = 3
+script = ExtResource("1_h5u4l")
+
+[node name="Music" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_xngj1")
+volume_db = -30.0
+autoplay = true
+bus = &"Music"
+
+[node name="buttonEnter" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("2_5uach")
+bus = &"SoundEffects"
+
+[node name="buttonClick" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_4e087")
+volume_db = -5.0
+bus = &"SoundEffects"
+
+[node name="Collect" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_t0ifg")
+volume_db = -10.0
+bus = &"SoundEffects"
+
+[node name="error" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_q7pj8")
+bus = &"SoundEffects"
+
+[node name="gameOver" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("5_v7pfr")
+bus = &"SoundEffects"
+
+[node name="enemySpawn" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("6_xu4a8")
+bus = &"SoundEffects"
+
+[node name="attack" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_li0p0")
+volume_db = -10.0
+bus = &"SoundEffects"
+
+[node name="fishEaten" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("8_nhqt3")
+volume_db = -10.0
+bus = &"SoundEffects"
+
+[node name="gulp" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_m8mku")
+volume_db = -20.0
+bus = &"SoundEffects"
+
+[node name="pop" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("11_chxat")
+bus = &"SoundEffects"
+
+[node name="splash" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("12_05mkw")
+volume_db = -20.0
+bus = &"SoundEffects"
+
+[node name="blood" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("13_c64uk")
+bus = &"SoundEffects"
+
+[node name="nextStage" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("15_v3l6q")
+volume_db = -10.0
+bus = &"SoundEffects"

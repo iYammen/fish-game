@@ -31,6 +31,7 @@ func _process(delta: float) -> void:
 
 func _on_button_down() -> void:
 	if !collected:
+		AudioManager.playCollect()
 		var finalValue: int = calculator.calculateScore(value)
 		collected = true
 		game_manager.addCoin(finalValue)

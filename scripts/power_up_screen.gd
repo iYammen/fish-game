@@ -61,7 +61,7 @@ func pick_weighted_prize(list: Array[powerResource]) -> powerResource:
 func buttonClick(buttonNumb: int):
 	match powerWonArray[buttonNumb].id:
 		0:
-			Engine.time_scale = Engine.time_scale * 1.5
+			Engine.time_scale = Engine.time_scale + 0.5
 		1:
 			game_manager.foodQuality += 1
 		2:
@@ -72,16 +72,19 @@ func buttonClick(buttonNumb: int):
 		4:
 			game_manager.discount -= 0.1
 		5:
-			game_manager.damage += 10
+			game_manager.damage += 5
 	game_manager.editPowerUpBar(powerWonArray[buttonNumb].id)
 	visible = false
 	get_tree().paused = false
 
 func _on_button_pressed() -> void:
+	AudioManager.playButtonClick()
 	buttonClick(0)
 
 func _on_button_2_pressed() -> void:
+	AudioManager.playButtonClick()
 	buttonClick(1)
 
 func _on_button_3_pressed() -> void:
+	AudioManager.playButtonClick()
 	buttonClick(2)

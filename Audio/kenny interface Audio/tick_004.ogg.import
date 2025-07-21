@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cjrc3071ky5nm"
+path="res://.godot/imported/tick_004.ogg-17b989a5d3eb1b568f85c44574fd693e.oggvorbisstr"
+
+[deps]
+
+source_file="res://Audio/kenny interface Audio/tick_004.ogg"
+dest_files=["res://.godot/imported/tick_004.ogg-17b989a5d3eb1b568f85c44574fd693e.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

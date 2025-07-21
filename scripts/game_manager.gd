@@ -19,11 +19,13 @@ var powerScreen: powerUpScreen
 var shop: Control
 var stageButton: Button
 var spawn_manager: spawnManager
+var game_over_Screen: Control
+
 var discount: float = 1
 var boundray: Vector2 = Vector2(300, 128)
 var goal: int = 400
 var stage: int = 1
-var money: int = 200
+var money: int = 20000
 var Fish: Array
 
 var FoodCountArray: Array
@@ -31,11 +33,14 @@ var allFood: Array
 var foodMax: int = 1
 var foodQuality: int = 1
 var damage: int = 10
-
+var dead: bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	randomize()
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	Engine.time_scale = 1
+	AudioManager.playSplash()
+	get_tree().paused = false
 	calculator.reset()
 	Input.set_custom_mouse_cursor(MOUSE_POINTING, Input.CURSOR_POINTING_HAND, Vector2(32,16))
 	Input.set_custom_mouse_cursor(MOUSE_SHOOTING, Input.CURSOR_CROSS, Vector2(32,32))
@@ -50,6 +55,7 @@ func _ready() -> void:
 	spawn_manager = get_tree().get_first_node_in_group("Spawn Manager")
 	stageButton.text = "Next Stage: " + str(goal) + "$"
 	errorMessage =  get_tree().get_first_node_in_group("Error Message")
+	game_over_Screen = get_tree().get_first_node_in_group("Game Over Screen")
 	reuseManager.Reset()
 
 
@@ -65,14 +71,19 @@ func checkFishAmount():
 		else:
 			Fish.resize(0)
 		if Fish.size() == 0:
-			await get_tree().create_timer(1.5).timeout
-			get_tree().reload_current_scene()
+			dead = true
+			await get_tree().create_timer(1).timeout
+			game_over_Screen.gameOver(stage)
 
 func editPowerUpBar(id: int):
 	powerUpBar.powerUpIcons[id].addCount()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("restart"):
+		get_tree().reload_current_scene()
+		
+	if dead and event.is_action_pressed("gameOver"):
+		AudioManager.playButtonClick()
 		get_tree().reload_current_scene()
 	
 	if event.is_action_pressed("press"):
@@ -81,6 +92,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			var inBourders: bool = get_global_mouse_position().x > -200 and get_global_mouse_position().x < 315 and get_global_mouse_position().y > -170 and get_global_mouse_position().y < 170
 			if inBourders:
 				if FoodCountArray.size() < foodMax:
+					AudioManager.playPop()
 					var food = FOOD.instantiate()
 					get_tree().current_scene.add_child(food)
 					food.position =  get_global_mouse_position()
@@ -118,6 +130,7 @@ func checkScore():
 	if money >= goal:
 		spawn_manager.riseSpawnRate()
 		subtractCoin(goal)
+		AudioManager.playNextStage()
 		stage += 1
 		if stage % 3 == 0:
 			goal = goal * 1.7
@@ -129,10 +142,14 @@ func checkScore():
 			powerScreen.setUpBasicPowers()
 			powerScreen.visible = true
 			get_tree().paused = true
-		
+		if stage % 5 == 0:
+			spawn_manager.monsterSpawnNum += 1
+			spawn_manager.spawnPos.append(Vector2.ZERO)
+			spawn_manager.monsterToSpawn.append(0)
 		stageGoalLabel.text = "Stage " + str(stage)
 		stageButton.text = "Next Stage: " + str(goal) + "$"
 	else:
+		AudioManager.playError()
 		errorMessage.visible = true
 		await get_tree().create_timer(2).timeout
 		errorMessage.visible = false
@@ -143,9 +160,34 @@ func GetDirection():
 
 func _on_button_pressed() -> void:
 	shop.showShop()
+	AudioManager.playButtonClick()
 
 func _on_stage_button_pressed() -> void:
-	checkScore()
+	AudioManager.playButtonClick()
+	if !dead:
+		checkScore()
 
 func _on_button_button_down() -> void:
+	AudioManager.playButtonClick()
 	errorMessage.visible = false
+
+
+func _on_music_mute_button_down() -> void:
+	AudioManager.playButtonClick()
+	AudioManager.muteMusic()
+
+func _on_sound_mute_button_down() -> void:
+	AudioManager.playButtonClick()
+	AudioManager.muteSoundEffects()
+
+
+func _on_full_screen_button_down() -> void:
+	AudioManager.playButtonClick()
+	if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_WINDOWED:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN, 0)
+	elif DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN:
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED, 0)
+
+
+func _on_quit_button_down() -> void:
+	get_tree().quit()

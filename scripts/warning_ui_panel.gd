@@ -11,4 +11,5 @@ func _process(_delta: float) -> void:
 	pass
 
 func _on_button_button_down() -> void:
+	AudioManager.playButtonClick()
 	visible = false

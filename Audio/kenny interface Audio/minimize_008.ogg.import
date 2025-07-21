@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://r5hkvmmxipi0"
+path="res://.godot/imported/minimize_008.ogg-086f51f4ebc0b432ff7d7d3a296f25ae.oggvorbisstr"
+
+[deps]
+
+source_file="res://Audio/kenny interface Audio/minimize_008.ogg"
+dest_files=["res://.godot/imported/minimize_008.ogg-086f51f4ebc0b432ff7d7d3a296f25ae.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

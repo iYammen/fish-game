@@ -35,8 +35,8 @@ text = "Critical ERROR: ATTACK imminent "
 layout_mode = 0
 offset_left = 8.0
 offset_top = 40.0
-offset_right = 48.0
-offset_bottom = 80.0
+offset_right = 40.0
+offset_bottom = 72.0
 texture = ExtResource("1_251lb")
 
 [node name="Button" type="Button" parent="."]
