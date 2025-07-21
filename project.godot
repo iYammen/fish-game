@@ -13,6 +13,7 @@ config_version=5
 config/name="fish game"
 run/main_scene="uid://brttm71c5yaa"
 config/features=PackedStringArray("4.4", "GL Compatibility")
+run/max_fps=60
 config/icon="uid://dpj251jnc776l"
 config/windows_native_icon="res://assets/icons/gameIcon.ico"
 
@@ -20,7 +21,6 @@ config/windows_native_icon="res://assets/icons/gameIcon.ico"
 
 calculator="*res://scripts/calculator.gd"
 reuseManager="*res://scenes/components/reuse_manager.tscn"
-NameTagManager="*res://scenes/UI/name_tag_manager.tscn"
 AudioManager="*res://scenes/components/audio_manager.tscn"
 
 [display]
@@ -30,8 +30,7 @@ window/size/viewport_height=360
 window/size/window_width_override=1280
 window/size/window_height_override=720
 window/stretch/mode="viewport"
-mouse_cursor/custom_image="uid://dhofld1y0ucsk"
-mouse_cursor/custom_image_hotspot=Vector2(32, 16)
+window/vsync/vsync_mode=0
 
 [global_group]
 

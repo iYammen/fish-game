@@ -1,8 +1,8 @@
 extends Node2D
 class_name  GameManager
 
-const MOUSE_POINTING = preload("res://assets/UI/mouse_pointing.png")
-const MOUSE_SHOOTING = preload("res://assets/UI/mouse_shooting.png")
+#const MOUSE_POINTING = preload("res://assets/UI/mouse_pointing.png")
+#const MOUSE_SHOOTING = preload("res://assets/UI/mouse_shooting.png")
 const FOOD = preload("res://scenes/food.tscn")
 const NUMBER_UI = preload("res://scenes/numberUI.tscn")
 @onready var fps_label: Label = $"../CanvasLayer/fpsLabel"
@@ -36,14 +36,15 @@ var damage: int = 10
 var dead: bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	Input.set_use_accumulated_input(false)
 	randomize()
 	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	Engine.time_scale = 1
 	AudioManager.playSplash()
 	get_tree().paused = false
 	calculator.reset()
-	Input.set_custom_mouse_cursor(MOUSE_POINTING, Input.CURSOR_POINTING_HAND, Vector2(32,16))
-	Input.set_custom_mouse_cursor(MOUSE_SHOOTING, Input.CURSOR_CROSS, Vector2(32,32))
+	#Input.set_custom_mouse_cursor(MOUSE_POINTING, Input.CURSOR_POINTING_HAND, Vector2(32,16))
+	#Input.set_custom_mouse_cursor(MOUSE_SHOOTING, Input.CURSOR_CROSS, Vector2(32,32))
 	shop = get_tree().get_first_node_in_group("Shop")
 	moneyLabel = get_tree().get_first_node_in_group("Money Label")
 	stageGoalLabel = get_tree().get_first_node_in_group("Stage Goal Label")
@@ -79,6 +80,9 @@ func editPowerUpBar(id: int):
 	powerUpBar.powerUpIcons[id].addCount()
 
 func _unhandled_input(event: InputEvent) -> void:
+	# Filter out mouse movement or irrelevant input
+	if not (event is InputEventMouseButton or event is InputEventKey):
+		return
 	if event.is_action_pressed("restart"):
 		get_tree().reload_current_scene()
 		
@@ -89,8 +93,9 @@ func _unhandled_input(event: InputEvent) -> void:
 	if event.is_action_pressed("press"):
 		if money >= 5:
 			FoodCountArray = get_tree().get_nodes_in_group("Player Food")
-			var inBourders: bool = get_global_mouse_position().x > -200 and get_global_mouse_position().x < 315 and get_global_mouse_position().y > -170 and get_global_mouse_position().y < 170
-			if inBourders:
+			var mouse_pos = get_global_mouse_position()
+			var in_bounds = mouse_pos.x > -200 and mouse_pos.x < 315 and mouse_pos.y > -170 and mouse_pos.y < 170
+			if in_bounds:
 				if FoodCountArray.size() < foodMax:
 					AudioManager.playPop()
 					var food = FOOD.instantiate()
@@ -183,9 +188,9 @@ func _on_sound_mute_button_down() -> void:
 
 func _on_full_screen_button_down() -> void:
 	AudioManager.playButtonClick()
-	if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_WINDOWED:
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_FULLSCREEN, 0)
-	elif DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_FULLSCREEN:
+	if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_WINDOWED :
+		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN, 0)
+	elif DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN or DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_MAXIMIZED:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED, 0)
 
 

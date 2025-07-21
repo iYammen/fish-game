@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://cc3qvorsgdiqt"]
+[gd_scene load_steps=20 format=3 uid="uid://cc3qvorsgdiqt"]
 
 [ext_resource type="PackedScene" uid="uid://2l1a8m2hgowd" path="res://scenes/UI/warningUI.tscn" id="1_xsqsu"]
 [ext_resource type="PackedScene" uid="uid://d1hiqisxkn60e" path="res://scenes/game_manager.tscn" id="2_vmy0u"]
@@ -10,7 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://bwew6rr24t1rm" path="res://assets/UI/button.png" id="8_wjjle"]
 [ext_resource type="Script" uid="uid://du2xevweuqewb" path="res://scripts/sidebar.gd" id="9_1sae0"]
 [ext_resource type="Texture2D" uid="uid://bhsxoqfcknig8" path="res://assets/UI/music.png" id="10_jjxhf"]
-[ext_resource type="PackedScene" uid="uid://d0xn38x3lbxjw" path="res://scenes/slot_machine.tscn" id="10_twn60"]
 [ext_resource type="Texture2D" uid="uid://bl4ma00uwtnb3" path="res://assets/UI/sound.png" id="11_lybtp"]
 [ext_resource type="PackedScene" uid="uid://ce2efrqeqkwis" path="res://scenes/shop.tscn" id="11_r2ueb"]
 [ext_resource type="Texture2D" uid="uid://brdmflj83x6pp" path="res://assets/UI/fullScreen.png" id="12_lybtp"]
@@ -43,7 +42,6 @@ offset_bottom = 72.0
 
 [node name="Game Manager" parent="." groups=["Game Manager"] instance=ExtResource("2_vmy0u")]
 process_mode = 3
-visible = false
 
 [node name="spawnManager" parent="." instance=ExtResource("3_jjxhf")]
 monsterSpawnTimerRange = Vector2(60, 120)
@@ -73,10 +71,12 @@ visible = false
 z_index = 10
 
 [node name="Panel" parent="CanvasLayer" instance=ExtResource("6_jmcc3")]
-offset_left = -16.0
-offset_top = -320.04
+anchor_left = 0.175
+anchor_top = 0.0
+anchor_bottom = 0.089
+offset_top = 0.0
 offset_right = 16.0
-offset_bottom = -328.0
+offset_bottom = -0.0400009
 
 [node name="Sidebar" type="NinePatchRect" parent="CanvasLayer"]
 anchors_preset = 4
@@ -185,9 +185,6 @@ focus_mode = 0
 mouse_default_cursor_shape = 2
 text = "Quit"
 icon = ExtResource("13_8hqpc")
-
-[node name="Slot_machine" parent="CanvasLayer" groups=["Slot Machine"] instance=ExtResource("10_twn60")]
-visible = false
 
 [node name="shop" parent="CanvasLayer" instance=ExtResource("11_r2ueb")]
 visible = false
