@@ -163,6 +163,15 @@ func GetDirection():
 	var targetPos: Vector2 = Vector2(randf_range(-200, boundray.x), randf_range(-100, boundray.y))
 	return targetPos
 
+func abriviateNum(num: int):
+	var newNum: String
+	if num < 1000:
+		newNum = str(num)
+		return newNum
+	if num < 1000000:
+		newNum = str(num / 1000) + "K"
+		return newNum
+#UI buttons
 func _on_button_pressed() -> void:
 	shop.showShop()
 	AudioManager.playButtonClick()
