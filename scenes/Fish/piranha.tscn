@@ -11,7 +11,7 @@
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_2njgj"]
 size = Vector2(148.788, 99.1922)
 
-[node name="piranha" type="Node2D" node_paths=PackedStringArray("health") groups=["Fish"]]
+[node name="piranha" type="Node2D" node_paths=PackedStringArray("health") groups=["Fish", "Piranha"]]
 texture_filter = 1
 script = ExtResource("1_l4jkw")
 hungerTimerRange = Vector2(60, 120)
@@ -49,5 +49,4 @@ health = NodePath("../healthComponent")
 position = Vector2(-7.3904e-07, -2.21712e-06)
 shape = SubResource("RectangleShape2D_2njgj")
 
-[connection signal="tree_exited" from="." to="." method="_on_tree_exited"]
 [connection signal="area_entered" from="hitBox" to="state_machine/hungry" method="_on_hit_box_area_entered"]

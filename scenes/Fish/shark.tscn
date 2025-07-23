@@ -30,7 +30,7 @@ fish = NodePath("../..")
 [node name="chase" type="Node" parent="state_machine" node_paths=PackedStringArray("fish")]
 script = ExtResource("3_dwrfc")
 fish = NodePath("../..")
-speed = 110.0
+speed = 100.0
 
 [node name="sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1

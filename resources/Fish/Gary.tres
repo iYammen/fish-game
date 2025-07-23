@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="entityResource" load_steps=4 format=3 uid="uid://d0v76mgffora8"]
+
+[ext_resource type="Texture2D" uid="uid://dvo04yy7ya0os" path="res://assets/icons/GaryIcon.png" id="1_cchjl"]
+[ext_resource type="Script" uid="uid://cyfrwajrr2bdy" path="res://resources/entityResource.gd" id="2_3aidr"]
+[ext_resource type="PackedScene" uid="uid://d3w6u6nmuwons" path="res://scenes/Fish/Gary.tscn" id="3_3aidr"]
+
+[resource]
+script = ExtResource("2_3aidr")
+id = 0
+name = "Gary"
+portrait = ExtResource("1_cchjl")
+spawnable = ExtResource("3_3aidr")
+rarity = 80
+price = 1000000
+moneyType = "$"
+metadata/_custom_type_script = "uid://cyfrwajrr2bdy"

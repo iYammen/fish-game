@@ -2,6 +2,7 @@ extends Control
 
 @export var fish: Array[entityResource]
 @export var buttons: Array[Button]
+@onready var spin_box: SpinBox = $bulkBuyWindow/SpinBox
 
 var game_manager: GameManager
 var allGuppies: Array
@@ -18,19 +19,18 @@ func _ready() -> void:
 	for i in buttons.size():
 		var btn := buttons[i]
 		btn.button_down.connect(Callable(self, "_on_shop_button_down").bind(i))
+		btn.text = "%s: %d %s" % [fish[i].name, fish[i].price * game_manager.discount, fish[i].moneyType]
+		btn.icon = fish[i].portrait
 
 
 func showShop():
-	for i in buttons.size():
-		var btn := buttons[i]
-		btn.text = "%s: %d" % [fish[i].name, fish[i].price * game_manager.discount]
-		btn.icon = fish[i].portrait
+	spin_box.value = 1
 	var grownGuppies: Array
 	visible = true
 	get_tree().paused = true
 	allGuppies = get_tree().get_nodes_in_group("Guppy")
 	for guppy in allGuppies:
-		if guppy.feedCount >= 6:
+		if guppy.feedCount >= 10:
 			grownGuppies.append(guppy)
 	currentGuppyArray = grownGuppies
 
@@ -40,16 +40,27 @@ func closeShop():
 
 func _on_shop_button_down(index: int):
 	var data = fish[index]
-	var discountedPrice = data.price * game_manager.discount
-	if game_manager.money < discountedPrice:
-		AudioManager.playError()
-		_display_error("not enough money to\nbuy stock")
-		return
+	if data.id != 2:
+		var discountedPrice = data.price * game_manager.discount
+		if game_manager.money < discountedPrice * spin_box.value:
+			AudioManager.playError()
+			_display_error("not enough money to\nbuy stock")
+			return
+		else:
+			AudioManager.playSplash()
+		game_manager.subtractCoin(discountedPrice * spin_box.value)
 	else:
-		AudioManager.playSplash()
+		if currentGuppyArray.size() < 3 * spin_box.value:
+			AudioManager.playError()
+			_display_error("not enough fish to\nbuy stock")
+			return
+		else:
+			AudioManager.playSplash()
+			for i in 3 * spin_box.value:
+				currentGuppyArray[i].die()
 	AudioManager.playButtonClick()
-	game_manager.subtractCoin(discountedPrice)
-	spawn_fish(data)
+	for i in spin_box.value:
+		spawn_fish(data)
 
 func spawn_fish(data: entityResource) -> void:
 	var inst := data.spawnable.instantiate()

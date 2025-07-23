@@ -12,4 +12,5 @@ portrait = ExtResource("1_dssie")
 spawnable = ExtResource("3_dssie")
 rarity = 80
 price = 1000
+moneyType = "$"
 metadata/_custom_type_script = "uid://cyfrwajrr2bdy"

@@ -5,12 +5,14 @@ const SILVER_COIN = preload("res://scenes/silver_coin.tscn")
 const BRONZE_COIN = preload("res://scenes/bronze_coin.tscn")
 const DIAMOND = preload("res://scenes/diamond.tscn")
 const NUMBER_UI = preload("res://scenes/numberUI.tscn")
+const BLOOD_DIAMOND = preload("res://scenes/bloodDiamond.tscn")
 
 var bloodArray: Array[AnimatedSprite2D] = []
 var monsterBloodArray: Array[AnimatedSprite2D] = []
 var silverCoinArray: Array[Button] = []
 var bronzeCoinArray: Array[Button] = []
 var diamondArray: Array[Button] = []
+var bloodDiamondArray: Array[Button] = []
 var numbLabelArray: Array[Node2D] = []
 
 func createBlood(pos: Vector2):
@@ -60,7 +62,7 @@ func createBronzeCoin(pos: Vector2):
 	get_tree().current_scene.add_child(new_coin)
 	bronzeCoinArray.append(new_coin)
 
-func createDiamondCoin(pos: Vector2):
+func createDiamond(pos: Vector2):
 	for diamond in diamondArray:
 		if diamond.available:
 			diamond.resetCoin()
@@ -70,6 +72,17 @@ func createDiamondCoin(pos: Vector2):
 	new_coin.global_position = pos
 	get_tree().current_scene.add_child(new_coin)
 	diamondArray.append(new_coin)
+
+func createBloodDiamond(pos: Vector2):
+	for diamond in bloodDiamondArray:
+		if diamond.available:
+			diamond.resetCoin()
+			diamond.global_position = pos
+			return
+	var new_coin: Button = BLOOD_DIAMOND.instantiate()
+	new_coin.global_position = pos
+	get_tree().current_scene.add_child(new_coin)
+	bloodDiamondArray.append(new_coin)
 
 func createNumbLabel(pos: Vector2, number: int):
 	for numbLabel in numbLabelArray:
@@ -82,7 +95,6 @@ func createNumbLabel(pos: Vector2, number: int):
 	get_tree().current_scene.add_child(new_numbLabel)
 	numbLabelArray.append(new_numbLabel)
 	new_numbLabel.setNumber(number)
-	print(numbLabelArray)
 
 func Reset():
 	bloodArray.clear()
@@ -90,4 +102,5 @@ func Reset():
 	silverCoinArray.clear()
 	bronzeCoinArray.clear()
 	diamondArray.clear()
+	bloodDiamondArray.clear()
 	numbLabelArray.clear()

@@ -11,5 +11,6 @@ name = "Shark"
 portrait = ExtResource("1_a868h")
 spawnable = ExtResource("3_m3ec2")
 rarity = 80
-price = 500
+price = 3
+moneyType = "Full Grown Guppies"
 metadata/_custom_type_script = "uid://cyfrwajrr2bdy"
