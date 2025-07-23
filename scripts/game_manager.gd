@@ -1,8 +1,8 @@
 extends Node2D
 class_name  GameManager
 
-#const MOUSE_POINTING = preload("res://assets/UI/mouse_pointing.png")
-#const MOUSE_SHOOTING = preload("res://assets/UI/mouse_shooting.png")
+const MOUSE_POINTING = preload("res://assets/UI/mouse_pointing.png")
+const MOUSE_SHOOTING = preload("res://assets/UI/mouse_shooting.png")
 const FOOD = preload("res://scenes/food.tscn")
 const NUMBER_UI = preload("res://scenes/numberUI.tscn")
 @onready var fps_label: Label = $"../CanvasLayer/fpsLabel"
@@ -23,9 +23,9 @@ var game_over_Screen: Control
 
 var discount: float = 1
 var boundray: Vector2 = Vector2(300, 128)
+var money: int = 200
 var goal: int = 400
 var stage: int = 1
-var money: int = 20000
 var Fish: Array
 
 var FoodCountArray: Array
@@ -43,18 +43,18 @@ func _ready() -> void:
 	AudioManager.playSplash()
 	get_tree().paused = false
 	calculator.reset()
-	#Input.set_custom_mouse_cursor(MOUSE_POINTING, Input.CURSOR_POINTING_HAND, Vector2(32,16))
-	#Input.set_custom_mouse_cursor(MOUSE_SHOOTING, Input.CURSOR_CROSS, Vector2(32,32))
+	Input.set_custom_mouse_cursor(MOUSE_POINTING, Input.CURSOR_POINTING_HAND, Vector2(32,16))
+	Input.set_custom_mouse_cursor(MOUSE_SHOOTING, Input.CURSOR_CROSS, Vector2(32,32))
 	shop = get_tree().get_first_node_in_group("Shop")
 	moneyLabel = get_tree().get_first_node_in_group("Money Label")
 	stageGoalLabel = get_tree().get_first_node_in_group("Stage Goal Label")
 	powerScreen = get_tree().get_first_node_in_group("Power Screen")
 	powerUpBar = get_tree().get_first_node_in_group("Power Up Bar")
 	stageGoalLabel.text = "Stage " + str(stage)
-	moneyLabel.text = "$: " + str(money)
+	moneyLabel.text = "$: " + abriviateNum(money)
 	stageButton = get_tree().get_first_node_in_group("Stage Button")
 	spawn_manager = get_tree().get_first_node_in_group("Spawn Manager")
-	stageButton.text = "Next Stage: " + str(goal) + "$"
+	stageButton.text = "Next Stage: " + abriviateNum(goal) + "$"
 	errorMessage =  get_tree().get_first_node_in_group("Error Message")
 	game_over_Screen = get_tree().get_first_node_in_group("Game Over Screen")
 	reuseManager.Reset()
@@ -105,12 +105,12 @@ func _unhandled_input(event: InputEvent) -> void:
 
 func addCoin(value: int):
 	money += value
-	moneyLabel.text = "$: " + str(money) 
+	moneyLabel.text = "$: " + abriviateNum(money)
 	#checkScore()
 
 func subtractCoin(value: int):
 	money -= value
-	moneyLabel.text = "$: " + str(money) 
+	moneyLabel.text = "$: " + abriviateNum(money)
 
 func ShowNumb(numbValue: int, currentPos: Vector2):
 	var number = NUMBER_UI.instantiate()
@@ -132,7 +132,7 @@ func ShowText(words: String, currentPos: Vector2, color: Color):
 	number.global_position = currentPos
 
 func checkScore():
-	if money >= goal:
+	if checkMoney(money, goal):
 		spawn_manager.riseSpawnRate()
 		subtractCoin(goal)
 		AudioManager.playNextStage()
@@ -152,7 +152,7 @@ func checkScore():
 			spawn_manager.spawnPos.append(Vector2.ZERO)
 			spawn_manager.monsterToSpawn.append(0)
 		stageGoalLabel.text = "Stage " + str(stage)
-		stageButton.text = "Next Stage: " + str(goal) + "$"
+		stageButton.text = "Next Stage: " + abriviateNum(goal) + "$"
 	else:
 		AudioManager.playError()
 		errorMessage.visible = true
@@ -168,9 +168,89 @@ func abriviateNum(num: int):
 	if num < 1000:
 		newNum = str(num)
 		return newNum
-	if num < 1000000:
-		newNum = str(num / 1000) + "K"
+	elif num < 1000000:
+		var dividedNum: float
+		dividedNum = float(num) / 1000
+		newNum = ("%.2f" % dividedNum) + "K"
 		return newNum
+	elif num < 1000000000:
+		var dividedNum: float
+		dividedNum = float(num) / 1000000
+		newNum = ("%.2f" % dividedNum) + "M"
+		return newNum
+	elif num < 1000000000000:
+		var dividedNum: float
+		dividedNum = float(num) / 1000000000
+		newNum = ("%.2f" % dividedNum) + "B"
+		return newNum
+	elif num < 1000000000000000:
+		var dividedNum: float
+		dividedNum = float(num) / 1000000000000
+		newNum = ("%.2f" % dividedNum) + "T"
+		return newNum
+
+func checkMoney(num: int, moneyGoal: int):
+	var newNum: float
+	var newGoalNum: float
+	var enoughMoney: bool
+	if num < moneyGoal:
+		newNum = float(abriviateNum(num))
+		newGoalNum = float(abriviateNum(moneyGoal))
+		if num < 1000:
+			enoughMoney = false
+			return enoughMoney
+		elif num < 1000000:
+			if moneyGoal < 1000000:
+				goal = int(newGoalNum * 1000)
+				money = int(newNum * 1000)
+				if newNum >= newGoalNum:
+					enoughMoney = true
+				else:
+					enoughMoney = false
+				return enoughMoney
+			else:
+				enoughMoney = false
+				return enoughMoney
+		elif num < 1000000000:
+			if moneyGoal < 1000000000:
+				goal = int(newGoalNum * 1000000)
+				money = int(newNum * 1000000)
+				if newNum >= newGoalNum:
+					enoughMoney = true
+				else:
+					enoughMoney = false
+				return enoughMoney
+			else:
+				enoughMoney = false
+				return enoughMoney
+		elif num < 1000000000000:
+			if moneyGoal < 1000000000000:
+				goal = int(newGoalNum * 1000000000)
+				money = int(newNum * 1000000000)
+				if newNum >= newGoalNum:
+					enoughMoney = true
+				else:
+					enoughMoney = false
+				return enoughMoney
+			else:
+				enoughMoney = false
+				return enoughMoney
+		elif num < 1000000000000000:
+			if moneyGoal < 1000000000000000:
+				goal = int(newGoalNum * 1000000000000)
+				money = int(newNum * 1000000000000)
+				if newNum >= newGoalNum:
+					enoughMoney = true
+				else:
+					enoughMoney = false
+				return enoughMoney
+			else:
+				enoughMoney = false
+				return enoughMoney
+	else:
+		enoughMoney = true
+		return enoughMoney
+
 #UI buttons
 func _on_button_pressed() -> void:
 	shop.showShop()

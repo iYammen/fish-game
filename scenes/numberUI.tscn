@@ -74,8 +74,7 @@ theme = ExtResource("2_o2rs1")
 text = "400
 "
 
-[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+[node name="numberAnim" type="AnimationPlayer" parent="."]
 libraries = {
 &"": SubResource("AnimationLibrary_o2rs1")
 }
-autoplay = "numberAnim"

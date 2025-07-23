@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cgpnj3710asp8"
-path="res://.godot/imported/diamond.png-daa3e29e12aa9d94fa73cbe64a37f905.ctex"
+uid="uid://cc6n5g2j23kmp"
+path="res://.godot/imported/Gary.png-f78210f9bc9d6d3d7c1134c4f7940440.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/UI/diamond.png"
-dest_files=["res://.godot/imported/diamond.png-daa3e29e12aa9d94fa73cbe64a37f905.ctex"]
+source_file="res://assets/fish/Gary.png"
+dest_files=["res://.godot/imported/Gary.png-f78210f9bc9d6d3d7c1134c4f7940440.ctex"]
 
 [params]
 

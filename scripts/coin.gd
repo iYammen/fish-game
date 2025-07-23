@@ -35,7 +35,7 @@ func _on_button_down() -> void:
 		var finalValue: int = calculator.calculateScore(value)
 		collected = true
 		game_manager.addCoin(finalValue)
-		game_manager.ShowNumb(finalValue, global_position)
+		reuseManager.createNumbLabel(global_position, finalValue)
 		available = true
 		global_position = Vector2(1000,1000)
 		remove_from_group("Coin")
