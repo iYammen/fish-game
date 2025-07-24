@@ -19,7 +19,7 @@ func _ready() -> void:
 	for i in buttons.size():
 		var btn := buttons[i]
 		btn.button_down.connect(Callable(self, "_on_shop_button_down").bind(i))
-		btn.text = "%s: %d %s" % [fish[i].name, fish[i].price * game_manager.discount, fish[i].moneyType]
+		btn.text = "%s: %s %s" % [fish[i].name, game_manager.abriviateNum(fish[i].price * game_manager.discount), fish[i].moneyType]
 		btn.icon = fish[i].portrait
 
 

@@ -61,9 +61,10 @@ func _on_button_pressed() -> void:
 
 
 func _on_area_entered(area: Area2D) -> void:
-	fish = area
-	entered = true
-	eat_t = 0.5
+	if fish == null:
+		fish = area
+		entered = true
+		eat_t = 0.5
 
 
 func _on_area_exited(area: Area2D) -> void:

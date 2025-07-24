@@ -33,7 +33,7 @@ animations = [{
 }]
 
 [node name="spawnPointUI" type="AnimatedSprite2D"]
-z_index = -2
+z_index = 4
 sprite_frames = SubResource("SpriteFrames_kdcvn")
 autoplay = "default"
 frame = 1

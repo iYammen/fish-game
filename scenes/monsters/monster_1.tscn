@@ -35,6 +35,7 @@ animations = [{
 size = Vector2(52.5, 40)
 
 [node name="Monster_1" type="Area2D" node_paths=PackedStringArray("health") groups=["Enemy"]]
+z_index = 3
 collision_layer = 16
 collision_mask = 2
 script = ExtResource("1_qfjev")
@@ -55,7 +56,6 @@ mouse_default_cursor_shape = 3
 flat = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-z_index = -1
 sprite_frames = SubResource("SpriteFrames_ska6x")
 animation = &"Idle"
 frame_progress = 0.0445773
