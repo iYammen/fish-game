@@ -1,6 +1,6 @@
 extends State
 
-@export var fish: Node2D
+@export var fish: Guppy2
 
 const MAX := 50.0
 var target: Vector2
@@ -60,8 +60,6 @@ func Physics_Update(delta: float):
 
 
 func CheckHunger():
-	if fish.attackCoolDown_t > 0:
-		return
 	if !fish.is_hungry:
 		return
 
@@ -76,10 +74,9 @@ func CheckHunger():
 		for i in foodSize:
 			var food = allFood[i]
 			var dist = fish.global_position.distance_squared_to(food.global_position)
-			if food.feedCount < 4:
-				if dist < closest_dist:
-					closestFood = food
-					closest_dist = dist
+			if dist < closest_dist:
+				closestFood = food
+				closest_dist = dist
 
 
 

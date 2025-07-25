@@ -1,8 +1,6 @@
 extends Node2D
 class_name Guppy
 
-var chosenName: String = ""
-@export var nameRes: nameResource
 var hungerWaitTime: float = 0
 @export var hungerTimerRange: Vector2
 @export var hungerAdultTimerRange: Vector2
@@ -40,29 +38,6 @@ func _ready() -> void:
 	money_t = randf_range(moneyTimerRange.x, moneyTimerRange.y)
 	tintCheck_t = randf_range(2, 5)
 	checkFoodCount()
-
-#func set_random_name() -> void:
-	#var parts: int = randi_range(1, 3)
-#
-	#var names_copy: Array = nameRes.names.duplicate()
-	#names_copy.shuffle()
-	#var chosen: Array = names_copy.slice(0, parts)
-	#
-	#if chosen.size() >= 2 and randi_range(1, 3) == 1:  # 10 % roll
-			## Check whether any article is already inside the chosen words
-			#var lower_chosen: Array = chosen.map(func(n): return String(n).to_lower())
-			#var article_found: bool = false
-			#for art in nameRes.articles:
-				#if lower_chosen.has(art.to_lower()):
-					#article_found = true
-					#break
-			#
-			## Insert only if none were found
-			#if not article_found and nameRes.articles.size() > 0:
-				#var article: String = nameRes.articles[randi_range(0, nameRes.articles.size() - 1)]
-				#chosen.insert(chosen.size() - 1, article)  # before the last name
-#
-	#chosenName = " ".join(chosen)
 
 func _physics_process(delta: float) -> void:
 	move_t -= delta

@@ -27,11 +27,16 @@ func Physics_Update(delta: float):
 
 func _update_closest_food() -> void:
 	closestFood = null
-	var allFood = get_tree().get_nodes_in_group("Piranha")
-	if allFood.size() > 0:
-		for food in allFood:
-			if closestFood == null or fish.global_position.distance_squared_to(food.global_position) < fish.global_position.distance_squared_to(closestFood.global_position):
-				closestFood = food
+	var allFood = EntityManager.allGuppies
+	var foodSize: int = clampi(allFood.size(), 0, 45)
+	var closest_dist := INF
+	
+	for i in foodSize:
+		var food = allFood[i]
+		var dist = fish.global_position.distance_squared_to(food.global_position)
+		if dist < closest_dist:
+			closestFood = food
+			closest_dist = dist
 	if closestFood == null:
 		state_transition.emit(self, "wander")
 

@@ -9,10 +9,8 @@ const SPAWN_POINT_UI = preload("res://scenes/UI/spawn_point_ui.tscn")
 @export var monsters: Array[PackedScene]
 var warning: Control
 const GUPPY = preload("res://scenes/Fish/guppy.tscn")
-const SHARK = preload("res://scenes/Fish/shark.tscn")
-const CRAB = preload("res://scenes/Fish/Crab.tscn")
-const ALGAE = preload("res://scenes/algae.tscn")
-const SILVER_COIN = preload("res://scenes/silver_coin.tscn")
+
+
 @export var spawnNum: int = 1
 var game_manager: GameManager
 var monsterToSpawn: Array[int] = [0]

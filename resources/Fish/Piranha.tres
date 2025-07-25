@@ -2,14 +2,14 @@
 
 [ext_resource type="Texture2D" uid="uid://dam5l5knc82so" path="res://assets/fish/piranha.png" id="1_t31no"]
 [ext_resource type="Script" uid="uid://cyfrwajrr2bdy" path="res://resources/entityResource.gd" id="2_ssdtg"]
-[ext_resource type="PackedScene" uid="uid://dyxpgh1kihn56" path="res://scenes/Fish/piranha.tscn" id="3_ssdtg"]
+[ext_resource type="PackedScene" uid="uid://c6psb76ni02ae" path="res://scenes/Fish/piranha.tscn" id="3_t31no"]
 
 [resource]
 script = ExtResource("2_ssdtg")
 id = 0
 name = "Piranha"
 portrait = ExtResource("1_t31no")
-spawnable = ExtResource("3_ssdtg")
+spawnable = ExtResource("3_t31no")
 rarity = 80
 price = 2000
 moneyType = "$"

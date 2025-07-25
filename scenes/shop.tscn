@@ -146,7 +146,7 @@ offset_top = 64.0
 offset_right = 104.0
 offset_bottom = 96.0
 min_value = 1.0
-max_value = 1000.0
+max_value = 300.0
 value = 1.0
 rounded = true
 

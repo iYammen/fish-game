@@ -1,8 +1,9 @@
 extends Node2D
+class_name Guppy2
 
-var chosenName: String = ""
 var hungerWaitTime: float = 0
 @export var hungerTimerRange: Vector2
+@export var hungerAdultTimerRange: Vector2
 @export var moneyTimerRange: Vector2
 @export var speed: float = 20
 @export var health: healthComponent
@@ -10,12 +11,14 @@ var hungerWaitTime: float = 0
 var move_t := 0.0
 var hunger_t := 0.0
 var money_t := 0.0
+var attackCoolDown_t: float 
 var is_hungry := false
-var attackCoolDown_t: float = 0
 
 var game_manager: GameManager
 var makingMoney:bool = false
 @onready var sprite_2d: Sprite2D = $sprite2D
+const BRONZE_COIN = preload("res://scenes/bronze_coin.tscn")
+const SILVER_COIN = preload("res://scenes/silver_coin.tscn")
 @onready var state_machine: stateMachine = $state_machine
 signal state_transition
 var hunger_state := 0
@@ -23,6 +26,7 @@ var tintCheck_t: float
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	EntityManager.allPiranhas.append(self)
 	state_transition.connect(state_machine.change_state)
 	game_manager = get_tree().get_first_node_in_group("Game Manager")
 	health.died.connect(die)
@@ -31,13 +35,11 @@ func _ready() -> void:
 	hunger_t = hungerWaitTime
 	money_t = randf_range(moneyTimerRange.x, moneyTimerRange.y)
 	tintCheck_t = randf_range(2, 5)
-	money_t = randf_range(moneyTimerRange.x, moneyTimerRange.y)
 
 func _physics_process(delta: float) -> void:
 	move_t -= delta
 	hunger_t -= delta
 	tintCheck_t -= delta
-	attackCoolDown_t -= delta
 	if hunger_t <= 0.0:
 		die()
 	else:
@@ -45,7 +47,6 @@ func _physics_process(delta: float) -> void:
 		if tintCheck_t <= 0:
 			_update_hunger_tint()
 			tintCheck_t = randf_range(0, 1)
-	
 	
 	money_t -= delta
 	if money_t <= 0.0:
@@ -61,7 +62,6 @@ func _update_hunger_tint() -> void:
 	hunger_state = s
 	sprite_2d.modulate = [Color.WHITE, Color.LIME, Color.DARK_GREEN][s]
 
-
 func die():
 	AudioManager.playBlood()
 	reuseManager.createBlood(global_position)
@@ -75,3 +75,7 @@ func die():
 func _on_money_timer_timeout() -> void:
 	reuseManager.createDiamond(global_position)
 	money_t = randf_range(moneyTimerRange.x, moneyTimerRange.y)
+
+
+func _on_tree_exited() -> void:
+	EntityManager.allPiranhas.erase(self)

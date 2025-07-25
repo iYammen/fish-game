@@ -26,7 +26,6 @@ func _update_closest_food() -> void:
 	var allFood = EntityManager.allFood
 	var foodSize: int = clampi(allFood.size(), 0, 45)
 	var closest_dist := INF
-	var closest: Area2D = null
 	
 	for i in foodSize:
 		var food = allFood[i]

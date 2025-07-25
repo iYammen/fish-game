@@ -23,7 +23,7 @@ var game_over_Screen: Control
 
 var discount: float = 1
 var boundray: Vector2 = Vector2(300, 128)
-var money: int = 200000000
+var money: int = 200000000000
 var goal: int = 400
 var stage: int = 1
 var Fish: Array
