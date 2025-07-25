@@ -24,7 +24,6 @@ var tintCheck_t: float
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	state_transition.connect(state_machine.change_state)
-	#set_random_name()
 	game_manager = get_tree().get_first_node_in_group("Game Manager")
 	health.died.connect(die)
 	move_t = randf_range(0.3, 4.0)

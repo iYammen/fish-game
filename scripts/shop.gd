@@ -19,26 +19,29 @@ func _ready() -> void:
 	for i in buttons.size():
 		var btn := buttons[i]
 		btn.button_down.connect(Callable(self, "_on_shop_button_down").bind(i))
-		btn.text = "%s: %s %s" % [fish[i].name, game_manager.abriviateNum(fish[i].price * game_manager.discount), fish[i].moneyType]
-		btn.icon = fish[i].portrait
 
 
 func showShop():
+	for i in buttons.size():
+		var btn := buttons[i]
+		btn.text = "%s: %s %s" % [fish[i].name, game_manager.abriviateNum(fish[i].price * game_manager.discount), fish[i].moneyType]
+		btn.icon = fish[i].portrait
 	spin_box.value = 1
-	var grownGuppies: Array
 	visible = true
 	get_tree().paused = true
-	allGuppies = get_tree().get_nodes_in_group("Guppy")
-	for guppy in allGuppies:
-		if guppy.feedCount >= 10:
-			grownGuppies.append(guppy)
-	currentGuppyArray = grownGuppies
+	
 
 func closeShop():
 	visible = false
 	get_tree().paused = false
 
 func _on_shop_button_down(index: int):
+	var grownGuppies: Array
+	allGuppies = get_tree().get_nodes_in_group("Guppy")
+	for guppy in allGuppies:
+		if guppy.feedCount >= 10:
+			grownGuppies.append(guppy)
+	currentGuppyArray = grownGuppies
 	var data = fish[index]
 	if data.id != 2:
 		var discountedPrice = data.price * game_manager.discount

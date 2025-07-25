@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bl4gdulhlshic"]
+
+[ext_resource type="Script" uid="uid://diho3y852qhv8" path="res://scripts/entity_manager.gd" id="1_xhyxn"]
+
+[node name="entityManager" type="Node"]
+script = ExtResource("1_xhyxn")
+
+[connection signal="tree_exited" from="." to="." method="_on_tree_exited"]

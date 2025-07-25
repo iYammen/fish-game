@@ -23,7 +23,7 @@ var game_over_Screen: Control
 
 var discount: float = 1
 var boundray: Vector2 = Vector2(300, 128)
-var money: int = 200
+var money: int = 200000000
 var goal: int = 400
 var stage: int = 1
 var Fish: Array
@@ -58,6 +58,7 @@ func _ready() -> void:
 	errorMessage =  get_tree().get_first_node_in_group("Error Message")
 	game_over_Screen = get_tree().get_first_node_in_group("Game Over Screen")
 	reuseManager.Reset()
+	EntityManager.Reset()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -104,11 +105,15 @@ func _unhandled_input(event: InputEvent) -> void:
 					subtractCoin(5)
 
 func addCoin(value: int):
+	if value < 0:
+		return
 	money += value
 	moneyLabel.text = "$: " + abriviateNum(money)
 	#checkScore()
 
 func subtractCoin(value: int):
+	if value < 0:
+		return
 	money -= value
 	moneyLabel.text = "$: " + abriviateNum(money)
 

@@ -22,6 +22,7 @@ config/windows_native_icon="res://assets/icons/gameIcon.ico"
 calculator="*res://scripts/calculator.gd"
 reuseManager="*res://scenes/components/reuse_manager.tscn"
 AudioManager="*res://scenes/components/audio_manager.tscn"
+EntityManager="*res://scenes/components/entity_manager.tscn"
 
 [display]
 

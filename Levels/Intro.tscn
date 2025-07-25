@@ -45,6 +45,21 @@ shader_parameter/color_count = 0
 shader_parameter/fps = 12.0
 shader_parameter/frame_count = 12
 
+[sub_resource type="Animation" id="Animation_cntf0"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CanvasLayer/ColorRect/Label:text")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Starting Game"]
+}
+
 [sub_resource type="Animation" id="Animation_jj4wx"]
 resource_name = "line"
 loop_mode = 1
@@ -59,21 +74,6 @@ tracks/0/keys = {
 "transitions": PackedFloat32Array(1, 1, 1, 1),
 "update": 1,
 "values": ["Starting Game", "Starting Game.", "Starting Game..", "Starting Game..."]
-}
-
-[sub_resource type="Animation" id="Animation_cntf0"]
-length = 0.001
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("CanvasLayer/ColorRect/Label:text")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 1,
-"values": ["Starting Game"]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_golbo"]
