@@ -19,6 +19,7 @@ func _ready() -> void:
 	for i in buttons.size():
 		var btn := buttons[i]
 		btn.button_down.connect(Callable(self, "_on_shop_button_down").bind(i))
+		buttons[i].tooltip_text = fish[i].desc
 
 
 func showShop():

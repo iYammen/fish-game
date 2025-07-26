@@ -13,4 +13,5 @@ spawnable = ExtResource("3_ailyc")
 rarity = 50
 price = 250
 moneyType = "$"
+desc = "Collects money"
 metadata/_custom_type_script = "uid://cyfrwajrr2bdy"

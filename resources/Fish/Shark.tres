@@ -13,4 +13,5 @@ spawnable = ExtResource("3_m3ec2")
 rarity = 80
 price = 3
 moneyType = "Full Grown Guppies"
+desc = "Attacks Monsters"
 metadata/_custom_type_script = "uid://cyfrwajrr2bdy"

@@ -13,4 +13,5 @@ spawnable = ExtResource("3_dssie")
 rarity = 80
 price = 1000
 moneyType = "$"
+desc = "Feeds fish"
 metadata/_custom_type_script = "uid://cyfrwajrr2bdy"

@@ -62,20 +62,11 @@ func Physics_Update(delta: float):
 func CheckHunger():
 	if !fish.is_hungry:
 		return
-	if closestFood != null:
+	var allFood = EntityManager.allFood
+	
+	if !allFood.is_empty():
 		state_transition.emit(self, "hungry")
 		return
-
-	var allFood = EntityManager.allFood
-	var foodSize: int = clampi(allFood.size(), 0, 45)
-	var closest_dist := INF
-	if foodSize > 0:
-		for i in foodSize:
-			var food = allFood[i]
-			var dist = fish.global_position.distance_squared_to(food.global_position)
-			if dist < closest_dist:
-				closestFood = food
-				closest_dist = dist
 
 
 

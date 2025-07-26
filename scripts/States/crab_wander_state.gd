@@ -15,7 +15,7 @@ var coolDown_t: float
 func Enter() -> void:
 	dir = -1 if randf() < 0.5 else 1
 	move_t = randf_range(2.0, 8.0)
-	coolDown_t = randf_range(0.3,0.7)
+	coolDown_t = randf_range(1,1.7)
 
 func Update(_delta: float) -> void:
 	crab.sprite_2d.flip_h = dir == -1
@@ -48,20 +48,8 @@ func Physics_Update(delta: float) -> void:
 		left_wall_check.enabled = true
 
 func CheckCoin() -> void:
-	var allCoins = get_tree().get_nodes_in_group("Coin")
-	var closest_dist := INF
-	var found_coin: Button = null
-	var coinSize: int = clampi(allCoins.size(), 0, 5)
-	
-	for i in coinSize:
-		var coin = allCoins[i]
-		var dist := crab.global_position.distance_squared_to(coin.global_position)
-		if dist < closest_dist:
-			closest_dist = dist
-			found_coin = coin
-
-	if found_coin != null:
-		closestCoin = found_coin
+	var allCoins = EntityManager.allCoins
+	if !allCoins.is_empty():
 		state_transition.emit(self, "chase")
 
 func Exit() -> void:

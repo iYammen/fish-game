@@ -13,4 +13,5 @@ spawnable = ExtResource("3_3aidr")
 rarity = 80
 price = 1000000
 moneyType = "$"
+desc = "Eats Pirahnas"
 metadata/_custom_type_script = "uid://cyfrwajrr2bdy"

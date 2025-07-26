@@ -11,6 +11,7 @@ var disappear_t: float = 0
 func _ready() -> void:
 	game_manager = get_tree().get_first_node_in_group("Game Manager")
 	disappear_t = 2
+	EntityManager.allCoins.append(self)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -32,6 +33,7 @@ func _process(delta: float) -> void:
 		global_position = Vector2(1000,1000)
 		remove_from_group("Coin")
 		process_mode = Node.PROCESS_MODE_DISABLED
+		EntityManager.allCoins.erase(self)
 
 
 
@@ -46,9 +48,11 @@ func _on_button_down() -> void:
 		available = true
 		global_position = Vector2(1000,1000)
 		remove_from_group("Coin")
+		EntityManager.allCoins.erase(self)
 		process_mode = Node.PROCESS_MODE_DISABLED
 
 func resetCoin():
+	EntityManager.allCoins.append(self)
 	process_mode = Node.PROCESS_MODE_INHERIT
 	ray_cast_2d.enabled = true
 	disappear_t = 2

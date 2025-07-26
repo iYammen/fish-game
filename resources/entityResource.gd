@@ -8,3 +8,4 @@ class_name entityResource
 @export var rarity: int
 @export var price: int
 @export var moneyType: String
+@export_multiline var desc: String

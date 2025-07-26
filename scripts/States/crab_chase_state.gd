@@ -27,18 +27,17 @@ func Physics_Update(delta: float):
 
 func _update_closest_coin() -> void:
 	closestCoin = null
-	var allCoins = get_tree().get_nodes_in_group("Coin")
+	var allCoins = EntityManager.allCoins
 	var coinSize: int = clampi(allCoins.size(), 0, 10)
 	var closest_dist := INF
 	
 	for i in coinSize:
 		var coin = allCoins[i]
-		if !coin.is_in_group("Coin"):
-			return
-		var dist = crab.global_position.distance_squared_to(coin.global_position)
-		if dist < closest_dist:
-			closestCoin = coin
-			closest_dist = dist
+		if coin != null:
+			var dist = crab.global_position.distance_squared_to(coin.global_position)
+			if dist < closest_dist:
+				closestCoin = coin
+				closest_dist = dist
 	if closestCoin == null:
 		state_transition.emit(self, "wander")
 

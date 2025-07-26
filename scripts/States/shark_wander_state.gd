@@ -65,14 +65,9 @@ func Physics_Update(delta: float):
 
 func CheckEnemy():
 	if fish.attackCoolDown_t <= 0:
-		if closestEnemy != null:
+		var allEnemies = get_tree().get_nodes_in_group("Enemy")
+		if !allEnemies.is_empty():
 			state_transition.emit(self, "chase")
-		else:
-			var allEnemies = get_tree().get_nodes_in_group("Enemy")
-			if allEnemies.size() > 0:
-				for enemy in allEnemies:
-					if closestEnemy == null or fish.global_position.distance_squared_to(enemy.global_position) < fish.global_position.distance_squared_to(closestEnemy.global_position):
-						closestEnemy = enemy
 
 func Exit():
 	pass

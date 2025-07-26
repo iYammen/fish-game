@@ -10,7 +10,7 @@ const SPAWN_POINT_UI = preload("res://scenes/UI/spawn_point_ui.tscn")
 var warning: Control
 const GUPPY = preload("res://scenes/Fish/guppy.tscn")
 const BLOOD_DIAMOND = preload("res://scenes/bloodDiamond.tscn")
-
+const SHARK = preload("res://scenes/Fish/shark.tscn")
 @export var spawnNum: int = 1
 var game_manager: GameManager
 var monsterToSpawn: Array[int] = [0]
@@ -20,7 +20,7 @@ func _ready() -> void:
 	game_manager = get_tree().get_first_node_in_group("Game Manager")
 	monster_spawn_timer.start(randf_range(monsterSpawnTimerRange.x, monsterSpawnTimerRange.y))
 	for guppy in spawnNum:
-		var spawn:= BLOOD_DIAMOND.instantiate()
+		var spawn:= SHARK.instantiate()
 		get_tree().current_scene.add_child.call_deferred(spawn)
 		spawn.global_position = game_manager.GetDirection()
 
