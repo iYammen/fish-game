@@ -2,5 +2,5 @@
 
 [ext_resource type="Script" uid="uid://fdycxkicqlsq" path="res://scripts/reuse_manager.gd" id="1_7wefk"]
 
-[node name="Blood Manager" type="Node"]
+[node name="Reuse Manager" type="Node"]
 script = ExtResource("1_7wefk")

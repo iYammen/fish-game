@@ -6,6 +6,7 @@ var hungerWaitTime: float = 0
 @export var moneyTimerRange: Vector2
 @export var speed: float = 20
 @export var health: healthComponent
+@onready var hit_box: Area2D = $hitBox
 
 var move_t := 0.0
 var hunger_t := 0.0
@@ -33,6 +34,7 @@ func _ready() -> void:
 	money_t = randf_range(moneyTimerRange.x, moneyTimerRange.y)
 	tintCheck_t = randf_range(2, 5)
 	money_t = randf_range(moneyTimerRange.x, moneyTimerRange.y)
+	hit_box.set_collision_mask_value(7, false)
 
 func _physics_process(delta: float) -> void:
 	move_t -= delta
@@ -52,6 +54,12 @@ func _physics_process(delta: float) -> void:
 	if money_t <= 0.0:
 		_on_money_timer_timeout()
 		money_t = randf_range(moneyTimerRange.x, moneyTimerRange.y)
+	
+	if is_hungry and hit_box.get_collision_mask_value(7) == false:
+		hit_box.set_collision_mask_value(7, true)
+	elif !is_hungry and hit_box.get_collision_mask_value(7) == true:
+		hit_box.set_collision_mask_value(7, false)
+
 
 
 func _update_hunger_tint() -> void:

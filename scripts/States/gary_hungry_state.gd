@@ -27,7 +27,7 @@ func Physics_Update(delta: float):
 
 func _update_closest_food() -> void:
 	closestFood = null
-	var allFood = EntityManager.allGuppies
+	var allFood = EntityManager.allPiranhas
 	var foodSize: int = clampi(allFood.size(), 0, 45)
 	var closest_dist := INF
 	
@@ -45,7 +45,8 @@ func Exit():
 
 func _on_hit_box_area_entered(area: Area2D) -> void:
 	if fish.is_hungry:
-		if area.owner.is_in_group("Piranha"):
+		if area.owner.is_in_group("Piranha") and area.owner.dead == false:
+			area.owner.dead = true
 			AudioManager.playFishEaten()
 			fish.is_hungry = false
 			fish.hungerWaitTime = randf_range(fish.hungerTimerRange.x, fish.hungerTimerRange.y)

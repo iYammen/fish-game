@@ -25,6 +25,7 @@ const SILVER_COIN = preload("res://scenes/silver_coin.tscn")
 signal state_transition
 var hunger_state := 0
 var tintCheck_t: float
+var dead: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:

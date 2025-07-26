@@ -26,11 +26,6 @@ position = Vector2(12, 5)
 target_position = Vector2(0, 30)
 hit_from_inside = true
 
-[node name="Timer" type="Timer" parent="."]
-process_callback = 0
-wait_time = 2.0
-one_shot = true
-
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 8
 collision_mask = 0
@@ -40,5 +35,4 @@ monitoring = false
 position = Vector2(12, 20)
 shape = SubResource("CircleShape2D_i6kbj")
 
-[connection signal="button_down" from="." to="." method="_on_button_down"]
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="pressed" from="." to="." method="_on_button_down"]

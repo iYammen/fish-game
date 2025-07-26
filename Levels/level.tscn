@@ -45,6 +45,7 @@ process_mode = 3
 
 [node name="spawnManager" parent="." instance=ExtResource("3_jjxhf")]
 monsterSpawnTimerRange = Vector2(60, 120)
+spawnNum = 0
 
 [node name="boundrays" type="Node2D" parent="."]
 

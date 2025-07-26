@@ -46,11 +46,13 @@ texture = ExtResource("1_47adp")
 
 [node name="rightWallCheck" type="RayCast2D" parent="."]
 position = Vector2(15, -11)
+enabled = false
 target_position = Vector2(20, 0)
 hit_from_inside = true
 
 [node name="leftWallCheck" type="RayCast2D" parent="."]
 position = Vector2(-16, -11)
+enabled = false
 target_position = Vector2(-20, 0)
 hit_from_inside = true
 

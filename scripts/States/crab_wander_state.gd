@@ -39,15 +39,22 @@ func Physics_Update(delta: float) -> void:
 	if coolDown_t <=0:
 		CheckCoin()
 		coolDown_t = randf_range(0.3,0.7)
+	
+	if dir > 0 and right_wall_check.enabled == false:
+		right_wall_check.enabled = true
+		left_wall_check.enabled = false
+	elif  dir < 0 and left_wall_check.enabled == false:
+		right_wall_check.enabled = false
+		left_wall_check.enabled = true
 
 func CheckCoin() -> void:
-	var coins = get_tree().get_nodes_in_group("Coin")
+	var allCoins = get_tree().get_nodes_in_group("Coin")
 	var closest_dist := INF
 	var found_coin: Button = null
-
-	for coin in coins:
-		if coin == null:
-			continue
+	var coinSize: int = clampi(allCoins.size(), 0, 5)
+	
+	for i in coinSize:
+		var coin = allCoins[i]
 		var dist := crab.global_position.distance_squared_to(coin.global_position)
 		if dist < closest_dist:
 			closest_dist = dist

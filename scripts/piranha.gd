@@ -3,7 +3,6 @@ class_name Guppy2
 
 var hungerWaitTime: float = 0
 @export var hungerTimerRange: Vector2
-@export var hungerAdultTimerRange: Vector2
 @export var moneyTimerRange: Vector2
 @export var speed: float = 20
 @export var health: healthComponent
@@ -23,6 +22,8 @@ const SILVER_COIN = preload("res://scenes/silver_coin.tscn")
 signal state_transition
 var hunger_state := 0
 var tintCheck_t: float
+@onready var hit_box: Area2D = $hitBox
+var dead: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -35,6 +36,7 @@ func _ready() -> void:
 	hunger_t = hungerWaitTime
 	money_t = randf_range(moneyTimerRange.x, moneyTimerRange.y)
 	tintCheck_t = randf_range(2, 5)
+	hit_box.set_collision_mask_value(6, false)
 
 func _physics_process(delta: float) -> void:
 	move_t -= delta
@@ -52,7 +54,12 @@ func _physics_process(delta: float) -> void:
 	if money_t <= 0.0:
 		_on_money_timer_timeout()
 		money_t = randf_range(moneyTimerRange.x, moneyTimerRange.y)
-
+	
+	if is_hungry and hit_box.get_collision_mask_value(6) == false:
+		hit_box.set_collision_mask_value(6, true)
+	elif !is_hungry and hit_box.get_collision_mask_value(6) == true:
+		hit_box.set_collision_mask_value(6, false)
+	
 
 func _update_hunger_tint() -> void:
 	var ratio := hunger_t / hungerWaitTime
@@ -63,6 +70,7 @@ func _update_hunger_tint() -> void:
 	sprite_2d.modulate = [Color.WHITE, Color.LIME, Color.DARK_GREEN][s]
 
 func die():
+	hit_box.set_collision_layer_value(7, false)
 	AudioManager.playBlood()
 	reuseManager.createBlood(global_position)
 	sprite_2d.visible = false
@@ -73,7 +81,7 @@ func die():
 	queue_free()
 
 func _on_money_timer_timeout() -> void:
-	reuseManager.createDiamond(global_position)
+	#reuseManager.createDiamond(global_position)
 	money_t = randf_range(moneyTimerRange.x, moneyTimerRange.y)
 
 

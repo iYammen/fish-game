@@ -21,6 +21,8 @@ func createBlood(pos: Vector2):
 			blood.global_position = pos
 			blood.play()
 			return
+	if bloodArray.size() > 10:
+		return
 	var new_blood: AnimatedSprite2D = BLOOD.instantiate()
 	new_blood.global_position = pos
 	get_tree().current_scene.add_child(new_blood)
@@ -83,6 +85,7 @@ func createBloodDiamond(pos: Vector2):
 	new_coin.global_position = pos
 	get_tree().current_scene.add_child(new_coin)
 	bloodDiamondArray.append(new_coin)
+	
 
 func createNumbLabel(pos: Vector2, number: int):
 	for numbLabel in numbLabelArray:
@@ -90,6 +93,8 @@ func createNumbLabel(pos: Vector2, number: int):
 			numbLabel.setNumber(number)
 			numbLabel.global_position = pos
 			return
+	if numbLabelArray.size() > 10:
+		return
 	var new_numbLabel:= NUMBER_UI.instantiate()
 	new_numbLabel.global_position = pos
 	get_tree().current_scene.add_child(new_numbLabel)
