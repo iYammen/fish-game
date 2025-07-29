@@ -1,6 +1,6 @@
 extends State
 
-@export var fish: Guppy2
+@export var fish: Node2D
 
 const MAX := 50.0
 var target: Vector2
@@ -63,9 +63,13 @@ func CheckHunger():
 	if !fish.is_hungry:
 		return
 	var allFood = EntityManager.allGuppies
+	var foodSize: int = clampi(allFood.size(), 0, 45)
 	if !allFood.is_empty():
-		state_transition.emit(self, "hungry")
-		return
+		for i in foodSize:
+			var food = allFood[i]
+			if food.feedCount < 4:
+				state_transition.emit(self, "hungry")
+				break
 
 
 func Exit():

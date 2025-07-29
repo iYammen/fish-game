@@ -24,6 +24,7 @@ const SILVER_COIN = preload("res://scenes/silver_coin.tscn")
 @onready var state_machine: stateMachine = $state_machine
 signal state_transition
 var hunger_state := 0
+var grown_state : int = INF
 var tintCheck_t: float
 var dead: bool = false
 
@@ -39,6 +40,7 @@ func _ready() -> void:
 	money_t = randf_range(moneyTimerRange.x, moneyTimerRange.y)
 	tintCheck_t = randf_range(2, 5)
 	checkFoodCount()
+	game_manager.addToFishCount()
 
 func _physics_process(delta: float) -> void:
 	move_t -= delta
@@ -69,23 +71,36 @@ func _update_hunger_tint() -> void:
 
 
 func checkFoodCount():
-	if !makingMoney and feedCount >= 4:
+	var s := 0 if feedCount < 4 else 1 if feedCount < 10 else 2
+	if s == grown_state:
+		return
+	grown_state = s
+	sprite_2d.frame = [0,1,2][s]
+	if s == 1:
 		money_t = randf_range(moneyTimerRange.x, moneyTimerRange.y)
 		makingMoney = true
-	if feedCount >= 4 and feedCount < 10:
-		sprite_2d.frame = 1
-	elif feedCount >= 10:
-		sprite_2d.frame = 2
+	if s == 2:
+		makingMoney = true
 		hungerTimerRange = hungerAdultTimerRange
+		var grownGuppyComponents :=  get_tree().get_nodes_in_group("Grown Guppy Component")
+		if grownGuppyComponents.is_empty() != true:
+			for component in grownGuppyComponents:
+				component.AddMult()
 
 func die():
+	game_manager.removeFromFishCount()
 	AudioManager.playBlood()
 	reuseManager.createBlood(global_position)
 	sprite_2d.visible = false
-	if get_tree().get_nodes_in_group("Fish Dead Component").is_empty() != true:
-		var fishDeadComponents :=  get_tree().get_nodes_in_group("Fish Dead Component")
+	var fishDeadComponents :=  get_tree().get_nodes_in_group("Fish Dead Component")
+	if fishDeadComponents.is_empty() != true:
 		for component in fishDeadComponents:
 			component.AddMult()
+	if grown_state == 2:
+		var grownGuppyComponents :=  get_tree().get_nodes_in_group("Grown Guppy Component")
+		if grownGuppyComponents.is_empty() != true:
+			for component in grownGuppyComponents:
+				component.RemoveMult()
 	queue_free()
 
 func _on_money_timer_timeout() -> void:

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://brdin6m7meogs"]
+
+[ext_resource type="Script" uid="uid://dim74fyegyuxe" path="res://scripts/dead_shark_component.gd" id="1_22o8k"]
+
+[node name="dead_shark_component" type="Node" groups=["Dead Shark Component"]]
+script = ExtResource("1_22o8k")

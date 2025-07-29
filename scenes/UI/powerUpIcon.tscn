@@ -7,6 +7,7 @@
 [node name="powerUpIcon" type="TextureRect"]
 offset_right = 32.0
 offset_bottom = 32.0
+pivot_offset = Vector2(16, 16)
 texture = ExtResource("1_pn44q")
 script = ExtResource("2_po2u0")
 

@@ -1,5 +1,4 @@
 extends Node2D
-class_name Guppy2
 
 var hungerWaitTime: float = 0
 @export var hungerTimerRange: Vector2
@@ -37,6 +36,7 @@ func _ready() -> void:
 	money_t = randf_range(moneyTimerRange.x, moneyTimerRange.y)
 	tintCheck_t = randf_range(2, 5)
 	hit_box.set_collision_mask_value(6, false)
+	game_manager.addToFishCount()
 
 func _physics_process(delta: float) -> void:
 	move_t -= delta
@@ -70,6 +70,7 @@ func _update_hunger_tint() -> void:
 	sprite_2d.modulate = [Color.WHITE, Color.LIME, Color.DARK_GREEN][s]
 
 func die():
+	game_manager.removeFromFishCount()
 	hit_box.set_collision_layer_value(7, false)
 	AudioManager.playBlood()
 	reuseManager.createBlood(global_position)

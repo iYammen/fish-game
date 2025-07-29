@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="powerResource" load_steps=3 format=3 uid="uid://caq6atlix2txw"]
+
+[ext_resource type="Texture2D" uid="uid://ck80pf3ydwgn6" path="res://assets/icons/GrownGuppy.png" id="1_wvneq"]
+[ext_resource type="Script" uid="uid://dkjupqwcpqhl7" path="res://resources/power/powerResource.gd" id="2_a35gv"]
+
+[resource]
+script = ExtResource("2_a35gv")
+id = 7
+icon = ExtResource("1_wvneq")
+description = "For every grown Guppy gain 1.1X multiplier"
+rarity = 10
+metadata/_custom_type_script = "uid://dkjupqwcpqhl7"

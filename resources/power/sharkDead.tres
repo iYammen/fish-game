@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="powerResource" load_steps=3 format=3 uid="uid://cqs3x7gtbfwbq"]
+
+[ext_resource type="Texture2D" uid="uid://s5pd2o7uetoo" path="res://assets/icons/deadShark.png" id="1_eowwx"]
+[ext_resource type="Script" uid="uid://dkjupqwcpqhl7" path="res://resources/power/powerResource.gd" id="2_wsn5f"]
+
+[resource]
+script = ExtResource("2_wsn5f")
+id = 6
+icon = ExtResource("1_eowwx")
+description = "When a Shark dies after getting
+this power up Gain 0.5X Multiplier"
+rarity = 10
+metadata/_custom_type_script = "uid://dkjupqwcpqhl7"

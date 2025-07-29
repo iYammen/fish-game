@@ -23,7 +23,7 @@ var game_over_Screen: Control
 
 var discount: float = 1
 var boundray: Vector2 = Vector2(300, 128)
-var money: int = 200000000000
+var money: int = 200
 var goal: int = 400
 var stage: int = 1
 var Fish: Array
@@ -34,6 +34,12 @@ var foodMax: int = 1
 var foodQuality: int = 1
 var damage: int = 10
 var dead: bool = false
+var fishCountLabel: Label
+var multLabel: Label
+var fishCount: int = 0
+
+var scaleTween: Tween
+var moneyScaleTween: Tween
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Input.set_use_accumulated_input(false)
@@ -57,6 +63,8 @@ func _ready() -> void:
 	stageButton.text = "Next Stage: " + abriviateNum(goal) + "$"
 	errorMessage =  get_tree().get_first_node_in_group("Error Message")
 	game_over_Screen = get_tree().get_first_node_in_group("Game Over Screen")
+	fishCountLabel = get_tree().get_first_node_in_group("Fish Count")
+	multLabel = get_tree().get_first_node_in_group("Multiplier")
 	reuseManager.Reset()
 	EntityManager.Reset()
 
@@ -65,14 +73,19 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	fps_label.text = "fps: " + str(Engine.get_frames_per_second())
 
+func addToFishCount():
+	fishCount += 1
+	fishCountLabel.text = "Fish Count: " + str(fishCount)
+	pass
 
+func removeFromFishCount():
+	fishCount -= 1
+	fishCountLabel.text = "Fish Count: " + str(fishCount)
+	pass
+	
 func checkFishAmount():
 	if is_inside_tree():
-		if get_tree().get_nodes_in_group("Guppy").is_empty() != true:
-			Fish = get_tree().get_nodes_in_group("Guppy")
-		else:
-			Fish.resize(0)
-		if Fish.size() == 0:
+		if EntityManager.allGuppies.is_empty():
 			dead = true
 			await get_tree().create_timer(1).timeout
 			game_over_Screen.gameOver(stage)
@@ -104,9 +117,42 @@ func _unhandled_input(event: InputEvent) -> void:
 					food.position =  get_global_mouse_position()
 					subtractCoin(5)
 
+func animatePowerIcon(id: int):
+	powerUpBar.animateIcon(id)
+
+func animateMoneyLabel():
+	moneyLabel.pivot_offset = Vector2(moneyLabel.size.x / 2, moneyLabel.size.y / 2)
+	if moneyScaleTween and moneyScaleTween.is_running():
+		return
+	
+	moneyScaleTween = create_tween()
+	# Scale up (quick ease out)
+	moneyScaleTween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BOUNCE)
+	moneyScaleTween.tween_property(moneyLabel, "rotation_degrees", 6.6, 0.05)
+	moneyScaleTween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BOUNCE)
+	moneyScaleTween.tween_property(moneyLabel, "rotation_degrees", -6.6, 0.05)
+	# Then scale down (with bounce)
+	moneyScaleTween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BOUNCE)
+	moneyScaleTween.tween_property(moneyLabel, "rotation_degrees", 0, 0.25)
+
+func animateMultLabel():
+	if scaleTween and scaleTween.is_running():
+		return
+	
+	scaleTween = create_tween()
+	# Scale up (quick ease out)
+	scaleTween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BOUNCE)
+	scaleTween.tween_property(multLabel, "rotation_degrees", 6.6, 0.05)
+	scaleTween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BOUNCE)
+	scaleTween.tween_property(multLabel, "rotation_degrees", -6.6, 0.05)
+	# Then scale down (with bounce)
+	scaleTween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BOUNCE)
+	scaleTween.tween_property(multLabel, "rotation_degrees", 0, 0.25)
+
 func addCoin(value: int):
 	if value < 0:
 		return
+	animateMoneyLabel()
 	money += value
 	moneyLabel.text = "$: " + abriviateNum(money)
 	#checkScore()
@@ -256,6 +302,8 @@ func checkMoney(num: int, moneyGoal: int):
 		enoughMoney = true
 		return enoughMoney
 
+func updateMultLabel():
+	multLabel.text = ("%.1f" % calculator.multiplier) + "X"
 #UI buttons
 func _on_button_pressed() -> void:
 	shop.showShop()

@@ -20,7 +20,7 @@ func _ready() -> void:
 	game_manager = get_tree().get_first_node_in_group("Game Manager")
 	monster_spawn_timer.start(randf_range(monsterSpawnTimerRange.x, monsterSpawnTimerRange.y))
 	for guppy in spawnNum:
-		var spawn:= SHARK.instantiate()
+		var spawn:= GUPPY.instantiate()
 		get_tree().current_scene.add_child.call_deferred(spawn)
 		spawn.global_position = game_manager.GetDirection()
 

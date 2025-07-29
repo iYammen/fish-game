@@ -1,5 +1,5 @@
 extends State
-@export var fish: Guppy2
+@export var fish: Node2D
 @export var speed: float
 var closestFood: Node2D
 var food_scan_t := 0.0
@@ -30,7 +30,7 @@ func _update_closest_food() -> void:
 	for i in foodSize:
 		var food = allFood[i]
 		var dist = fish.global_position.distance_squared_to(food.global_position)
-		if dist < closest_dist:
+		if dist < closest_dist and food.feedCount < 4:
 			closestFood = food
 			closest_dist = dist
 	if closestFood == null:

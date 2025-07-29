@@ -31,7 +31,6 @@ fish = NodePath("../..")
 [node name="hungry" type="Node" parent="state_machine" node_paths=PackedStringArray("fish")]
 script = ExtResource("4_2njgj")
 fish = NodePath("../..")
-speed = 110.0
 
 [node name="healthComponent" parent="." instance=ExtResource("2_3y8gv")]
 maxHealth = 1

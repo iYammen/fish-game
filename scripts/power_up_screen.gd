@@ -4,7 +4,9 @@ class_name powerUpScreen
 var rng := RandomNumberGenerator.new()
 var game_manager: GameManager
 @onready var button: Button = $Panel/HBoxContainer/Button
-const FISH_DIED_COMPONENT = preload("res://scenes/fish_died_component.tscn")
+const DEAD_FISH_COMPONENT = preload("res://scenes/power ups/dead_fish_component.tscn")
+const DEAD_SHARK_COMPONENT = preload("res://scenes/power ups/dead_shark_component.tscn")
+const GROWN_GUPPY_COMPONENT = preload("res://scenes/power ups/grown_guppy_component.tscn")
 var powerWonArray: Array[powerResource]
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -67,12 +69,19 @@ func buttonClick(buttonNumb: int):
 		2:
 			game_manager.foodMax += 1
 		3:
-			var inst := FISH_DIED_COMPONENT.instantiate()
+			var inst := DEAD_FISH_COMPONENT.instantiate()
 			get_tree().current_scene.add_child(inst)
 		4:
 			game_manager.discount -= 0.1
 		5:
 			game_manager.damage += 5
+		6:
+			var inst := DEAD_SHARK_COMPONENT.instantiate()
+			get_tree().current_scene.add_child(inst)
+		7:
+			var inst := GROWN_GUPPY_COMPONENT.instantiate()
+			get_tree().current_scene.add_child(inst)
+
 	game_manager.editPowerUpBar(powerWonArray[buttonNumb].id)
 	visible = false
 	get_tree().paused = false

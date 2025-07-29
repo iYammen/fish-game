@@ -6,7 +6,9 @@ var game_manager: GameManager
 func _ready() -> void:
 	game_manager = get_tree().get_first_node_in_group("Game Manager")
 
+
 func AddMult():
+	game_manager.animateMultLabel()
+	game_manager.animatePowerIcon(6)
 	calculator.multiplier += 0.5
-	await get_tree().create_timer(2).timeout
-	calculator.multiplier -= 0.5
+	game_manager.updateMultLabel()

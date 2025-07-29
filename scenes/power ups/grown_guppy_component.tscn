@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bf6l6trncmfbu"]
+
+[ext_resource type="Script" uid="uid://bfm3lrvvwngel" path="res://scripts/grown_guppy_component.gd" id="1_5pqtn"]
+
+[node name="Grown Guppy Component" type="Node" groups=["Grown Guppy Component"]]
+script = ExtResource("1_5pqtn")

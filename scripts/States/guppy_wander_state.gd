@@ -6,6 +6,7 @@ const MAX := 50.0
 var target: Vector2
 var closestFood: Area2D
 
+var food_scan_wait_time := 0.0
 var food_scan_t := 0.0
 var arc_time: float = 0.0
 @export var arc_amplitude: float = 5.0  # height of the arc
@@ -16,6 +17,7 @@ func Enter() -> void:
 	arc_frequency = randf_range(0.3,0.6)
 	closestFood = null
 	(func(): target = fish.game_manager.GetDirection()).call_deferred()
+	
 	fish.move_t = randf_range(0.3, 4.0)
 	food_scan_t = randf_range(0.1, 0.5)
 

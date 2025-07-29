@@ -45,6 +45,7 @@ position = Vector2(0, -16)
 texture = ExtResource("1_47adp")
 
 [node name="rightWallCheck" type="RayCast2D" parent="."]
+visible = false
 position = Vector2(15, -11)
 enabled = false
 target_position = Vector2(20, 0)

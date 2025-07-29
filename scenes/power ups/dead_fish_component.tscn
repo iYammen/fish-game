@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dbh3cna7ugwab"]
+
+[ext_resource type="Script" uid="uid://c6map1djj2o0t" path="res://scripts/dead_fish_component.gd" id="1_55yif"]
+
+[node name="deadFishComponent" type="Node" groups=["Fish Dead Component"]]
+script = ExtResource("1_55yif")

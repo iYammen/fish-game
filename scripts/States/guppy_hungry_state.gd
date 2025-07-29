@@ -1,11 +1,11 @@
 extends State
 @export var fish: Guppy
-@export var speed: float
+var fishSpeed: float
 var closestFood: Area2D
 var food_scan_t := 0.0
 var lastScanDist: Vector2
 func Enter() -> void:
-	food_scan_t = randf_range(0.1, 0.5)
+	fishSpeed = randf_range(100,120)
 
 func Physics_Update(delta: float):
 	food_scan_t -= delta
@@ -14,7 +14,7 @@ func Physics_Update(delta: float):
 		food_scan_t = randf_range(0.1, 0.5)
 	if closestFood:
 		var direction = (closestFood.global_position - fish.global_position).normalized()
-		fish.global_position += direction * speed * delta
+		fish.global_position += direction * fishSpeed * delta
 		
 		var flip_now := fish.global_position.x - closestFood.global_position.x < 0
 		if flip_now != fish.sprite_2d.flip_h:
@@ -26,15 +26,15 @@ func _update_closest_food() -> void:
 	var allFood = EntityManager.allFood
 	var foodSize: int = clampi(allFood.size(), 0, 45)
 	var closest_dist := INF
-	
+	if allFood.is_empty():
+		state_transition.emit(self, "wander")
+		return
 	for i in foodSize:
 		var food = allFood[i]
 		var dist = fish.global_position.distance_squared_to(food.global_position)
 		if dist < closest_dist:
 			closestFood = food
 			closest_dist = dist
-	if closestFood == null:
-		state_transition.emit(self, "wander")
 
 func Exit():
 	pass

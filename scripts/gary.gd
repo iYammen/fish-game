@@ -35,6 +35,7 @@ func _ready() -> void:
 	tintCheck_t = randf_range(2, 5)
 	money_t = randf_range(moneyTimerRange.x, moneyTimerRange.y)
 	hit_box.set_collision_mask_value(7, false)
+	game_manager.addToFishCount()
 
 func _physics_process(delta: float) -> void:
 	move_t -= delta
@@ -72,6 +73,7 @@ func _update_hunger_tint() -> void:
 
 
 func die():
+	game_manager.removeFromFishCount()
 	AudioManager.playBlood()
 	reuseManager.createBlood(global_position)
 	sprite_2d.visible = false
