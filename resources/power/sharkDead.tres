@@ -8,6 +8,6 @@ script = ExtResource("2_wsn5f")
 id = 6
 icon = ExtResource("1_eowwx")
 description = "When a Shark dies after getting
-this power up Gain 0.5X Multiplier"
+this power up Gain 1 Multiplier"
 rarity = 10
 metadata/_custom_type_script = "uid://dkjupqwcpqhl7"

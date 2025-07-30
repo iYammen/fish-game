@@ -82,7 +82,7 @@ func die():
 	queue_free()
 
 func _on_money_timer_timeout() -> void:
-	#reuseManager.createDiamond(global_position)
+	reuseManager.createDiamond(global_position)
 	money_t = randf_range(moneyTimerRange.x, moneyTimerRange.y)
 
 

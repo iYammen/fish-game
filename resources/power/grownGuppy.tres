@@ -7,6 +7,6 @@
 script = ExtResource("2_a35gv")
 id = 7
 icon = ExtResource("1_wvneq")
-description = "For every grown Guppy gain 1.1X multiplier"
+description = "For every grown Guppy gain 0.05 multiplier"
 rarity = 10
 metadata/_custom_type_script = "uid://dkjupqwcpqhl7"

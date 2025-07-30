@@ -62,14 +62,10 @@ func Physics_Update(delta: float):
 func CheckHunger():
 	if !fish.is_hungry:
 		return
-	var allFood = EntityManager.allGuppies
+	var allFood = EntityManager.allBabyGuppies
 	var foodSize: int = clampi(allFood.size(), 0, 45)
 	if !allFood.is_empty():
-		for i in foodSize:
-			var food = allFood[i]
-			if food.feedCount < 4:
-				state_transition.emit(self, "hungry")
-				break
+		state_transition.emit(self, "hungry")
 
 
 func Exit():

@@ -1,6 +1,7 @@
-[gd_scene load_steps=26 format=3 uid="uid://cc3qvorsgdiqt"]
+[gd_scene load_steps=27 format=3 uid="uid://cc3qvorsgdiqt"]
 
 [ext_resource type="PackedScene" uid="uid://2l1a8m2hgowd" path="res://scenes/UI/warningUI.tscn" id="1_xsqsu"]
+[ext_resource type="Script" uid="uid://camigyij84n1w" path="res://scripts/camera_2d.gd" id="2_r2ueb"]
 [ext_resource type="PackedScene" uid="uid://d1hiqisxkn60e" path="res://scenes/game_manager.tscn" id="2_vmy0u"]
 [ext_resource type="Script" uid="uid://dkjupqwcpqhl7" path="res://resources/power/powerResource.gd" id="3_1sae0"]
 [ext_resource type="PackedScene" uid="uid://58gka0bukx6r" path="res://scenes/spawn_manager.tscn" id="3_jjxhf"]
@@ -44,7 +45,8 @@ offset_top = 72.0
 offset_right = 104.0
 offset_bottom = 72.0
 
-[node name="Camera2D" type="Camera2D" parent="."]
+[node name="Camera2D" type="Camera2D" parent="." groups=["Camera"]]
+script = ExtResource("2_r2ueb")
 
 [node name="Game Manager" parent="." groups=["Game Manager"] instance=ExtResource("2_vmy0u")]
 process_mode = 3
@@ -194,19 +196,29 @@ icon = ExtResource("13_8hqpc")
 modulate = Color(0, 0, 0, 1)
 layout_mode = 0
 offset_left = 16.0
-offset_top = 144.0
-offset_right = 73.0
-offset_bottom = 167.0
+offset_top = 160.0
+offset_right = 76.0
+offset_bottom = 176.0
 theme = ExtResource("7_fw3l5")
-text = "fish count: 0"
+text = "Fish count: 0"
+
+[node name="guppyLeft" type="Label" parent="CanvasLayer/Sidebar" groups=["Guppy Left"]]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 16.0
+offset_top = 144.0
+offset_right = 79.0
+offset_bottom = 159.0
+theme = ExtResource("7_fw3l5")
+text = "Guppys left: 0"
 
 [node name="multName" type="Label" parent="CanvasLayer/Sidebar"]
 modulate = Color(0, 0, 0, 1)
 layout_mode = 0
 offset_left = 16.0
-offset_top = 160.0
-offset_right = 73.0
-offset_bottom = 183.0
+offset_top = 176.0
+offset_right = 58.0
+offset_bottom = 191.0
 theme = ExtResource("7_fw3l5")
 text = "Multiplier:"
 
@@ -215,9 +227,9 @@ modulate = Color(0, 0, 0, 1)
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 0
 offset_left = 48.0
-offset_top = 160.0
+offset_top = 176.0
 offset_right = 98.0
-offset_bottom = 175.0
+offset_bottom = 191.0
 pivot_offset = Vector2(25, 6)
 theme = ExtResource("7_fw3l5")
 text = "1X"

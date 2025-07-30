@@ -23,14 +23,14 @@ func Physics_Update(delta: float):
 
 func _update_closest_food() -> void:
 	closestFood = null
-	var allFood = EntityManager.allGuppies
+	var allFood = EntityManager.allBabyGuppies
 	var foodSize: int = clampi(allFood.size(), 0, 45)
 	var closest_dist := INF
 	
 	for i in foodSize:
 		var food = allFood[i]
 		var dist = fish.global_position.distance_squared_to(food.global_position)
-		if dist < closest_dist and food.feedCount < 4:
+		if dist < closest_dist:
 			closestFood = food
 			closest_dist = dist
 	if closestFood == null:

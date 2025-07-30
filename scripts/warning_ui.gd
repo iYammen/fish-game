@@ -15,7 +15,7 @@ func ShowAll():
 	ins.global_position = Vector2(randf_range(boundsX.x, boundsX.y),randf_range(boundsY.x, boundsY.y))
 	warningPanels.append(ins)
 
-func Hide(numb: int):
-	if warningPanels.size() > numb:
-		warningPanels[numb].queue_free()
-		warningPanels.remove_at(numb)
+func Hide():
+	for warning in warningPanels:
+		warning.queue_free()
+	warningPanels.clear()

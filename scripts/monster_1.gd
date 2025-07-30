@@ -17,6 +17,7 @@ func _ready() -> void:
 	game_manager = get_tree().get_first_node_in_group("Game Manager")
 	target =  game_manager.GetDirection()
 	health.died.connect(die)
+	EntityManager.allMonsters.append(self)
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -33,6 +34,7 @@ func _physics_process(delta: float) -> void:
 		AudioManager.playFishEaten()
 		fish.health.takeDamage(100)
 		eat_t = 1.0
+		game_manager.camera.screenShake(1, 0.2)
 	
 	var flip_now := global_position.x < target.x
 	if flip_now != animated_sprite_2d.flip_h:
@@ -45,11 +47,13 @@ func _physics_process(delta: float) -> void:
 		animated_sprite_2d.play(target_anim)
 
 func die():
+	EntityManager.allMonsters.erase(self)
+	game_manager.checkEnemyCount()
 	AudioManager.playBlood()
 	button.mouse_filter = Control.MOUSE_FILTER_PASS
 	var finalValue: int = calculator.calculateScore(value)
 	game_manager.addCoin(finalValue)
-	game_manager.ShowNumb(finalValue, global_position + Vector2(0, -15))
+	reuseManager.createNumbLabel(global_position, finalValue)
 	reuseManager.createMonsterBlood(global_position)
 	animated_sprite_2d.visible = false
 	queue_free()
@@ -58,10 +62,12 @@ func _on_button_pressed() -> void:
 	AudioManager.playAttack()
 	health.takeDamage(game_manager.damage)
 	game_manager.ShowDamageNumb(game_manager.damage, get_global_mouse_position())
+	game_manager.camera.screenShake(1, 0.1)
 
 
 func _on_area_entered(area: Area2D) -> void:
 	if fish == null:
+		AudioManager.playWhaleSound()
 		fish = area
 		entered = true
 		eat_t = 0.5

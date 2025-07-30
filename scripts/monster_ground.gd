@@ -27,13 +27,16 @@ func _ready() -> void:
 	move_t = randf_range(2.0, 8.0)
 	coolDown_t = randf_range(0.3,0.7)
 	health.died.connect(die)
+	EntityManager.allMonsters.append(self)
 
 func die():
+	EntityManager.allMonsters.erase(self)
+	game_manager.checkEnemyCount()
 	AudioManager.playBlood()
 	button.mouse_filter = Control.MOUSE_FILTER_PASS
 	var finalValue: int = calculator.calculateScore(value)
 	game_manager.addCoin(finalValue)
-	game_manager.ShowNumb(finalValue, global_position + Vector2(0, -15))
+	reuseManager.createNumbLabel(global_position, finalValue)
 	reuseManager.createMonsterBlood(global_position)
 	animated_sprite_2d.visible = false
 	queue_free()
@@ -63,6 +66,7 @@ func _physics_process(delta: float) -> void:
 			AudioManager.playFishEaten()
 			fish.health.takeDamage(100)
 			target_anim = "chomp"
+			game_manager.camera.screenShake(1, 0.2)
 		else:
 			target_anim = "idle"
 	
@@ -89,10 +93,12 @@ func _on_button_button_down() -> void:
 	AudioManager.playAttack()
 	health.takeDamage(game_manager.damage)
 	game_manager.ShowDamageNumb(game_manager.damage, get_global_mouse_position())
+	game_manager.camera.screenShake(1, 0.1)
 
 
 func _on_area_entered(area: Area2D) -> void:
 	if not entered:
+		AudioManager.playWhaleSound()
 		fish = area
 		entered = true
 		eat_t = 0.5

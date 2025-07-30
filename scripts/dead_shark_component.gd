@@ -10,5 +10,5 @@ func _ready() -> void:
 func AddMult():
 	game_manager.animateMultLabel()
 	game_manager.animatePowerIcon(6)
-	calculator.multiplier += 0.5
+	calculator.multiplier += 1
 	game_manager.updateMultLabel()

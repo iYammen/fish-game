@@ -1,8 +1,9 @@
-[gd_scene load_steps=16 format=3 uid="uid://bvfq416e4l1ih"]
+[gd_scene load_steps=18 format=3 uid="uid://bvfq416e4l1ih"]
 
 [ext_resource type="Script" uid="uid://b7rln32qbtd1c" path="res://scripts/audio_manager.gd" id="1_h5u4l"]
 [ext_resource type="AudioStream" uid="uid://d31bkvxyouemi" path="res://Audio/kenny interface Audio/click_002.ogg" id="2_5uach"]
 [ext_resource type="AudioStream" uid="uid://bermoxxhodlre" path="res://Audio/Music/youtube-jazz-seabreeze-harmony-375543.mp3" id="2_xngj1"]
+[ext_resource type="AudioStream" uid="uid://bhh4tlru8n6hq" path="res://Audio/underwater-ambience-6201.mp3" id="3_jdkqx"]
 [ext_resource type="AudioStream" uid="uid://bjc06ianddd70" path="res://Audio/kenny interface Audio/select_006.ogg" id="3_t0ifg"]
 [ext_resource type="AudioStream" uid="uid://7ptt442kbfgj" path="res://Audio/mouse-single-click.mp3" id="4_4e087"]
 [ext_resource type="AudioStream" uid="uid://ce7algvugk28w" path="res://Audio/kenny interface Audio/error_005.ogg" id="4_q7pj8"]
@@ -15,6 +16,7 @@
 [ext_resource type="AudioStream" uid="uid://dl2w6110ees13" path="res://Audio/splash-6213.mp3" id="12_05mkw"]
 [ext_resource type="AudioStream" uid="uid://60pfqilnh6dl" path="res://Audio/hit-flesh-03-266308.mp3" id="13_c64uk"]
 [ext_resource type="AudioStream" uid="uid://bixsas3iox2vs" path="res://Audio/mixkit-unlock-game-notification-253.wav" id="15_v3l6q"]
+[ext_resource type="AudioStream" uid="uid://cfk7istr8tctx" path="res://Audio/whale-sound-type-1-235995.mp3" id="17_e1par"]
 
 [node name="audioManager" type="Node"]
 process_mode = 3
@@ -25,6 +27,14 @@ stream = ExtResource("2_xngj1")
 volume_db = -30.0
 autoplay = true
 bus = &"Music"
+parameters/looping = true
+
+[node name="waterAmbience" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("3_jdkqx")
+volume_db = -30.0
+autoplay = true
+bus = &"SoundEffects"
+parameters/looping = true
 
 [node name="buttonEnter" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("2_5uach")
@@ -82,5 +92,10 @@ bus = &"SoundEffects"
 
 [node name="nextStage" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("15_v3l6q")
+volume_db = -10.0
+bus = &"SoundEffects"
+
+[node name="whale" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("17_e1par")
 volume_db = -10.0
 bus = &"SoundEffects"

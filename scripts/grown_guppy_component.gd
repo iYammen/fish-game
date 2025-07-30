@@ -14,10 +14,10 @@ func _ready() -> void:
 func AddMult():
 	game_manager.animateMultLabel()
 	game_manager.animatePowerIcon(7)
-	calculator.multiplier += 0.1
+	calculator.multiplier += 0.05
 	game_manager.updateMultLabel()
 
 func RemoveMult():
 	game_manager.animateMultLabel()
-	calculator.multiplier -= 0.1
+	calculator.multiplier -= 0.05
 	game_manager.updateMultLabel()

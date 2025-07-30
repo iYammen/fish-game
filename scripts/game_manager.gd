@@ -23,7 +23,7 @@ var game_over_Screen: Control
 
 var discount: float = 1
 var boundray: Vector2 = Vector2(300, 128)
-var money: int = 200
+var money: int = 200000000
 var goal: int = 400
 var stage: int = 1
 var Fish: Array
@@ -38,8 +38,11 @@ var fishCountLabel: Label
 var multLabel: Label
 var fishCount: int = 0
 
+var guppyLeft: Label
 var scaleTween: Tween
 var moneyScaleTween: Tween
+
+var camera: Camera2D
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Input.set_use_accumulated_input(false)
@@ -65,8 +68,11 @@ func _ready() -> void:
 	game_over_Screen = get_tree().get_first_node_in_group("Game Over Screen")
 	fishCountLabel = get_tree().get_first_node_in_group("Fish Count")
 	multLabel = get_tree().get_first_node_in_group("Multiplier")
+	camera = get_tree().get_first_node_in_group("Camera")
+	guppyLeft = get_tree().get_first_node_in_group("Guppy Left")
 	reuseManager.Reset()
 	EntityManager.Reset()
+	AudioManager.DarkMusicToOceanMusic()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -76,19 +82,10 @@ func _process(_delta: float) -> void:
 func addToFishCount():
 	fishCount += 1
 	fishCountLabel.text = "Fish Count: " + str(fishCount)
-	pass
 
 func removeFromFishCount():
 	fishCount -= 1
 	fishCountLabel.text = "Fish Count: " + str(fishCount)
-	pass
-	
-func checkFishAmount():
-	if is_inside_tree():
-		if EntityManager.allGuppies.is_empty():
-			dead = true
-			await get_tree().create_timer(1).timeout
-			game_over_Screen.gameOver(stage)
 
 func editPowerUpBar(id: int):
 	powerUpBar.powerUpIcons[id].addCount()
@@ -116,6 +113,8 @@ func _unhandled_input(event: InputEvent) -> void:
 					get_tree().current_scene.add_child(food)
 					food.position =  get_global_mouse_position()
 					subtractCoin(5)
+
+
 
 func animatePowerIcon(id: int):
 	powerUpBar.animateIcon(id)
@@ -155,7 +154,6 @@ func addCoin(value: int):
 	animateMoneyLabel()
 	money += value
 	moneyLabel.text = "$: " + abriviateNum(money)
-	#checkScore()
 
 func subtractCoin(value: int):
 	if value < 0:
@@ -163,24 +161,21 @@ func subtractCoin(value: int):
 	money -= value
 	moneyLabel.text = "$: " + abriviateNum(money)
 
-func ShowNumb(numbValue: int, currentPos: Vector2):
-	var number = NUMBER_UI.instantiate()
-	get_tree().current_scene.add_child(number)
-	number.setNumber(numbValue)
-	number.global_position = currentPos
-
 func ShowDamageNumb(numbValue: int, currentPos: Vector2):
 	var number = NUMBER_UI.instantiate()
 	get_tree().current_scene.add_child(number)
 	number.setDamageNumber(numbValue)
 	number.global_position = currentPos
 
-func ShowText(words: String, currentPos: Vector2, color: Color):
-	var number = NUMBER_UI.instantiate()
-	get_tree().current_scene.add_child(number)
-	number.modulate = color
-	number.setText(words)
-	number.global_position = currentPos
+func checkFishAmount():
+	if is_inside_tree():
+		var allGuppies: Array = EntityManager.allGuppies
+		if allGuppies.is_empty():
+			dead = true
+			await get_tree().create_timer(1).timeout
+			game_over_Screen.gameOver(stage)
+		else:
+			guppyLeft.text = "Guppys Left: " + str(allGuppies.size())
 
 func checkScore():
 	if checkMoney(money, goal):
@@ -209,36 +204,6 @@ func checkScore():
 		errorMessage.visible = true
 		await get_tree().create_timer(2).timeout
 		errorMessage.visible = false
-
-func GetDirection():
-	var targetPos: Vector2 = Vector2(randf_range(-200, boundray.x), randf_range(-100, boundray.y))
-	return targetPos
-
-func abriviateNum(num: int):
-	var newNum: String
-	if num < 1000:
-		newNum = str(num)
-		return newNum
-	elif num < 1000000:
-		var dividedNum: float
-		dividedNum = float(num) / 1000
-		newNum = ("%.2f" % dividedNum) + "K"
-		return newNum
-	elif num < 1000000000:
-		var dividedNum: float
-		dividedNum = float(num) / 1000000
-		newNum = ("%.2f" % dividedNum) + "M"
-		return newNum
-	elif num < 1000000000000:
-		var dividedNum: float
-		dividedNum = float(num) / 1000000000
-		newNum = ("%.2f" % dividedNum) + "B"
-		return newNum
-	elif num < 1000000000000000:
-		var dividedNum: float
-		dividedNum = float(num) / 1000000000000
-		newNum = ("%.2f" % dividedNum) + "T"
-		return newNum
 
 func checkMoney(num: int, moneyGoal: int):
 	var newNum: float
@@ -302,8 +267,45 @@ func checkMoney(num: int, moneyGoal: int):
 		enoughMoney = true
 		return enoughMoney
 
+func checkEnemyCount():
+	var allMonsters = EntityManager.allMonsters
+	if allMonsters.is_empty() and spawn_manager.monster_spawn_timer.time_left > 5:
+		AudioManager.DarkMusicToOceanMusic()
+
+func GetDirection():
+	var targetPos: Vector2 = Vector2(randf_range(-200, boundray.x), randf_range(-100, boundray.y))
+	return targetPos
+
+func abriviateNum(num: int):
+	var newNum: String
+	if num < 1000:
+		newNum = str(num)
+		return newNum
+	elif num < 1000000:
+		var dividedNum: float
+		dividedNum = float(num) / 1000
+		newNum = ("%.2f" % dividedNum) + "K"
+		return newNum
+	elif num < 1000000000:
+		var dividedNum: float
+		dividedNum = float(num) / 1000000
+		newNum = ("%.2f" % dividedNum) + "M"
+		return newNum
+	elif num < 1000000000000:
+		var dividedNum: float
+		dividedNum = float(num) / 1000000000
+		newNum = ("%.2f" % dividedNum) + "B"
+		return newNum
+	elif num < 1000000000000000:
+		var dividedNum: float
+		dividedNum = float(num) / 1000000000000
+		newNum = ("%.2f" % dividedNum) + "T"
+		return newNum
+
 func updateMultLabel():
 	multLabel.text = ("%.1f" % calculator.multiplier) + "X"
+
+
 #UI buttons
 func _on_button_pressed() -> void:
 	shop.showShop()
@@ -330,9 +332,10 @@ func _on_sound_mute_button_down() -> void:
 
 func _on_full_screen_button_down() -> void:
 	AudioManager.playButtonClick()
-	if DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_WINDOWED :
+	var current_mode := DisplayServer.window_get_mode()
+	if current_mode == DisplayServer.WINDOW_MODE_WINDOWED or current_mode == DisplayServer.WINDOW_MODE_MAXIMIZED:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN, 0)
-	elif DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN or DisplayServer.window_get_mode() == DisplayServer.WINDOW_MODE_MAXIMIZED:
+	else:
 		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED, 0)
 
 

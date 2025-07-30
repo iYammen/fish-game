@@ -41,6 +41,7 @@ func _ready() -> void:
 	tintCheck_t = randf_range(2, 5)
 	checkFoodCount()
 	game_manager.addToFishCount()
+	game_manager.checkFishAmount()
 
 func _physics_process(delta: float) -> void:
 	move_t -= delta
@@ -71,26 +72,33 @@ func _update_hunger_tint() -> void:
 
 
 func checkFoodCount():
-	var s := 0 if feedCount < 4 else 1 if feedCount < 10 else 2
+	var s := 0 if feedCount < 4 else 1 if feedCount < 7 else 2
 	if s == grown_state:
 		return
 	grown_state = s
 	sprite_2d.frame = [0,1,2][s]
-	if s == 1:
-		money_t = randf_range(moneyTimerRange.x, moneyTimerRange.y)
-		makingMoney = true
-	if s == 2:
-		makingMoney = true
-		hungerTimerRange = hungerAdultTimerRange
-		var grownGuppyComponents :=  get_tree().get_nodes_in_group("Grown Guppy Component")
-		if grownGuppyComponents.is_empty() != true:
-			for component in grownGuppyComponents:
-				component.AddMult()
+	match s:
+		0:
+			EntityManager.allBabyGuppies.append(self)
+		1:
+			money_t = randf_range(moneyTimerRange.x, moneyTimerRange.y)
+			makingMoney = true
+			EntityManager.allBabyGuppies.erase(self)
+		2:
+			makingMoney = true
+			hungerTimerRange = hungerAdultTimerRange
+			var grownGuppyComponents :=  get_tree().get_nodes_in_group("Grown Guppy Component")
+			if grownGuppyComponents.is_empty() != true:
+				for component in grownGuppyComponents:
+					component.AddMult()
 
 func die():
 	game_manager.removeFromFishCount()
 	AudioManager.playBlood()
 	reuseManager.createBlood(global_position)
+	EntityManager.allGuppies.erase(self)
+	if grown_state < 1:
+		EntityManager.allBabyGuppies.erase(self)
 	sprite_2d.visible = false
 	var fishDeadComponents :=  get_tree().get_nodes_in_group("Fish Dead Component")
 	if fishDeadComponents.is_empty() != true:
@@ -104,13 +112,12 @@ func die():
 	queue_free()
 
 func _on_money_timer_timeout() -> void:
-	if feedCount >= 4 and feedCount < 10:
+	if grown_state == 1:
 		reuseManager.createBronzeCoin(global_position)
-	elif feedCount >= 10:
+	elif grown_state == 2:
 		reuseManager.createSilverCoin(global_position)
 	money_t = randf_range(moneyTimerRange.x, moneyTimerRange.y)
 
 
 func _on_tree_exited() -> void:
-	EntityManager.allGuppies.erase(self)
 	game_manager.checkFishAmount()

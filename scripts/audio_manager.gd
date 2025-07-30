@@ -13,6 +13,13 @@ extends Node
 @onready var splash: AudioStreamPlayer = $splash
 @onready var blood: AudioStreamPlayer = $blood
 @onready var next_stage: AudioStreamPlayer = $nextStage
+@onready var music: AudioStreamPlayer = $Music
+@onready var whale: AudioStreamPlayer = $whale
+
+
+var scaleTween: Tween
+const MUSIC_GLITCH = preload("res://Audio/Music/music glitch.mp3")
+const YOUTUBE_JAZZ_SEABREEZE_HARMONY_375543 = preload("res://Audio/Music/youtube-jazz-seabreeze-harmony-375543.mp3")
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -23,7 +30,41 @@ func muteSoundEffects():
 	
 func muteMusic():
 	AudioServer.set_bus_mute(2, !AudioServer.is_bus_mute(2))
-	
+
+func OceanMusicToDarkMusic():
+	if music.stream == YOUTUBE_JAZZ_SEABREEZE_HARMONY_375543:
+		scaleTween = create_tween()
+		# Scale up (quick ease out)
+		scaleTween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_LINEAR)
+		scaleTween.tween_property(music, "volume_db", -80, 0.5)
+		
+		scaleTween.tween_callback(Callable(self, "darkMusic"))
+		
+		# Then scale down (with bounce)
+		scaleTween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_LINEAR)
+		scaleTween.tween_property(music, "volume_db", -30, 1)
+
+func DarkMusicToOceanMusic():
+	if music.stream == MUSIC_GLITCH:
+		scaleTween = create_tween()
+		# Scale up (quick ease out)
+		scaleTween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_LINEAR)
+		scaleTween.tween_property(music, "volume_db", -80, 0.5)
+
+		scaleTween.tween_callback(Callable(self, "oceanMusic"))
+
+		# Then scale down (with bounce)
+		scaleTween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_LINEAR)
+		scaleTween.tween_property(music, "volume_db", -30, 1)
+
+func darkMusic():
+	music.stream = MUSIC_GLITCH
+	music.play()
+
+func oceanMusic():
+	music.stream = YOUTUBE_JAZZ_SEABREEZE_HARMONY_375543
+	music.play()
+
 func playButtonClick():
 	button_click.pitch_scale = randf_range(0.6,1)
 	button_click.play()
@@ -71,3 +112,7 @@ func playBlood():
 func playNextStage():
 	next_stage.pitch_scale = randf_range(0.8,1.2)
 	next_stage.play()
+
+func playWhaleSound():
+	whale.pitch_scale = randf_range(0.8,1.2)
+	whale.play()
