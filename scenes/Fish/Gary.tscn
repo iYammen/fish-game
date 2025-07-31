@@ -37,9 +37,10 @@ maxHealth = 1
 sprite = NodePath("../sprite2D")
 
 [node name="sprite2D" type="Sprite2D" parent="."]
+use_parent_material = true
 texture = ExtResource("6_vjakc")
 
-[node name="hitBox" type="Area2D" parent="." node_paths=PackedStringArray("health") groups=["Fish"]]
+[node name="hitBox" type="Area2D" parent="." node_paths=PackedStringArray("health")]
 scale = Vector2(0.322606, 0.322606)
 collision_layer = 2
 collision_mask = 64

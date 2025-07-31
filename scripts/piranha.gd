@@ -6,7 +6,6 @@ var hungerWaitTime: float = 0
 @export var speed: float = 20
 @export var health: healthComponent
 
-var move_t := 0.0
 var hunger_t := 0.0
 var money_t := 0.0
 var attackCoolDown_t: float 
@@ -30,7 +29,6 @@ func _ready() -> void:
 	state_transition.connect(state_machine.change_state)
 	game_manager = get_tree().get_first_node_in_group("Game Manager")
 	health.died.connect(die)
-	move_t = randf_range(0.3, 4.0)
 	hungerWaitTime = randf_range(hungerTimerRange.x, hungerTimerRange.y)
 	hunger_t = hungerWaitTime
 	money_t = randf_range(moneyTimerRange.x, moneyTimerRange.y)
@@ -39,7 +37,6 @@ func _ready() -> void:
 	game_manager.addToFishCount()
 
 func _physics_process(delta: float) -> void:
-	move_t -= delta
 	hunger_t -= delta
 	tintCheck_t -= delta
 	if hunger_t <= 0.0:

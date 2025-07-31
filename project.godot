@@ -81,6 +81,7 @@ gameOver={
 2d_physics/layer_5="Enemy"
 2d_physics/layer_6="Guppy"
 2d_physics/layer_7="Piranha"
+2d_physics/layer_8="FishHit"
 
 [rendering]
 

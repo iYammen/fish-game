@@ -11,6 +11,7 @@ var warning: Control
 const GUPPY = preload("res://scenes/Fish/guppy.tscn")
 const BLOOD_DIAMOND = preload("res://scenes/bloodDiamond.tscn")
 const SHARK = preload("res://scenes/Fish/shark.tscn")
+const MONSTER_1 = preload("res://scenes/monsters/monster_1.tscn")
 @export var spawnNum: int = 1
 var game_manager: GameManager
 var monsterToSpawn: Array[int] = [0]
@@ -22,7 +23,7 @@ func _ready() -> void:
 	camera = game_manager.camera
 	monster_spawn_timer.start(randf_range(monsterSpawnTimerRange.x, monsterSpawnTimerRange.y))
 	for guppy in spawnNum:
-		var spawn:= GUPPY.instantiate()
+		var spawn:= MONSTER_1.instantiate()
 		get_tree().current_scene.add_child.call_deferred(spawn)
 		spawn.global_position = game_manager.GetDirection()
 

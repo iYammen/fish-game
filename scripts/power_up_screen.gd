@@ -7,6 +7,9 @@ var game_manager: GameManager
 const DEAD_FISH_COMPONENT = preload("res://scenes/power ups/dead_fish_component.tscn")
 const DEAD_SHARK_COMPONENT = preload("res://scenes/power ups/dead_shark_component.tscn")
 const GROWN_GUPPY_COMPONENT = preload("res://scenes/power ups/grown_guppy_component.tscn")
+const LOW_FISH_COUNT_COMPONENT = preload("res://scenes/power ups/low_fish_count_component.tscn")
+const UPGRADE_FISH_COMPONENT = preload("res://scenes/power ups/upgrade_fish_component.tscn")
+
 var powerWonArray: Array[powerResource]
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -80,6 +83,12 @@ func buttonClick(buttonNumb: int):
 			get_tree().current_scene.add_child(inst)
 		7:
 			var inst := GROWN_GUPPY_COMPONENT.instantiate()
+			get_tree().current_scene.add_child(inst)
+		8:
+			var inst := LOW_FISH_COUNT_COMPONENT.instantiate()
+			get_tree().current_scene.add_child(inst)
+		9:
+			var inst := UPGRADE_FISH_COMPONENT.instantiate()
 			get_tree().current_scene.add_child(inst)
 
 	game_manager.editPowerUpBar(powerWonArray[buttonNumb].id)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://cc3qvorsgdiqt"]
+[gd_scene load_steps=32 format=3 uid="uid://cc3qvorsgdiqt"]
 
 [ext_resource type="PackedScene" uid="uid://2l1a8m2hgowd" path="res://scenes/UI/warningUI.tscn" id="1_xsqsu"]
 [ext_resource type="Script" uid="uid://camigyij84n1w" path="res://scripts/camera_2d.gd" id="2_r2ueb"]
@@ -17,13 +17,18 @@
 [ext_resource type="Texture2D" uid="uid://bwew6rr24t1rm" path="res://assets/UI/button.png" id="8_wjjle"]
 [ext_resource type="Script" uid="uid://du2xevweuqewb" path="res://scripts/sidebar.gd" id="9_1sae0"]
 [ext_resource type="Texture2D" uid="uid://bhsxoqfcknig8" path="res://assets/UI/music.png" id="10_jjxhf"]
+[ext_resource type="Resource" uid="uid://dfn37kr3oafjd" path="res://resources/power/lowFishCount.tres" id="10_o8jhj"]
+[ext_resource type="Resource" uid="uid://cb01gwuri5d3h" path="res://resources/power/foodUp.tres" id="11_3fdi5"]
 [ext_resource type="Texture2D" uid="uid://bl4ma00uwtnb3" path="res://assets/UI/sound.png" id="11_lybtp"]
 [ext_resource type="PackedScene" uid="uid://ce2efrqeqkwis" path="res://scenes/shop.tscn" id="11_r2ueb"]
 [ext_resource type="Texture2D" uid="uid://brdmflj83x6pp" path="res://assets/UI/fullScreen.png" id="12_lybtp"]
 [ext_resource type="PackedScene" uid="uid://blaycr1vpl0y8" path="res://scenes/powerUpScreen.tscn" id="12_o8jhj"]
+[ext_resource type="Resource" uid="uid://8f3r7jpqfkb2" path="res://resources/power/gunUp.tres" id="12_papoo"]
 [ext_resource type="Texture2D" uid="uid://c61s0gox3h37l" path="res://assets/UI/quit.png" id="13_8hqpc"]
 [ext_resource type="Texture2D" uid="uid://cqfx21eafffr3" path="res://assets/icons/nothing.png" id="13_nflnv"]
+[ext_resource type="Resource" uid="uid://d0vhfinvg20ux" path="res://resources/power/hungerDown.tres" id="13_vawf4"]
 [ext_resource type="Shader" uid="uid://caa5ttiuq3bxx" path="res://scripts/background.gdshader" id="14_3kmy4"]
+[ext_resource type="Resource" uid="uid://b2ygnat2elj4y" path="res://resources/power/upgradeFish.tres" id="14_pf7nj"]
 [ext_resource type="Texture2D" uid="uid://d2oigyt1gepdc" path="res://assets/background.png" id="15_gaktt"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_64w2a"]
@@ -50,10 +55,12 @@ script = ExtResource("2_r2ueb")
 
 [node name="Game Manager" parent="." groups=["Game Manager"] instance=ExtResource("2_vmy0u")]
 process_mode = 3
-powerUps = Array[ExtResource("3_1sae0")]([ExtResource("4_twn60"), ExtResource("5_r2ueb"), ExtResource("6_o8jhj"), ExtResource("7_nflnv"), ExtResource("8_twn60")])
+powerUps = Array[ExtResource("3_1sae0")]([ExtResource("4_twn60"), ExtResource("5_r2ueb"), ExtResource("6_o8jhj"), ExtResource("7_nflnv"), ExtResource("8_twn60"), ExtResource("10_o8jhj")])
+basicPowerUps = Array[ExtResource("3_1sae0")]([ExtResource("11_3fdi5"), ExtResource("12_papoo"), ExtResource("13_vawf4"), ExtResource("14_pf7nj")])
 
 [node name="spawnManager" parent="." instance=ExtResource("3_jjxhf")]
 monsterSpawnTimerRange = Vector2(60, 120)
+spawnNum = 0
 
 [node name="boundrays" type="Node2D" parent="."]
 

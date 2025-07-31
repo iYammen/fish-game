@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://0ggemclpshtw"]
+
+[ext_resource type="Script" uid="uid://bervm6e4ph6d8" path="res://scripts/upgrade_fish_component.gd" id="1_vcd1y"]
+
+[node name="Upgrade Fish Component" type="Node" groups=["Upgrade Fish Component"]]
+script = ExtResource("1_vcd1y")

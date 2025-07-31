@@ -36,9 +36,10 @@ speed = 110.0
 maxHealth = 1
 
 [node name="sprite2D" type="Sprite2D" parent="."]
+use_parent_material = true
 texture = ExtResource("7_gd268")
 
-[node name="hitBox" type="Area2D" parent="." node_paths=PackedStringArray("health") groups=["Fish"]]
+[node name="hitBox" type="Area2D" parent="." node_paths=PackedStringArray("health")]
 scale = Vector2(0.322606, 0.322606)
 collision_layer = 66
 collision_mask = 32

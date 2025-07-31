@@ -8,7 +8,6 @@ var hungerWaitTime: float = 0
 @export var speed: float = 20
 @export var health: healthComponent
 
-var move_t := 0.0
 var hunger_t := 0.0
 var money_t := 0.0
 var attackCoolDown_t: float 
@@ -31,10 +30,10 @@ var dead: bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	EntityManager.allGuppies.append(self)
+	EntityManager.allBabyGuppies.append(self)
 	state_transition.connect(state_machine.change_state)
 	game_manager = get_tree().get_first_node_in_group("Game Manager")
 	health.died.connect(die)
-	move_t = randf_range(0.3, 4.0)
 	hungerWaitTime = randf_range(hungerTimerRange.x, hungerTimerRange.y)
 	hunger_t = hungerWaitTime
 	money_t = randf_range(moneyTimerRange.x, moneyTimerRange.y)
@@ -44,7 +43,6 @@ func _ready() -> void:
 	game_manager.checkFishAmount()
 
 func _physics_process(delta: float) -> void:
-	move_t -= delta
 	hunger_t -= delta
 	tintCheck_t -= delta
 	if hunger_t <= 0.0:
@@ -79,25 +77,28 @@ func checkFoodCount():
 	sprite_2d.frame = [0,1,2][s]
 	match s:
 		0:
-			EntityManager.allBabyGuppies.append(self)
+			if self not in EntityManager.allBabyGuppies:
+				EntityManager.allBabyGuppies.append(self)
 		1:
 			money_t = randf_range(moneyTimerRange.x, moneyTimerRange.y)
 			makingMoney = true
-			EntityManager.allBabyGuppies.erase(self)
+			if self in EntityManager.allBabyGuppies:
+				EntityManager.allBabyGuppies.erase(self)
 		2:
 			makingMoney = true
 			hungerTimerRange = hungerAdultTimerRange
+			if self in EntityManager.allBabyGuppies:
+				EntityManager.allBabyGuppies.erase(self)
 			var grownGuppyComponents :=  get_tree().get_nodes_in_group("Grown Guppy Component")
 			if grownGuppyComponents.is_empty() != true:
 				for component in grownGuppyComponents:
 					component.AddMult()
 
 func die():
-	game_manager.removeFromFishCount()
 	AudioManager.playBlood()
 	reuseManager.createBlood(global_position)
 	EntityManager.allGuppies.erase(self)
-	if grown_state < 1:
+	if self in EntityManager.allBabyGuppies:
 		EntityManager.allBabyGuppies.erase(self)
 	sprite_2d.visible = false
 	var fishDeadComponents :=  get_tree().get_nodes_in_group("Fish Dead Component")
@@ -121,3 +122,4 @@ func _on_money_timer_timeout() -> void:
 
 func _on_tree_exited() -> void:
 	game_manager.checkFishAmount()
+	game_manager.removeFromFishCount()

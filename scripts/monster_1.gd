@@ -5,9 +5,8 @@ extends Area2D
 var game_manager: GameManager
 var fish: Area2D
 var target: Vector2
-var speed: float
+var speed: float = 30
 var entered: bool = false
-var move_t := 0.0
 var eat_t := 0.0
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
 @onready var button: Button = $Button
@@ -22,14 +21,18 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _physics_process(delta: float) -> void:
-	move_t -= delta
+	var to_target = target - global_position
+	var direction = to_target.normalized()
+	var distance = to_target.length()
+	
+	if distance > speed * delta:
+		global_position += direction * speed * delta
+	else:
+		target = game_manager.GetDirection()
+	
 	if entered:
 		eat_t -= delta
 	
-	if move_t <= 0.0:
-		target = game_manager.GetDirection()
-		move_t = randf_range(3, 6)
-		
 	if eat_t <= 0.0 and entered and fish:
 		AudioManager.playFishEaten()
 		fish.health.takeDamage(100)
@@ -39,8 +42,6 @@ func _physics_process(delta: float) -> void:
 	var flip_now := global_position.x < target.x
 	if flip_now != animated_sprite_2d.flip_h:
 		animated_sprite_2d.flip_h = flip_now
-	
-	global_position = lerp(global_position, target, 0.25 * delta)
 	
 	var target_anim := "Eat" if entered else "Idle"
 	if animated_sprite_2d.animation != target_anim:

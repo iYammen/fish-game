@@ -41,6 +41,7 @@ script = ExtResource("4_0jwad")
 crab = NodePath("../..")
 
 [node name="sprite2D" type="Sprite2D" parent="."]
+use_parent_material = true
 position = Vector2(0, -16)
 texture = ExtResource("1_47adp")
 

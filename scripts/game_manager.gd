@@ -23,7 +23,7 @@ var game_over_Screen: Control
 
 var discount: float = 1
 var boundray: Vector2 = Vector2(300, 128)
-var money: int = 200000000
+var money: int = 20000000000
 var goal: int = 400
 var stage: int = 1
 var Fish: Array
@@ -86,6 +86,14 @@ func addToFishCount():
 func removeFromFishCount():
 	fishCount -= 1
 	fishCountLabel.text = "Fish Count: " + str(fishCount)
+	call_deferred("_check_fish_upgrades")
+
+func _check_fish_upgrades():
+	if is_inside_tree():
+		var upgrades: Array = get_tree().get_nodes_in_group("Upgrade Fish Component")
+		if !upgrades.is_empty():
+			for upgrade in upgrades:
+				upgrade.isFishAlive()
 
 func editPowerUpBar(id: int):
 	powerUpBar.powerUpIcons[id].addCount()
@@ -273,7 +281,7 @@ func checkEnemyCount():
 		AudioManager.DarkMusicToOceanMusic()
 
 func GetDirection():
-	var targetPos: Vector2 = Vector2(randf_range(-200, boundray.x), randf_range(-100, boundray.y))
+	var targetPos: Vector2 = Vector2(randf_range(-200, 300), randf_range(-128, 128))
 	return targetPos
 
 func abriviateNum(num: int):

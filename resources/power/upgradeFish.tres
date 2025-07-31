@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="powerResource" load_steps=3 format=3 uid="uid://b2ygnat2elj4y"]
+
+[ext_resource type="Texture2D" uid="uid://cvm1ej5r3gs8u" path="res://assets/icons/upgradeFish.png" id="1_ge3d6"]
+[ext_resource type="Script" uid="uid://dkjupqwcpqhl7" path="res://resources/power/powerResource.gd" id="2_jmubq"]
+
+[resource]
+script = ExtResource("2_jmubq")
+id = 9
+icon = ExtResource("1_ge3d6")
+description = "Upgrade 1 random fish. 
+To give from 1 to 10 multiplier
+as long as the fish is alive"
+rarity = 100
+metadata/_custom_type_script = "uid://dkjupqwcpqhl7"

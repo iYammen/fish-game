@@ -18,7 +18,6 @@ func Enter() -> void:
 	closestFood = null
 	(func(): target = fish.game_manager.GetDirection()).call_deferred()
 	
-	fish.move_t = randf_range(0.3, 4.0)
 	food_scan_t = randf_range(0.1, 0.5)
 
 func Update(_delta: float):
@@ -36,7 +35,6 @@ func Physics_Update(delta: float):
 		fish.global_position += direction * fish.speed * delta
 	else:
 		target = fish.game_manager.GetDirection()
-		fish.move_t = randf_range(0.3, 4.0)
 
 	# Arc motion: vertical bob (up/down)
 	arc_time += delta * arc_frequency
@@ -53,12 +51,6 @@ func Physics_Update(delta: float):
 	if food_scan_t <= 0.0:
 		CheckHunger()
 		food_scan_t = randf_range(0.1, 0.5)
-	
-	if fish.move_t <= 0.0:
-		arc_amplitude = randf_range(0.2,1)
-		arc_frequency = randf_range(0.3,0.6)
-		target = fish.game_manager.GetDirection()
-		fish.move_t = randf_range(0.3, 4.0)
 
 
 func CheckHunger():

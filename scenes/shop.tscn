@@ -149,6 +149,7 @@ min_value = 1.0
 max_value = 300.0
 value = 1.0
 rounded = true
+update_on_text_changed = true
 
 [node name="Error Message" type="Panel" parent="."]
 visible = false

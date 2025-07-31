@@ -13,3 +13,4 @@ func Reset():
 	allPiranhas.clear()
 	allCoins.clear()
 	allMonsters.clear()
+	allBabyGuppies.clear()

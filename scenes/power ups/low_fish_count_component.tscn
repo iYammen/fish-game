@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bmaijhw744ybv"]
+
+[ext_resource type="Script" uid="uid://d3ayce6y0l25j" path="res://scripts/low_fish_count_component.gd" id="1_ojfam"]
+
+[node name="Low Fish Count" type="Node" groups=["Low Fish Count"]]
+script = ExtResource("1_ojfam")

@@ -8,7 +8,6 @@ var hungerWaitTime: float = 0
 @export var health: healthComponent
 @onready var hit_box: Area2D = $hitBox
 
-var move_t := 0.0
 var hunger_t := 0.0
 var money_t := 0.0
 var is_hungry := false
@@ -28,7 +27,6 @@ func _ready() -> void:
 	#set_random_name()
 	game_manager = get_tree().get_first_node_in_group("Game Manager")
 	health.died.connect(die)
-	move_t = randf_range(0.3, 4.0)
 	hungerWaitTime = randf_range(hungerTimerRange.x, hungerTimerRange.y)
 	hunger_t = hungerWaitTime
 	money_t = randf_range(moneyTimerRange.x, moneyTimerRange.y)
@@ -38,7 +36,6 @@ func _ready() -> void:
 	game_manager.addToFishCount()
 
 func _physics_process(delta: float) -> void:
-	move_t -= delta
 	hunger_t -= delta
 	tintCheck_t -= delta
 	attackCoolDown_t -= delta
