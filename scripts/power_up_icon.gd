@@ -13,3 +13,10 @@ func addCount():
 	visible = true
 	if count > 1:
 		label.text = str(count)
+
+func removeCount():
+	count -= 1
+	if count == 0:
+		visible = false
+	if count > 1:
+		label.text = str(count)

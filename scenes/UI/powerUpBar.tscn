@@ -1,24 +1,13 @@
-[gd_scene load_steps=24 format=3 uid="uid://c1ikmva1frhfk"]
+[gd_scene load_steps=13 format=3 uid="uid://c1ikmva1frhfk"]
 
 [ext_resource type="Script" uid="uid://x4llxxnqu4n5" path="res://scripts/power_up_bar.gd" id="1_glm8f"]
 [ext_resource type="PackedScene" uid="uid://coalao7fl8f4f" path="res://scenes/UI/powerUpIcon.tscn" id="1_mivr8"]
 [ext_resource type="Theme" uid="uid://c6jbdk3trmuen" path="res://resources/theme/microsoftClassic.tres" id="2_qdmi4"]
 [ext_resource type="Texture2D" uid="uid://dckhptjcbwcqd" path="res://assets/icons/TimeUpIcon.png" id="2_vmjaw"]
-[ext_resource type="Script" uid="uid://dkjupqwcpqhl7" path="res://resources/power/powerResource.gd" id="2_vydvj"]
 [ext_resource type="Texture2D" uid="uid://dtm8eh8r5htxo" path="res://assets/icons/hungerDownIcon.png" id="3_glm8f"]
-[ext_resource type="Resource" uid="uid://6lqv8u6negot" path="res://resources/power/timeUp.tres" id="3_q3f7a"]
 [ext_resource type="Texture2D" uid="uid://b2ctf4ie0ync8" path="res://assets/icons/foodUpIcon.png" id="4_qdmi4"]
-[ext_resource type="Resource" uid="uid://d0vhfinvg20ux" path="res://resources/power/hungerDown.tres" id="4_sg6lc"]
 [ext_resource type="Texture2D" uid="uid://cylwj1brlnwwm" path="res://assets/icons/deadFish.png" id="5_ntgq5"]
-[ext_resource type="Resource" uid="uid://cb01gwuri5d3h" path="res://resources/power/foodUp.tres" id="5_v762b"]
-[ext_resource type="Resource" uid="uid://xw78gbwdt5il" path="res://resources/power/fishDead.tres" id="6_2ox4w"]
-[ext_resource type="Resource" uid="uid://cakfaucs507k6" path="res://resources/power/discount.tres" id="7_lmixr"]
-[ext_resource type="Resource" uid="uid://8f3r7jpqfkb2" path="res://resources/power/gunUp.tres" id="8_0la2d"]
 [ext_resource type="Texture2D" uid="uid://dp45tbndhwy5u" path="res://assets/icons/gunUpIcon.png" id="8_ntgq5"]
-[ext_resource type="Resource" uid="uid://cqs3x7gtbfwbq" path="res://resources/power/sharkDead.tres" id="9_sg6lc"]
-[ext_resource type="Resource" uid="uid://caq6atlix2txw" path="res://resources/power/grownGuppy.tres" id="10_2ox4w"]
-[ext_resource type="Resource" uid="uid://dfn37kr3oafjd" path="res://resources/power/lowFishCount.tres" id="11_0la2d"]
-[ext_resource type="Resource" uid="uid://b2ygnat2elj4y" path="res://resources/power/upgradeFish.tres" id="12_nobao"]
 [ext_resource type="Texture2D" uid="uid://s5pd2o7uetoo" path="res://assets/icons/deadShark.png" id="16_q3f7a"]
 [ext_resource type="Texture2D" uid="uid://ck80pf3ydwgn6" path="res://assets/icons/GrownGuppy.png" id="18_v762b"]
 [ext_resource type="Texture2D" uid="uid://bjpmojrtwbbc6" path="res://assets/icons/lowFishCount.png" id="20_lmixr"]
@@ -38,7 +27,6 @@ grow_vertical = 2
 mouse_filter = 1
 script = ExtResource("1_glm8f")
 powerUpIcons = [NodePath("HBoxContainer/powerUpIcon"), NodePath("HBoxContainer/powerUpIcon2"), NodePath("HBoxContainer/powerUpIcon3"), NodePath("HBoxContainer/powerUpIcon4"), NodePath("HBoxContainer/powerUpIcon5"), NodePath("HBoxContainer/powerUpIcon6"), NodePath("HBoxContainer/powerUpIcon7"), NodePath("HBoxContainer/powerUpIcon8"), NodePath("HBoxContainer/powerUpIcon9"), NodePath("HBoxContainer/powerUpIcon10")]
-powerUps = Array[ExtResource("2_vydvj")]([ExtResource("3_q3f7a"), ExtResource("4_sg6lc"), ExtResource("5_v762b"), ExtResource("6_2ox4w"), ExtResource("7_lmixr"), ExtResource("8_0la2d"), ExtResource("9_sg6lc"), ExtResource("10_2ox4w"), ExtResource("11_0la2d"), ExtResource("12_nobao")])
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 custom_minimum_size = Vector2(453.825, 0)
@@ -80,24 +68,24 @@ id = 4
 [node name="powerUpIcon6" parent="HBoxContainer" instance=ExtResource("1_mivr8")]
 layout_mode = 2
 texture = ExtResource("8_ntgq5")
-id = 4
+id = 5
 
 [node name="powerUpIcon7" parent="HBoxContainer" instance=ExtResource("1_mivr8")]
 layout_mode = 2
 texture = ExtResource("16_q3f7a")
-id = 5
+id = 6
 
 [node name="powerUpIcon8" parent="HBoxContainer" instance=ExtResource("1_mivr8")]
 layout_mode = 2
 texture = ExtResource("18_v762b")
-id = 6
+id = 7
 
 [node name="powerUpIcon9" parent="HBoxContainer" instance=ExtResource("1_mivr8")]
 layout_mode = 2
 texture = ExtResource("20_lmixr")
-id = 7
+id = 8
 
 [node name="powerUpIcon10" parent="HBoxContainer" instance=ExtResource("1_mivr8")]
 layout_mode = 2
 texture = ExtResource("22_ifpyc")
-id = 7
+id = 9

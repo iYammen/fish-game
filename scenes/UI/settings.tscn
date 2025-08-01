@@ -1,0 +1,94 @@
+[gd_scene load_steps=7 format=3 uid="uid://dpb6hjihgeumq"]
+
+[ext_resource type="Theme" uid="uid://c6jbdk3trmuen" path="res://resources/theme/microsoftClassic.tres" id="1_jyo1n"]
+[ext_resource type="Script" uid="uid://b1cixk6a7m176" path="res://scripts/settings.gd" id="2_25bb8"]
+[ext_resource type="Texture2D" uid="uid://bhsxoqfcknig8" path="res://assets/UI/music.png" id="2_ibeei"]
+[ext_resource type="Texture2D" uid="uid://bl4ma00uwtnb3" path="res://assets/UI/sound.png" id="3_25bb8"]
+[ext_resource type="Texture2D" uid="uid://brdmflj83x6pp" path="res://assets/UI/fullScreen.png" id="4_hxa2i"]
+[ext_resource type="Texture2D" uid="uid://c61s0gox3h37l" path="res://assets/UI/quit.png" id="5_6hnnl"]
+
+[node name="Settings" type="Control" groups=["Settings"]]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 216.0
+offset_top = 24.0
+offset_right = -216.0
+offset_bottom = -104.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_jyo1n")
+script = ExtResource("2_25bb8")
+
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="VBoxContainer" parent="."]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 24.0
+offset_top = -176.0
+offset_right = 184.0
+offset_bottom = -24.0
+grow_vertical = 0
+
+[node name="musicMute" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+text = "Music"
+icon = ExtResource("2_ibeei")
+
+[node name="soundMute" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+text = "Sound"
+icon = ExtResource("3_25bb8")
+
+[node name="fullScreen" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+text = "Full Screen"
+icon = ExtResource("4_hxa2i")
+
+[node name="quit" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+focus_mode = 0
+mouse_default_cursor_shape = 2
+text = "Quit"
+icon = ExtResource("5_6hnnl")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 48.0
+offset_bottom = 23.0
+text = "Settings"
+
+[node name="closeButton" type="Button" parent="."]
+layout_mode = 0
+offset_left = 176.0
+offset_right = 208.0
+offset_bottom = 32.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+flat = true
+
+[connection signal="pressed" from="HBoxContainer/musicMute" to="." method="_on_music_mute_pressed"]
+[connection signal="pressed" from="HBoxContainer/soundMute" to="." method="_on_sound_mute_pressed"]
+[connection signal="pressed" from="HBoxContainer/fullScreen" to="." method="_on_full_screen_pressed"]
+[connection signal="pressed" from="HBoxContainer/quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="closeButton" to="." method="_on_close_button_pressed"]

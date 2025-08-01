@@ -12,15 +12,17 @@ func _ready() -> void:
 	var i = randi_range(0, fish.size() - 1)
 	chosenFish = fish[i]
 	chosenFish.material = SHINY
-	print(chosenFish)
 	multAmount = randi_range(1,10)
 	calculator.multiplier += multAmount
+	game_manager.animatePowerIcon(9)
 	game_manager.updateMultLabel()
+	game_manager.animateMultLabel()
 
 
 func isFishAlive():
-	print(chosenFish)
 	if chosenFish == null:
+		game_manager.editPowerUpBar(9, false)
 		calculator.multiplier -= multAmount
 		game_manager.updateMultLabel()
+		game_manager.animateMultLabel()
 		queue_free()

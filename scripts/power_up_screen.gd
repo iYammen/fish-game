@@ -66,17 +66,22 @@ func pick_weighted_prize(list: Array[powerResource]) -> powerResource:
 func buttonClick(buttonNumb: int):
 	match powerWonArray[buttonNumb].id:
 		0:
+			game_manager.animatePowerIcon(0)
 			Engine.time_scale = Engine.time_scale + 0.5
 		1:
+			game_manager.animatePowerIcon(1)
 			game_manager.foodQuality += 1
 		2:
+			game_manager.animatePowerIcon(2)
 			game_manager.foodMax += 1
 		3:
 			var inst := DEAD_FISH_COMPONENT.instantiate()
 			get_tree().current_scene.add_child(inst)
 		4:
+			game_manager.animatePowerIcon(4)
 			game_manager.discount -= 0.1
 		5:
+			game_manager.animatePowerIcon(5)
 			game_manager.damage += 5
 		6:
 			var inst := DEAD_SHARK_COMPONENT.instantiate()
@@ -91,7 +96,7 @@ func buttonClick(buttonNumb: int):
 			var inst := UPGRADE_FISH_COMPONENT.instantiate()
 			get_tree().current_scene.add_child(inst)
 
-	game_manager.editPowerUpBar(powerWonArray[buttonNumb].id)
+	game_manager.editPowerUpBar(powerWonArray[buttonNumb].id, true)
 	visible = false
 	get_tree().paused = false
 

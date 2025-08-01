@@ -7,7 +7,7 @@ const FOOD = preload("res://scenes/food.tscn")
 const NUMBER_UI = preload("res://scenes/numberUI.tscn")
 @onready var fps_label: Label = $"../CanvasLayer/fpsLabel"
 
-
+@export var allPowerUps: Array[powerResource]
 @export var powerUps: Array[powerResource]
 @export var basicPowerUps: Array[powerResource]
 
@@ -43,6 +43,7 @@ var scaleTween: Tween
 var moneyScaleTween: Tween
 
 var camera: Camera2D
+var settings: Control
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Input.set_use_accumulated_input(false)
@@ -70,6 +71,7 @@ func _ready() -> void:
 	multLabel = get_tree().get_first_node_in_group("Multiplier")
 	camera = get_tree().get_first_node_in_group("Camera")
 	guppyLeft = get_tree().get_first_node_in_group("Guppy Left")
+	settings = get_tree().get_first_node_in_group("Settings")
 	reuseManager.Reset()
 	EntityManager.Reset()
 	AudioManager.DarkMusicToOceanMusic()
@@ -95,8 +97,11 @@ func _check_fish_upgrades():
 			for upgrade in upgrades:
 				upgrade.isFishAlive()
 
-func editPowerUpBar(id: int):
-	powerUpBar.powerUpIcons[id].addCount()
+func editPowerUpBar(id: int, add: bool):
+	if add:
+		powerUpBar.powerUpIcons[id].addCount()
+	else:
+		powerUpBar.powerUpIcons[id].removeCount()
 
 func _unhandled_input(event: InputEvent) -> void:
 	# Filter out mouse movement or irrelevant input
@@ -328,24 +333,5 @@ func _on_button_button_down() -> void:
 	AudioManager.playButtonClick()
 	errorMessage.visible = false
 
-
-func _on_music_mute_button_down() -> void:
-	AudioManager.playButtonClick()
-	AudioManager.muteMusic()
-
-func _on_sound_mute_button_down() -> void:
-	AudioManager.playButtonClick()
-	AudioManager.muteSoundEffects()
-
-
-func _on_full_screen_button_down() -> void:
-	AudioManager.playButtonClick()
-	var current_mode := DisplayServer.window_get_mode()
-	if current_mode == DisplayServer.WINDOW_MODE_WINDOWED or current_mode == DisplayServer.WINDOW_MODE_MAXIMIZED:
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_EXCLUSIVE_FULLSCREEN, 0)
-	else:
-		DisplayServer.window_set_mode(DisplayServer.WINDOW_MODE_WINDOWED, 0)
-
-
-func _on_quit_button_down() -> void:
-	get_tree().quit()
+func _on_settings_button_down() -> void:
+	settings.showSettings()

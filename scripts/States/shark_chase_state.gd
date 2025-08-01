@@ -35,7 +35,7 @@ func _update_closest_enemy() -> void:
 	for enemy in enemies:
 		if closestEnemy == null:
 					closestEnemy = enemy
-		elif fish.global_position.distance_to(enemy.global_position) < fish.global_position.distance_to(closestEnemy.global_position):
+		elif fish.global_position.distance_squared_to(enemy.global_position) < fish.global_position.distance_squared_to(closestEnemy.global_position):
 			closestEnemy = enemy
 	if closestEnemy == null:
 		state_transition.emit(self, "wander")

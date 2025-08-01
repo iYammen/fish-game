@@ -28,6 +28,10 @@ func _ready() -> void:
 	coolDown_t = randf_range(0.3,0.7)
 	health.died.connect(die)
 	EntityManager.allMonsters.append(self)
+	call_deferred("buffHealth")
+
+func buffHealth():
+	health.currentHealth += 10 * game_manager.stage
 
 func die():
 	EntityManager.allMonsters.erase(self)

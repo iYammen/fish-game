@@ -17,6 +17,10 @@ func _ready() -> void:
 	target =  game_manager.GetDirection()
 	health.died.connect(die)
 	EntityManager.allMonsters.append(self)
+	call_deferred("buffHealth")
+
+func buffHealth():
+	health.currentHealth += 10 * game_manager.stage
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

@@ -13,8 +13,14 @@ func Physics_Update(delta: float):
 		_update_closest_food()
 		food_scan_t = randf_range(0.1, 0.5)
 	if closestFood:
-		var direction = (closestFood.global_position - fish.global_position).normalized()
-		fish.global_position += direction * fishSpeed * delta
+		var to_target = closestFood.global_position - fish.global_position
+		var direction = to_target.normalized()
+		var distance = to_target.length()
+		
+		if distance > fish.speed * delta:
+			fish.global_position += direction * fishSpeed * delta
+		else:
+			food_scan_t = randf_range(0.1, 0.5)
 		
 		var flip_now := fish.global_position.x - closestFood.global_position.x < 0
 		if flip_now != fish.sprite_2d.flip_h:
