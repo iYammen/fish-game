@@ -9,9 +9,6 @@ var closestCoin: Button
 var move_t: float
 var coolDown_t: float
 
-@onready var right_wall_check: RayCast2D = $"../../rightWallCheck"
-@onready var left_wall_check: RayCast2D = $"../../leftWallCheck"
-
 func Enter() -> void:
 	dir = -1 if randf() < 0.5 else 1
 	move_t = randf_range(2.0, 8.0)
@@ -22,10 +19,10 @@ func Update(_delta: float) -> void:
 
 func Physics_Update(delta: float) -> void:
 	# Wall collision check
-	if right_wall_check.is_colliding():
-		dir = -1
-	elif left_wall_check.is_colliding():
+	if crab.global_position.x < -185:
 		dir = 1
+	elif crab.global_position.x > 300:
+		dir = -1
 	
 	# Movement
 	crab.position.x += speed * dir * delta
@@ -39,13 +36,7 @@ func Physics_Update(delta: float) -> void:
 	if coolDown_t <=0:
 		CheckCoin()
 		coolDown_t = randf_range(0.3,0.7)
-	
-	if dir > 0 and right_wall_check.enabled == false:
-		right_wall_check.enabled = true
-		left_wall_check.enabled = false
-	elif  dir < 0 and left_wall_check.enabled == false:
-		right_wall_check.enabled = false
-		left_wall_check.enabled = true
+
 
 func CheckCoin() -> void:
 	var allCoins = EntityManager.allCoins
