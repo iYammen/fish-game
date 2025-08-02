@@ -12,6 +12,7 @@ const GUPPY = preload("res://scenes/Fish/guppy.tscn")
 const BLOOD_DIAMOND = preload("res://scenes/bloodDiamond.tscn")
 const SHARK = preload("res://scenes/Fish/shark.tscn")
 const MONSTER_1 = preload("res://scenes/monsters/monster_1.tscn")
+const BRONZE_COIN = preload("res://scenes/bronze_coin.tscn")
 @export var spawnNum: int = 1
 var game_manager: GameManager
 var monsterToSpawn: Array[int] = [0]

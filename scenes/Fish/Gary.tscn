@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://d3w6u6nmuwons"]
+[gd_scene load_steps=7 format=3 uid="uid://d3w6u6nmuwons"]
 
 [ext_resource type="Script" uid="uid://c6dfffgv5d1ie" path="res://scripts/gary.gd" id="1_ppxau"]
 [ext_resource type="Script" uid="uid://bh77r8leevuyk" path="res://scripts/States/state_machine.gd" id="2_jrfbp"]
@@ -6,10 +6,6 @@
 [ext_resource type="Script" uid="uid://c7kr5g88540x3" path="res://scripts/States/gary_hungry_state.gd" id="4_jrfbp"]
 [ext_resource type="PackedScene" uid="uid://70q8lok643df" path="res://scenes/components/health_component.tscn" id="5_ugrsq"]
 [ext_resource type="Texture2D" uid="uid://cc6n5g2j23kmp" path="res://assets/fish/Gary.png" id="6_vjakc"]
-[ext_resource type="Script" uid="uid://dvktduucdvajs" path="res://scripts/hitbox.gd" id="7_k75db"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2njgj"]
-size = Vector2(198.384, 148.788)
 
 [node name="gary" type="Node2D" node_paths=PackedStringArray("health") groups=["Fish"]]
 texture_filter = 1
@@ -39,17 +35,3 @@ sprite = NodePath("../sprite2D")
 [node name="sprite2D" type="Sprite2D" parent="."]
 use_parent_material = true
 texture = ExtResource("6_vjakc")
-
-[node name="hitBox" type="Area2D" parent="." node_paths=PackedStringArray("health")]
-scale = Vector2(0.322606, 0.322606)
-collision_layer = 2
-collision_mask = 64
-input_pickable = false
-script = ExtResource("7_k75db")
-health = NodePath("../healthComponent")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hitBox"]
-position = Vector2(-2.95616e-06, -1.47808e-06)
-shape = SubResource("RectangleShape2D_2njgj")
-
-[connection signal="area_entered" from="hitBox" to="state_machine/hungry" method="_on_hit_box_area_entered"]

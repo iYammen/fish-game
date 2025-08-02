@@ -1,4 +1,4 @@
-extends Area2D
+extends Node2D
 
 @onready var cool_down_timer: Timer = $coolDownTimer
 @export var health: healthComponent

@@ -15,17 +15,17 @@ func _ready() -> void:
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
-	if !global_position.y > 143:
+	if !(global_position.y > 143):
 		global_position.y += 50 * delta
 	else:
 		disappear_t -= delta
 		modulate.a -= 1 / disappear_t * delta
 	if disappear_t <= 0 and available == false:
-		available = true
 		global_position = Vector2(1000,1000)
 		remove_from_group("Coin")
-		process_mode = Node.PROCESS_MODE_DISABLED
 		EntityManager.allCoins.erase(self)
+		available = true
+		process_mode = Node.PROCESS_MODE_DISABLED
 
 
 
@@ -36,11 +36,10 @@ func _on_button_down() -> void:
 		collected = true
 		game_manager.addCoin(finalValue)
 		reuseManager.createNumbLabel(global_position, finalValue)
-		
-		available = true
 		global_position = Vector2(1000,1000)
 		remove_from_group("Coin")
 		EntityManager.allCoins.erase(self)
+		available = true
 		process_mode = Node.PROCESS_MODE_DISABLED
 
 func resetCoin():

@@ -58,7 +58,7 @@ func CheckHunger():
 		if !fish.is_hungry:
 			return
 		var allFood = EntityManager.allFood
-
+		
 		if !allFood.is_empty():
 			state_transition.emit(self, "hungry")
 			return

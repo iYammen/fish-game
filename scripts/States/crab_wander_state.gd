@@ -4,8 +4,7 @@ extends State
 @export var speed: float = 50.0
 
 var dir := 1
-var closestCoin: Button
-
+var closestCoins: Array[Button]
 var move_t: float
 var coolDown_t: float
 
@@ -34,14 +33,29 @@ func Physics_Update(delta: float) -> void:
 	
 	coolDown_t -= delta
 	if coolDown_t <=0:
-		CheckCoin()
+		_update_closest_coin()
 		coolDown_t = randf_range(0.3,0.7)
+	
+	if !closestCoins.is_empty():
+		for coin in closestCoins:
+			coin._on_button_down()
+			closestCoins.erase(coin)
 
 
-func CheckCoin() -> void:
+func _update_closest_coin() -> void:
 	var allCoins = EntityManager.allCoins
-	if !allCoins.is_empty():
-		state_transition.emit(self, "chase")
+	var coinSize: int = allCoins.size()
+	var closest_dist := INF
+
+	for i in coinSize:
+		var coin = allCoins[i]
+		if coin != null:
+			var to_target = coin.global_position - crab.global_position
+			var direction = to_target.normalized()
+			var distance = to_target.length()
+			if distance < 50:
+				closestCoins.append(coin)
+
 
 func Exit() -> void:
 	pass

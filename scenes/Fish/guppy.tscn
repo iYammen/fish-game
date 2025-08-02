@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://baaen8igoytc4"]
+[gd_scene load_steps=7 format=3 uid="uid://baaen8igoytc4"]
 
 [ext_resource type="Script" uid="uid://vx7tj6vdhvv6" path="res://scripts/guppy.gd" id="1_5al4j"]
 [ext_resource type="PackedScene" uid="uid://70q8lok643df" path="res://scenes/components/health_component.tscn" id="2_3y8gv"]
@@ -6,10 +6,6 @@
 [ext_resource type="Texture2D" uid="uid://cfkh67425wusx" path="res://assets/fish/guppy.png" id="3_2njgj"]
 [ext_resource type="Script" uid="uid://ca1ym6vuspvmb" path="res://scripts/States/guppy_wander_state.gd" id="3_3y8gv"]
 [ext_resource type="Script" uid="uid://d14i0sacaiadn" path="res://scripts/States/guppy_hungry_state.gd" id="4_2njgj"]
-[ext_resource type="Script" uid="uid://dvktduucdvajs" path="res://scripts/hitbox.gd" id="8_2njgj"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2njgj"]
-size = Vector2(123.99, 86.7932)
 
 [node name="guppy" type="Node2D" node_paths=PackedStringArray("health") groups=["Fish", "Guppy"]]
 texture_filter = 1
@@ -40,17 +36,4 @@ use_parent_material = true
 texture = ExtResource("3_2njgj")
 hframes = 3
 
-[node name="hitBox" type="Area2D" parent="." node_paths=PackedStringArray("health")]
-scale = Vector2(0.322606, 0.322606)
-collision_layer = 34
-collision_mask = 4
-input_pickable = false
-script = ExtResource("8_2njgj")
-health = NodePath("../healthComponent")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hitBox"]
-position = Vector2(3.09976, -3.09976)
-shape = SubResource("RectangleShape2D_2njgj")
-
 [connection signal="tree_exited" from="." to="." method="_on_tree_exited"]
-[connection signal="area_entered" from="hitBox" to="state_machine/hungry" method="_on_hit_box_area_entered"]

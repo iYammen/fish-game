@@ -2,23 +2,38 @@ extends State
 @export var fish: Node2D
 @export var speed: float
 var closestFood: Node2D
-
+var food_scan_t := 0.0
+var lastScanDist: Vector2
 func Enter() -> void:
-	pass
+	food_scan_t = randf_range(0.1, 0.5)
 
 func Physics_Update(delta: float):
-	_update_closest_food()
+	food_scan_t -= delta
+	if food_scan_t <= 0.0:
+		_update_closest_food()
+		food_scan_t = randf_range(0.1, 0.5)
 	if closestFood:
-		
-		var direction = (closestFood.global_position - fish.global_position).normalized()
-		fish.global_position += direction * speed * delta
-		
 		var to_target = closestFood.global_position - fish.global_position
+		var direction = to_target.normalized()
 		var distance = to_target.length()
 		
-		if distance < fish.speed * delta:
-			fish.attackCoolDown_t = randf_range(0.7,1.3)
+		if distance > fish.speed * delta:
+			fish.global_position += direction * speed * delta
+		else:
+			fish.CoolDown_t = randf_range(0.5,0.7)
 			state_transition.emit(self, "wander")
+			return
+		
+		if distance < 50:
+			if fish.is_hungry:
+				if closestFood.is_in_group("Piranha") and closestFood.dead == false:
+					closestFood.dead = true
+					AudioManager.playFishEaten()
+					fish.is_hungry = false
+					fish.hungerWaitTime = randf_range(fish.hungerTimerRange.x, fish.hungerTimerRange.y)
+					fish.hunger_t = fish.hungerWaitTime
+					closestFood.health.takeDamage(100)
+					state_transition.emit(self, "wander")
 		
 		var flip_now := fish.global_position.x - closestFood.global_position.x < 0
 		if flip_now != fish.sprite_2d.flip_h:
@@ -42,14 +57,3 @@ func _update_closest_food() -> void:
 
 func Exit():
 	pass
-
-func _on_hit_box_area_entered(area: Area2D) -> void:
-	if fish.is_hungry:
-		if area.owner.is_in_group("Piranha") and area.owner.dead == false:
-			area.owner.dead = true
-			AudioManager.playFishEaten()
-			fish.is_hungry = false
-			fish.hungerWaitTime = randf_range(fish.hungerTimerRange.x, fish.hungerTimerRange.y)
-			fish.hunger_t = fish.hungerWaitTime
-			area.owner.health.takeDamage(100)
-			state_transition.emit(self, "wander")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://bcao21iwjnai5"]
+[gd_scene load_steps=7 format=3 uid="uid://bcao21iwjnai5"]
 
 [ext_resource type="Script" uid="uid://cplxict5vg20u" path="res://scripts/monster_1.gd" id="1_qfjev"]
 [ext_resource type="PackedScene" uid="uid://70q8lok643df" path="res://scenes/components/health_component.tscn" id="2_ska6x"]
@@ -31,13 +31,8 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2cfiq"]
-size = Vector2(52.5, 40)
-
-[node name="Monster_1" type="Area2D" node_paths=PackedStringArray("health") groups=["Enemy"]]
+[node name="Monster_1" type="Node2D" node_paths=PackedStringArray("health") groups=["Enemy"]]
 z_index = 3
-collision_layer = 16
-collision_mask = 2
 script = ExtResource("1_qfjev")
 value = 50
 health = NodePath("healthComponent")
@@ -60,10 +55,4 @@ sprite_frames = SubResource("SpriteFrames_ska6x")
 animation = &"Idle"
 frame_progress = 0.0445773
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-2.25, 4)
-shape = SubResource("RectangleShape2D_2cfiq")
-
-[connection signal="area_entered" from="." to="." method="_on_area_entered"]
-[connection signal="area_exited" from="." to="." method="_on_area_exited"]
 [connection signal="button_down" from="Button" to="." method="_on_button_pressed"]

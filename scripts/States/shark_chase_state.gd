@@ -1,6 +1,6 @@
 extends State
 @export var fish: Node2D
-var closestEnemy: Area2D
+var closestEnemy: Node2D
 var target: Vector2
 @export var speed: float
 var coolDown_t: float
@@ -19,15 +19,25 @@ func Physics_Update(delta: float):
 		coolDown_t = randf_range(0.3,0.7)
 	if closestEnemy:
 		var direction = (closestEnemy.global_position - fish.global_position).normalized()
-		fish.global_position += direction * speed * delta
+		
 		
 		var to_target = closestEnemy.global_position - fish.global_position
 		var distance = to_target.length()
 		
-		if distance < fish.speed * delta:
+		if distance > fish.speed * delta:
+			fish.global_position += direction * speed * delta
+		else:
 			fish.attackCoolDown_t = randf_range(0.7,1.3)
 			state_transition.emit(self, "wander")
+			return
 		
+		if distance < 50:
+			fish.attackCoolDown_t = randf_range(0.7,1.3)
+			closestEnemy.health.takeDamage(fish.damage)
+			fish.game_manager.ShowDamageNumb(fish.damage, closestEnemy.global_position)
+			state_transition.emit(self, "wander")
+			return
+
 		var flip_now := fish.global_position.x - closestEnemy.global_position.x < 0
 		if flip_now != fish.sprite_2d.flip_h:
 			fish.sprite_2d.flip_h = flip_now
@@ -51,11 +61,3 @@ func _update_closest_enemy() -> void:
 
 func Exit():
 	pass
-
-
-func _on_hit_box_area_entered(area: Area2D) -> void:
-	if fish.attackCoolDown_t <= 0:
-		fish.attackCoolDown_t = randf_range(0.7,1.3)
-		area.health.takeDamage(fish.damage)
-		fish.game_manager.ShowDamageNumb(fish.damage, area.global_position)
-		state_transition.emit(self, "wander")

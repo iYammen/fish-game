@@ -1,9 +1,9 @@
 extends State
 @export var fish: Guppy
 var fishSpeed: float
-var closestFood: Area2D
+var closestFood: Node2D
 var food_scan_t := 0.0
-var lastScanDist: Vector2
+
 func Enter() -> void:
 	fishSpeed = randf_range(100,120)
 
@@ -22,6 +22,22 @@ func Physics_Update(delta: float):
 		else:
 			fish.CoolDown_t = randf_range(0.5,0.7)
 			state_transition.emit(self, "wander")
+			return
+		
+		if distance < 20:
+			if fish.is_hungry:
+				if closestFood.is_in_group("Food"):
+					if closestFood.eaten == false:
+						AudioManager.playGulp()
+						closestFood.eaten = true
+						fish.is_hungry = false
+						fish.hungerWaitTime = randf_range(fish.hungerTimerRange.x, fish.hungerTimerRange.y)
+						fish.hunger_t = fish.hungerWaitTime
+						fish.feedCount += closestFood.foodQuality
+						fish.checkFoodCount()
+						fish._update_hunger_tint()
+						closestFood.health.takeDamage(100)
+						state_transition.emit(self, "wander")
 		
 		var flip_now := fish.global_position.x - closestFood.global_position.x < 0
 		if flip_now != fish.sprite_2d.flip_h:
@@ -45,18 +61,3 @@ func _update_closest_food() -> void:
 
 func Exit():
 	pass
-
-func _on_hit_box_area_entered(area: Area2D) -> void:
-	if fish.is_hungry:
-		if area.is_in_group("Food"):
-			if area.eaten == false:
-				AudioManager.playGulp()
-				area.eaten = true
-				fish.is_hungry = false
-				fish.hungerWaitTime = randf_range(fish.hungerTimerRange.x, fish.hungerTimerRange.y)
-				fish.hunger_t = fish.hungerWaitTime
-				fish.feedCount += area.foodQuality
-				fish.checkFoodCount()
-				fish._update_hunger_tint()
-				area.health.takeDamage(100)
-				state_transition.emit(self, "wander")

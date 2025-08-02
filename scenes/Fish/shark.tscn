@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://d1c18j7ou1wtb"]
+[gd_scene load_steps=7 format=3 uid="uid://d1c18j7ou1wtb"]
 
 [ext_resource type="Script" uid="uid://ccmgtfes5bakc" path="res://scripts/shark.gd" id="1_q88iu"]
 [ext_resource type="Script" uid="uid://bh77r8leevuyk" path="res://scripts/States/state_machine.gd" id="2_363uy"]
@@ -6,10 +6,6 @@
 [ext_resource type="Script" uid="uid://0mgmjjxaelyr" path="res://scripts/States/shark_chase_state.gd" id="3_dwrfc"]
 [ext_resource type="Script" uid="uid://ct081ugb1xg6t" path="res://scripts/States/shark_wander_state.gd" id="3_q88iu"]
 [ext_resource type="Texture2D" uid="uid://ymhhbshnc8sx" path="res://assets/fish/shark.png" id="5_q88iu"]
-[ext_resource type="Script" uid="uid://dvktduucdvajs" path="res://scripts/hitbox.gd" id="7_vxi2w"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_vxi2w"]
-size = Vector2(182.886, 58.8954)
 
 [node name="shark" type="Node2D" node_paths=PackedStringArray("health") groups=["Fish"]]
 texture_filter = 1
@@ -36,17 +32,3 @@ speed = 100.0
 texture_filter = 1
 position = Vector2(0, 1)
 texture = ExtResource("5_q88iu")
-
-[node name="hitBox" type="Area2D" parent="." node_paths=PackedStringArray("health")]
-scale = Vector2(0.322606, 0.322606)
-collision_layer = 2
-collision_mask = 16
-input_pickable = false
-script = ExtResource("7_vxi2w")
-health = NodePath("../healthComponent")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hitBox"]
-position = Vector2(1.54987, -1.54988)
-shape = SubResource("RectangleShape2D_vxi2w")
-
-[connection signal="area_entered" from="hitBox" to="state_machine/chase" method="_on_hit_box_area_entered"]

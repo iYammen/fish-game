@@ -52,11 +52,12 @@ func Physics_Update(delta: float):
 
 
 func CheckHunger():
-	if !fish.is_hungry:
-		return
-	var allFood = EntityManager.allBabyGuppies
-	if !allFood.is_empty():
-		state_transition.emit(self, "hungry")
+	if fish.CoolDown_t <= 0:
+		if !fish.is_hungry:
+			return
+		var allFood = EntityManager.allBabyGuppies
+		if !allFood.is_empty():
+			state_transition.emit(self, "hungry")
 
 
 func Exit():

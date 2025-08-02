@@ -62,6 +62,7 @@ monsterSpawnTimerRange = Vector2(60, 120)
 spawnNum = 0
 
 [node name="boundrays" type="Node2D" parent="."]
+visible = false
 
 [node name="boundary" parent="boundrays" groups=["Ground Boundary"] instance=ExtResource("4_lybtp")]
 position = Vector2(0, 178)

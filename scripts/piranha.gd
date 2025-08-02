@@ -20,8 +20,8 @@ const SILVER_COIN = preload("res://scenes/silver_coin.tscn")
 signal state_transition
 var hunger_state := 0
 var tintCheck_t: float
-@onready var hit_box: Area2D = $hitBox
 var dead: bool = false
+var CoolDown_t: float 
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -33,10 +33,10 @@ func _ready() -> void:
 	hunger_t = hungerWaitTime
 	money_t = randf_range(moneyTimerRange.x, moneyTimerRange.y)
 	tintCheck_t = randf_range(2, 5)
-	hit_box.set_collision_mask_value(6, false)
 	game_manager.addToFishCount()
 
 func _physics_process(delta: float) -> void:
+	CoolDown_t -= delta
 	hunger_t -= delta
 	tintCheck_t -= delta
 	if hunger_t <= 0.0:
@@ -51,12 +51,7 @@ func _physics_process(delta: float) -> void:
 	if money_t <= 0.0:
 		_on_money_timer_timeout()
 		money_t = randf_range(moneyTimerRange.x, moneyTimerRange.y)
-	
-	if is_hungry and hit_box.get_collision_mask_value(6) == false:
-		hit_box.set_collision_mask_value(6, true)
-	elif !is_hungry and hit_box.get_collision_mask_value(6) == true:
-		hit_box.set_collision_mask_value(6, false)
-	
+
 
 func _update_hunger_tint() -> void:
 	var ratio := hunger_t / hungerWaitTime
@@ -68,7 +63,6 @@ func _update_hunger_tint() -> void:
 
 func die():
 	game_manager.removeFromFishCount()
-	hit_box.set_collision_layer_value(7, false)
 	AudioManager.playBlood()
 	reuseManager.createBlood(global_position)
 	sprite_2d.visible = false

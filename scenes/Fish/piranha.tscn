@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://c6psb76ni02ae"]
+[gd_scene load_steps=7 format=3 uid="uid://c6psb76ni02ae"]
 
 [ext_resource type="Script" uid="uid://cg6g2pygfh8gw" path="res://scripts/piranha.gd" id="1_6r0gv"]
 [ext_resource type="Script" uid="uid://bpgdlkanob58x" path="res://scripts/States/piranha_wander_state.gd" id="3_gd268"]
@@ -6,10 +6,6 @@
 [ext_resource type="Script" uid="uid://b0byxmda1kk84" path="res://scripts/States/piranha_hungry_state.gd" id="4_umawp"]
 [ext_resource type="PackedScene" uid="uid://70q8lok643df" path="res://scenes/components/health_component.tscn" id="6_3qu4x"]
 [ext_resource type="Texture2D" uid="uid://dam5l5knc82so" path="res://assets/fish/piranha.png" id="7_gd268"]
-[ext_resource type="Script" uid="uid://dvktduucdvajs" path="res://scripts/hitbox.gd" id="8_osm6a"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_2njgj"]
-size = Vector2(123.99, 86.7932)
 
 [node name="piranha" type="Node2D" node_paths=PackedStringArray("health") groups=["Fish", "Piranha"]]
 texture_filter = 1
@@ -39,17 +35,4 @@ maxHealth = 1
 use_parent_material = true
 texture = ExtResource("7_gd268")
 
-[node name="hitBox" type="Area2D" parent="." node_paths=PackedStringArray("health")]
-scale = Vector2(0.322606, 0.322606)
-collision_layer = 66
-collision_mask = 32
-input_pickable = false
-script = ExtResource("8_osm6a")
-health = NodePath("../healthComponent")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="hitBox"]
-position = Vector2(3.09976, -3.09976)
-shape = SubResource("RectangleShape2D_2njgj")
-
 [connection signal="tree_exited" from="." to="." method="_on_tree_exited"]
-[connection signal="area_entered" from="hitBox" to="state_machine/hungry" method="_on_hit_box_area_entered"]

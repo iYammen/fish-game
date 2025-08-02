@@ -43,6 +43,7 @@ func _ready() -> void:
 	game_manager.checkFishAmount()
 
 func _physics_process(delta: float) -> void:
+	CoolDown_t -= delta
 	hunger_t -= delta
 	tintCheck_t -= delta
 	if hunger_t <= 0.0:
