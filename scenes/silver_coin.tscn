@@ -21,11 +21,6 @@ value = 30
 position = Vector2(11, 19)
 texture = ExtResource("2_i6kbj")
 
-[node name="RayCast2D" type="RayCast2D" parent="."]
-position = Vector2(12, 5)
-target_position = Vector2(0, 30)
-hit_from_inside = true
-
 [node name="Area2D" type="Area2D" parent="."]
 collision_layer = 8
 collision_mask = 0

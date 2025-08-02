@@ -65,7 +65,7 @@ func Physics_Update(delta: float):
 
 func CheckEnemy():
 	if fish.attackCoolDown_t <= 0:
-		var allEnemies = get_tree().get_nodes_in_group("Enemy")
+		var allEnemies = EntityManager.allMonsters
 		if !allEnemies.is_empty():
 			state_transition.emit(self, "chase")
 

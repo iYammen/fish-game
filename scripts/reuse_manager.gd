@@ -85,7 +85,7 @@ func createBloodDiamond(pos: Vector2):
 	new_coin.global_position = pos
 	get_tree().current_scene.add_child(new_coin)
 	bloodDiamondArray.append(new_coin)
-	
+
 
 func createNumbLabel(pos: Vector2, number: int):
 	for numbLabel in numbLabelArray:

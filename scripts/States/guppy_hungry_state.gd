@@ -20,7 +20,8 @@ func Physics_Update(delta: float):
 		if distance > fish.speed * delta:
 			fish.global_position += direction * fishSpeed * delta
 		else:
-			food_scan_t = randf_range(0.1, 0.5)
+			fish.CoolDown_t = randf_range(0.5,0.7)
+			state_transition.emit(self, "wander")
 		
 		var flip_now := fish.global_position.x - closestFood.global_position.x < 0
 		if flip_now != fish.sprite_2d.flip_h:

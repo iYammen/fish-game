@@ -10,7 +10,7 @@ var hungerWaitTime: float = 0
 
 var hunger_t := 0.0
 var money_t := 0.0
-var attackCoolDown_t: float 
+var CoolDown_t: float 
 var is_hungry := false
 
 

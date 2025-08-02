@@ -3,16 +3,20 @@ extends State
 var closestEnemy: Area2D
 var target: Vector2
 @export var speed: float
+var coolDown_t: float
 
 func Enter() -> void:
-	pass
+	coolDown_t = randf_range(0.3,0.7)
 
 func Update(_delta:float):
 	pass
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func Physics_Update(delta: float):
-	_update_closest_enemy()
+	coolDown_t -= delta
+	if coolDown_t <= 0:
+		_update_closest_enemy()
+		coolDown_t = randf_range(0.3,0.7)
 	if closestEnemy:
 		var direction = (closestEnemy.global_position - fish.global_position).normalized()
 		fish.global_position += direction * speed * delta
@@ -31,14 +35,19 @@ func Physics_Update(delta: float):
 
 
 func _update_closest_enemy() -> void:
-	var enemies = get_tree().get_nodes_in_group("Enemy")
-	for enemy in enemies:
-		if closestEnemy == null:
-					closestEnemy = enemy
-		elif fish.global_position.distance_squared_to(enemy.global_position) < fish.global_position.distance_squared_to(closestEnemy.global_position):
-			closestEnemy = enemy
-	if closestEnemy == null:
+	closestEnemy = null
+	var allMonsters = EntityManager.allMonsters
+	var foodSize: int = clampi(allMonsters.size(), 0, 45)
+	var closest_dist := INF
+	if allMonsters.is_empty():
 		state_transition.emit(self, "wander")
+		return
+	for i in foodSize:
+		var monster = allMonsters[i]
+		var dist = fish.global_position.distance_squared_to(monster.global_position)
+		if dist < closest_dist:
+			closestEnemy = monster
+			closest_dist = dist
 
 func Exit():
 	pass
