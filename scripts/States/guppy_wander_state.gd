@@ -1,6 +1,6 @@
 extends State
 
-@export var fish: Guppy
+@export var fish: Node2D
 
 const MAX := 50.0
 var target: Vector2

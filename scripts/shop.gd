@@ -25,7 +25,10 @@ func _ready() -> void:
 func showShop():
 	for i in buttons.size():
 		var btn := buttons[i]
-		btn.text = "%s: %s %s" % [fish[i].name, game_manager.abriviateNum(fish[i].price * game_manager.discount), fish[i].moneyType]
+		if fish[i].moneyType.contains("$"):
+			btn.text = "%s: %s %s" % [fish[i].name, game_manager.abriviateNum(floor(fish[i].price * game_manager.discount)), fish[i].moneyType]
+		else:
+			btn.text = "%s: %s %s" % [fish[i].name, game_manager.abriviateNum(floor(fish[i].price)), fish[i].moneyType]
 		btn.icon = fish[i].portrait
 	spin_box.value = 1
 	visible = true
@@ -54,7 +57,7 @@ func _on_shop_button_down(index: int):
 			AudioManager.playSplash()
 		game_manager.subtractCoin(discountedPrice * spin_box.value)
 	else:
-		if currentGuppyArray.size() < 3 * spin_box.value:
+		if currentGuppyArray.size() < data.price * spin_box.value:
 			AudioManager.playError()
 			_display_error("not enough fish to\nbuy stock")
 			return

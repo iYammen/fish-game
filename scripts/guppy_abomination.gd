@@ -1,9 +1,7 @@
 extends Node2D
-class_name Guppy
 
 var hungerWaitTime: float = 0
 @export var hungerTimerRange: Vector2
-@export var hungerAdultTimerRange: Vector2
 @export var moneyTimerRange: Vector2
 @export var speed: float = 20
 @export var health: healthComponent
@@ -30,7 +28,6 @@ var dead: bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	EntityManager.allGuppies.append(self)
-	EntityManager.allBabyGuppies.append(self)
 	state_transition.connect(state_machine.change_state)
 	game_manager = get_tree().get_first_node_in_group("Game Manager")
 	health.died.connect(die)
@@ -38,7 +35,6 @@ func _ready() -> void:
 	hunger_t = hungerWaitTime
 	money_t = randf_range(moneyTimerRange.x, moneyTimerRange.y)
 	tintCheck_t = randf_range(2, 5)
-	checkFoodCount()
 	game_manager.addToFishCount()
 	game_manager.checkFishAmount()
 
@@ -69,31 +65,6 @@ func _update_hunger_tint() -> void:
 	hunger_state = s
 	sprite_2d.modulate = [Color.WHITE, Color.LIME, Color.DARK_GREEN][s]
 
-
-func checkFoodCount():
-	var s := 0 if feedCount < 4 else 1 if feedCount < 7 else 2
-	if s == grown_state:
-		return
-	grown_state = s
-	sprite_2d.frame = [0,1,2][s]
-	match s:
-		0:
-			if self not in EntityManager.allBabyGuppies:
-				EntityManager.allBabyGuppies.append(self)
-		1:
-			money_t = randf_range(moneyTimerRange.x, moneyTimerRange.y)
-			makingMoney = true
-			if self in EntityManager.allBabyGuppies:
-				EntityManager.allBabyGuppies.erase(self)
-		2:
-			makingMoney = true
-			hungerTimerRange = hungerAdultTimerRange
-			if self in EntityManager.allBabyGuppies:
-				EntityManager.allBabyGuppies.erase(self)
-			var grownGuppyComponents :=  get_tree().get_nodes_in_group("Grown Guppy Component")
-			if grownGuppyComponents.is_empty() != true:
-				for component in grownGuppyComponents:
-					component.AddMult()
 
 func die():
 	AudioManager.playBlood()

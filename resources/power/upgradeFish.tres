@@ -10,5 +10,5 @@ icon = ExtResource("1_ge3d6")
 description = "Upgrade 1 random fish. 
 To give from 1 to 10 multiplier
 as long as the fish is alive"
-rarity = 100
+rarity = 20
 metadata/_custom_type_script = "uid://dkjupqwcpqhl7"

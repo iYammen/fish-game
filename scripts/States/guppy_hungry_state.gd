@@ -1,5 +1,5 @@
 extends State
-@export var fish: Guppy
+@export var fish: Node2D
 var fishSpeed: float
 var closestFood: Node2D
 var food_scan_t := 0.0

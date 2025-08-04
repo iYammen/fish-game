@@ -45,13 +45,11 @@ func Physics_Update(delta: float) -> void:
 func _update_closest_coin() -> void:
 	var allCoins = EntityManager.allCoins
 	var coinSize: int = allCoins.size()
-	var closest_dist := INF
 
 	for i in coinSize:
 		var coin = allCoins[i]
 		if coin != null:
 			var to_target = coin.global_position - crab.global_position
-			var direction = to_target.normalized()
 			var distance = to_target.length()
 			if distance < 50:
 				closestCoins.append(coin)

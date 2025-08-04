@@ -10,5 +10,5 @@ icon = ExtResource("1_rbw1s")
 description = "be able to spawn more food
 
 "
-rarity = 50
+rarity = 100
 metadata/_custom_type_script = "uid://dkjupqwcpqhl7"

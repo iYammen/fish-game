@@ -1,0 +1,38 @@
+[gd_scene load_steps=7 format=3 uid="uid://kawsdet1f3bw"]
+
+[ext_resource type="Script" uid="uid://c01tkn5n20ga0" path="res://scripts/guppy_abomination.gd" id="1_y37x6"]
+[ext_resource type="Script" uid="uid://bh77r8leevuyk" path="res://scripts/States/state_machine.gd" id="2_ren85"]
+[ext_resource type="Script" uid="uid://ca1ym6vuspvmb" path="res://scripts/States/guppy_wander_state.gd" id="3_vyjmy"]
+[ext_resource type="Script" uid="uid://d14i0sacaiadn" path="res://scripts/States/guppy_hungry_state.gd" id="4_5o81x"]
+[ext_resource type="PackedScene" uid="uid://70q8lok643df" path="res://scenes/components/health_component.tscn" id="5_gsev0"]
+[ext_resource type="Texture2D" uid="uid://clkl4egypbbmo" path="res://assets/fish/guppy_abomination.png" id="6_y37x6"]
+
+[node name="guppy_abomination" type="Node2D" node_paths=PackedStringArray("health") groups=["Fish", "Guppy"]]
+texture_filter = 1
+script = ExtResource("1_y37x6")
+hungerTimerRange = Vector2(20, 40)
+moneyTimerRange = Vector2(5, 15)
+speed = 30.0
+health = NodePath("healthComponent")
+feedCount = 10
+
+[node name="state_machine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("2_ren85")
+initial_state = NodePath("wander")
+
+[node name="wander" type="Node" parent="state_machine" node_paths=PackedStringArray("fish")]
+script = ExtResource("3_vyjmy")
+fish = NodePath("../..")
+
+[node name="hungry" type="Node" parent="state_machine" node_paths=PackedStringArray("fish")]
+script = ExtResource("4_5o81x")
+fish = NodePath("../..")
+
+[node name="healthComponent" parent="." instance=ExtResource("5_gsev0")]
+maxHealth = 1
+
+[node name="sprite2D" type="Sprite2D" parent="."]
+use_parent_material = true
+texture = ExtResource("6_y37x6")
+
+[connection signal="tree_exited" from="." to="." method="_on_tree_exited"]

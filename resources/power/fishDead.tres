@@ -9,5 +9,5 @@ id = 3
 icon = ExtResource("1_mwxd8")
 description = "When a fish dies gain 1.5
 multiplier for 2 seconds"
-rarity = 10
+rarity = 5
 metadata/_custom_type_script = "uid://dkjupqwcpqhl7"

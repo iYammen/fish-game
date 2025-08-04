@@ -111,3 +111,9 @@ func _on_button_2_pressed() -> void:
 func _on_button_3_pressed() -> void:
 	AudioManager.playButtonClick()
 	buttonClick(2)
+
+
+func _on_exit_button_pressed() -> void:
+	AudioManager.playButtonClick()
+	visible = false
+	get_tree().paused = false

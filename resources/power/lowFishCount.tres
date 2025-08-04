@@ -9,5 +9,5 @@ id = 8
 icon = ExtResource("1_tajoa")
 description = "If you have less than or equal to
 600 fish gain 25 Multiplier"
-rarity = 10
+rarity = 20
 metadata/_custom_type_script = "uid://dkjupqwcpqhl7"

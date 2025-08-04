@@ -1,5 +1,6 @@
 extends Control
 
+var showing: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -9,10 +10,12 @@ func _ready() -> void:
 func showSettings():
 	visible = true
 	get_tree().paused = true
+	showing = true
 
 func hideSettings():
 	visible = false
 	get_tree().paused = false
+	showing = false
 
 func _on_music_mute_pressed() -> void:
 	AudioManager.playButtonClick()
@@ -38,4 +41,5 @@ func _on_quit_pressed() -> void:
 
 
 func _on_close_button_pressed() -> void:
+	AudioManager.playButtonClick()
 	hideSettings()

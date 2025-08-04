@@ -1,4 +1,4 @@
-[gd_scene load_steps=30 format=3 uid="uid://cc3qvorsgdiqt"]
+[gd_scene load_steps=31 format=3 uid="uid://cc3qvorsgdiqt"]
 
 [ext_resource type="PackedScene" uid="uid://2l1a8m2hgowd" path="res://scenes/UI/warningUI.tscn" id="1_xsqsu"]
 [ext_resource type="Script" uid="uid://camigyij84n1w" path="res://scripts/camera_2d.gd" id="2_r2ueb"]
@@ -28,6 +28,7 @@
 [ext_resource type="Texture2D" uid="uid://d2oigyt1gepdc" path="res://assets/background.png" id="15_gaktt"]
 [ext_resource type="Texture2D" uid="uid://syx7de2t7qrw" path="res://assets/UI/settings.png" id="22_nflnv"]
 [ext_resource type="PackedScene" uid="uid://dpb6hjihgeumq" path="res://scenes/UI/settings.tscn" id="26_3kmy4"]
+[ext_resource type="PackedScene" uid="uid://cjwj00aulp6xw" path="res://scenes/monsters/monster_ground.tscn" id="29_gaktt"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_64w2a"]
 shader = ExtResource("14_3kmy4")
@@ -279,6 +280,7 @@ mouse_default_cursor_shape = 2
 flat = true
 
 [node name="powerUpScreen" parent="CanvasLayer" instance=ExtResource("12_o8jhj")]
+visible = false
 
 [node name="fpsLabel" type="Label" parent="CanvasLayer"]
 anchors_preset = 1
@@ -294,15 +296,14 @@ text = "fps: 40"
 
 [node name="Settings" parent="CanvasLayer" instance=ExtResource("26_3kmy4")]
 visible = false
-offset_left = 256.0
-offset_top = 56.0
-offset_right = -176.0
-offset_bottom = -72.0
 
 [node name="Background" type="Sprite2D" parent="."]
 z_index = -10
 material = SubResource("ShaderMaterial_64w2a")
 texture = ExtResource("15_gaktt")
+
+[node name="Monster Ground" parent="." instance=ExtResource("29_gaktt")]
+position = Vector2(-168, 128)
 
 [connection signal="pressed" from="CanvasLayer/Sidebar/buttons/shopButton" to="Game Manager" method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Sidebar/buttons/stageButton" to="Game Manager" method="_on_stage_button_pressed"]

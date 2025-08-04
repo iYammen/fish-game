@@ -24,7 +24,7 @@ func _ready() -> void:
 	camera = game_manager.camera
 	monster_spawn_timer.start(randf_range(monsterSpawnTimerRange.x, monsterSpawnTimerRange.y))
 	for guppy in spawnNum:
-		var spawn:= SHARK.instantiate()
+		var spawn:= GUPPY.instantiate()
 		get_tree().current_scene.add_child.call_deferred(spawn)
 		spawn.global_position = game_manager.GetDirection()
 
@@ -33,6 +33,7 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if monster_spawn_timer.time_left < 5 and monster_spawn_timer.time_left > 0.5 and !spawned:
 		AudioManager.OceanMusicToDarkMusic()
+		print(monsterToSpawn)
 		for i in monsterSpawnNum:
 			pickMonster(i)
 			var ins = SPAWN_POINT_UI.instantiate()
@@ -67,6 +68,12 @@ func spawnMonster():
 		spawn.global_position = spawnPos[i]
 		monster_spawn_timer.start(randf_range(monsterSpawnTimerRange.x, monsterSpawnTimerRange.y))
 		spawned = false
+
+func AddMonster(num: int):
+	for i in num:
+		monsterSpawnNum += 1
+		spawnPos.append(Vector2.ZERO)
+		monsterToSpawn.append(0)
 
 func riseSpawnRate():
 	if  monsterSpawnTimerRange.x > 5 or monsterSpawnTimerRange.y > 10:

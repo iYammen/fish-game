@@ -23,7 +23,7 @@ var game_over_Screen: Control
 
 var discount: float = 1
 var boundray: Vector2 = Vector2(300, 128)
-var money: int = 20000000000
+var money: int = 200000
 var goal: int = 400
 var stage: int = 1
 var Fish: Array
@@ -114,18 +114,22 @@ func _unhandled_input(event: InputEvent) -> void:
 		AudioManager.playButtonClick()
 		get_tree().reload_current_scene()
 	
+	if event.is_action_pressed("pause"):
+		if settings.showing == false:
+			settings.showSettings()
+		else:
+			settings.hideSettings()
+	
 	if event.is_action_pressed("press"):
-		if money >= 5:
-			FoodCountArray = get_tree().get_nodes_in_group("Player Food")
-			var mouse_pos = get_global_mouse_position()
-			var in_bounds = mouse_pos.x > -200 and mouse_pos.x < 315 and mouse_pos.y > -170 and mouse_pos.y < 170
-			if in_bounds:
-				if FoodCountArray.size() < foodMax:
-					AudioManager.playPop()
-					var food = FOOD.instantiate()
-					get_tree().current_scene.add_child(food)
-					food.position =  get_global_mouse_position()
-					subtractCoin(5)
+		FoodCountArray = get_tree().get_nodes_in_group("Player Food")
+		var mouse_pos = get_global_mouse_position()
+		var in_bounds = mouse_pos.x > -200 and mouse_pos.x < 315 and mouse_pos.y > -170 and mouse_pos.y < 170
+		if in_bounds:
+			if FoodCountArray.size() < foodMax:
+				AudioManager.playPop()
+				var food = FOOD.instantiate()
+				get_tree().current_scene.add_child(food)
+				food.position =  get_global_mouse_position()
 
 
 
@@ -197,19 +201,20 @@ func checkScore():
 		AudioManager.playNextStage()
 		stage += 1
 		if stage % 3 == 0:
-			goal = goal * 1.7
+			goal = round(goal * 1.7)
 			powerScreen.setUpPowers()
 			powerScreen.visible = true
 			get_tree().paused = true
 		else:
-			goal = goal * 1.5
+			goal = round(goal * 1.5)
 			powerScreen.setUpBasicPowers()
 			powerScreen.visible = true
 			get_tree().paused = true
 		if stage % 5 == 0:
-			spawn_manager.monsterSpawnNum += 1
-			spawn_manager.spawnPos.append(Vector2.ZERO)
-			spawn_manager.monsterToSpawn.append(0)
+			spawn_manager.AddMonster(1)
+		elif stage % 12 == 0:
+			spawn_manager.AddMonster(1)
+
 		stageGoalLabel.text = "Stage " + str(stage)
 		stageButton.text = "Next Stage: " + abriviateNum(goal) + "$"
 	else:
@@ -297,22 +302,22 @@ func abriviateNum(num: int):
 	elif num < 1000000:
 		var dividedNum: float
 		dividedNum = float(num) / 1000
-		newNum = ("%.2f" % dividedNum) + "K"
+		newNum = ("%.1f" % dividedNum) + "K"
 		return newNum
 	elif num < 1000000000:
 		var dividedNum: float
 		dividedNum = float(num) / 1000000
-		newNum = ("%.2f" % dividedNum) + "M"
+		newNum = ("%.1f" % dividedNum) + "M"
 		return newNum
 	elif num < 1000000000000:
 		var dividedNum: float
 		dividedNum = float(num) / 1000000000
-		newNum = ("%.2f" % dividedNum) + "B"
+		newNum = ("%.1f" % dividedNum) + "B"
 		return newNum
 	elif num < 1000000000000000:
 		var dividedNum: float
 		dividedNum = float(num) / 1000000000000
-		newNum = ("%.2f" % dividedNum) + "T"
+		newNum = ("%.1f" % dividedNum) + "T"
 		return newNum
 
 func updateMultLabel():
@@ -321,8 +326,9 @@ func updateMultLabel():
 
 #UI buttons
 func _on_button_pressed() -> void:
-	shop.showShop()
 	AudioManager.playButtonClick()
+	shop.showShop()
+
 
 func _on_stage_button_pressed() -> void:
 	AudioManager.playButtonClick()
@@ -334,4 +340,5 @@ func _on_button_button_down() -> void:
 	errorMessage.visible = false
 
 func _on_settings_button_down() -> void:
+	AudioManager.playButtonClick()
 	settings.showSettings()

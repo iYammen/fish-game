@@ -1,4 +1,4 @@
-extends  Area2D
+extends  Node2D
 
 @export var health: healthComponent
 @export var speed: float = 50.0
@@ -11,8 +11,6 @@ var dir := 1
 var move_t: float
 var coolDown_t: float
 
-@onready var right_wall_check: RayCast2D = $rightWallCheck
-@onready var left_wall_check: RayCast2D = $leftWallCheck
 @onready var button: Button = $Button
 var game_manager: GameManager
 
@@ -21,7 +19,12 @@ var entered: bool = false
 var eat_t := 0.0
 var target_anim: String
 
+var closestFood: Node2D
+var maxDist: float = 60
+var cooldown_t: float 
+
 func _ready() -> void:
+	cooldown_t = randf_range(0.3, 0.7)
 	game_manager = get_tree().get_first_node_in_group("Game Manager")
 	dir = -1 if randf() < 0.5 else 1
 	move_t = randf_range(2.0, 8.0)
@@ -49,13 +52,37 @@ func _process(_delta: float) -> void:
 	animated_sprite_2d.flip_h = dir == 1
 
 func _physics_process(delta: float) -> void:
-	if !entered:
+	if closestFood:
+		var to_fish_target = closestFood.global_position - global_position
+		var distanceToFish = to_fish_target.length()
+		
+		if distanceToFish < maxDist and entered == false:
+			entered = true
+			AudioManager.playWhaleSound()
+			eat_t = 0.5
+		if distanceToFish >= maxDist:
+			entered = false
+			closestFood = null
+		
+		if entered:
+			eat_t -= delta
+			if eat_t <= 0.0:
+				target_anim = "chomp"
+				AudioManager.playFishEaten()
+				closestFood.health.takeDamage(100)
+				eat_t = 1.0
+				game_manager.camera.screenShake(1, 0.2)
+			else:
+				target_anim = "idle"
+	else:
+		if entered == true:
+			entered = false
 		target_anim = "run"
 		# Wall collision check
-		if right_wall_check.is_colliding():
-			dir = -1
-		elif left_wall_check.is_colliding():
+		if global_position.x < -185:
 			dir = 1
+		elif global_position.x > 300:
+			dir = -1
 		
 		# Movement
 		position.x += speed * dir * delta
@@ -64,15 +91,12 @@ func _physics_process(delta: float) -> void:
 		if move_t <=0:
 			dir = -dir
 			move_t = randf_range(2.0, 8.0)
-	else:
-		eat_t -= delta
-		if eat_t <= 0 and fish != null:
-			AudioManager.playFishEaten()
-			fish.health.takeDamage(100)
-			target_anim = "chomp"
-			game_manager.camera.screenShake(1, 0.2)
-		else:
-			target_anim = "idle"
+	
+	cooldown_t -= delta
+	if cooldown_t <= 0:
+		_update_closest_food()
+		cooldown_t = randf_range(0.3, 0.7)
+	
 	
 	if animated_sprite_2d.animation != target_anim:
 		if animated_sprite_2d.animation == "chomp" and !animated_sprite_2d.is_playing():
@@ -100,16 +124,17 @@ func _on_button_button_down() -> void:
 	game_manager.camera.screenShake(1, 0.1)
 
 
-func _on_area_entered(area: Area2D) -> void:
-	if not entered:
-		AudioManager.playWhaleSound()
-		fish = area
-		entered = true
-		eat_t = 0.5
+func _update_closest_food() -> void:
+	var allFood = get_tree().get_nodes_in_group("Fish")
+	var foodSize: int = clampi(allFood.size(), 0, 50)
+	var closest_dist := INF
 
-
-
-func _on_area_exited(area: Area2D) -> void:
-	if area == fish:
-		entered = false
-		fish = null
+	if allFood.is_empty():
+		return
+	for i in foodSize:
+		var food = allFood[i]
+		var to_fish_target = global_position - food.global_position
+		var dist = to_fish_target.length()
+		if dist < closest_dist and dist < maxDist:
+			closestFood = food
+			closest_dist = dist
