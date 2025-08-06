@@ -1,10 +1,8 @@
 extends Control
 class_name powerUpScreen
 @export var powerButtons: Array[Button]
-@export var powerIcons: Array[Button]
 var rng := RandomNumberGenerator.new()
 var game_manager: GameManager
-@onready var button: Button = $Panel/HBoxContainer/Button
 const DEAD_FISH_COMPONENT = preload("res://scenes/power ups/dead_fish_component.tscn")
 const DEAD_SHARK_COMPONENT = preload("res://scenes/power ups/dead_shark_component.tscn")
 const GROWN_GUPPY_COMPONENT = preload("res://scenes/power ups/grown_guppy_component.tscn")
@@ -12,6 +10,8 @@ const LOW_FISH_COUNT_COMPONENT = preload("res://scenes/power ups/low_fish_count_
 const UPGRADE_FISH_COMPONENT = preload("res://scenes/power ups/upgrade_fish_component.tscn")
 const DEAD_ENEMY_COMPONENT = preload("res://scenes/power ups/dead_enemy_component.tscn")
 @onready var website: Control = $Website
+@onready var title: Label = $Website/Title
+@onready var fire: Node2D = $Website/Fire
 
 var powerWonArray: Array[powerResource]
 # Called when the node enters the scene tree for the first time.
@@ -24,11 +24,14 @@ func _ready() -> void:
 
 
 func showScreen():
+	website.random()
 	AnimationManager.bounceAnim(website, 1.15)
 	visible = true
 	get_tree().paused = true
 
 func setUpPowers():
+	fire.visible = true
+	title.text = "Power Up"
 	var available_powers := game_manager.powerUps.duplicate() # Copy so we don't destroy original
 	powerWonArray.clear()
 	powerWonArray.resize(powerButtons.size())
@@ -37,11 +40,13 @@ func setUpPowers():
 		# Pick a prize from the remaining ones
 		var picked := pick_weighted_prize(available_powers)
 		powerWonArray[i] = picked
-		powerIcons[i].icon = picked.icon
+		powerButtons[i].icon = picked.icon
 		powerButtons[i].tooltip_text = picked.description
 		available_powers.erase(picked) # Remove so it can't repeat
 
 func setUpBasicPowers():
+	fire.visible = false
+	title.text = "Perk"
 	var available_powers := game_manager.basicPowerUps.duplicate() # Copy so we don't destroy original
 	powerWonArray.clear()
 	powerWonArray.resize(powerButtons.size())
@@ -50,7 +55,7 @@ func setUpBasicPowers():
 		# Pick a prize from the remaining ones
 		var picked := pick_weighted_prize(available_powers)
 		powerWonArray[i] = picked
-		powerIcons[i].icon = picked.icon
+		powerButtons[i].icon = picked.icon
 		powerButtons[i].tooltip_text = picked.description
 		available_powers.erase(picked) # Remove so it can't repeat
 

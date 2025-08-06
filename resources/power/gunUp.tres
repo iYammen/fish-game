@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="powerResource" load_steps=3 format=3 uid="uid://8f3r7jpqfkb2"]
 
-[ext_resource type="Texture2D" uid="uid://dp45tbndhwy5u" path="res://assets/icons/gunUpIcon.png" id="1_nsem6"]
+[ext_resource type="Texture2D" uid="uid://bhmy4bof5itab" path="res://assets/UI/powerIcon.png" id="1_nsem6"]
 [ext_resource type="Script" uid="uid://dkjupqwcpqhl7" path="res://resources/power/powerResource.gd" id="2_5egfv"]
 
 [resource]

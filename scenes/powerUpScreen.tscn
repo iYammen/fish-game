@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=3 uid="uid://blaycr1vpl0y8"]
+[gd_scene load_steps=19 format=3 uid="uid://blaycr1vpl0y8"]
 
 [ext_resource type="Script" uid="uid://cri4hvama1quf" path="res://scripts/power_up_screen.gd" id="1_guw8m"]
 [ext_resource type="Theme" uid="uid://c6jbdk3trmuen" path="res://resources/theme/microsoftClassic.tres" id="1_jlpm1"]
+[ext_resource type="Texture2D" uid="uid://dvodivb08kuks" path="res://assets/fish/fish2.png" id="2_guw8m"]
 [ext_resource type="PackedScene" uid="uid://cxhtb50u8yee8" path="res://scenes/UI/website.tscn" id="3_6srso"]
-[ext_resource type="Texture2D" uid="uid://iqeelvsyxgxj" path="res://assets/icons/deadEnemy.png" id="4_nraks"]
-[ext_resource type="Texture2D" uid="uid://cylwj1brlnwwm" path="res://assets/icons/deadFish.png" id="5_tqw73"]
+[ext_resource type="FontFile" uid="uid://cwlmqqm3qnf20" path="res://fonts/Linolschrift.ttf" id="5_nraks"]
+[ext_resource type="Texture2D" uid="uid://cb6si6ajeky81" path="res://assets/UI/fire_border.png" id="6_tqw73"]
 
 [sub_resource type="Gradient" id="Gradient_guw8m"]
 offsets = PackedFloat32Array(0.380645)
@@ -15,6 +16,70 @@ gradient = SubResource("Gradient_guw8m")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6srso"]
 texture = SubResource("GradientTexture1D_25bb8")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8fifd"]
+atlas = ExtResource("6_tqw73")
+region = Rect2(0, 0, 64, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jlpm1"]
+atlas = ExtResource("6_tqw73")
+region = Rect2(64, 0, 64, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rj6q3"]
+atlas = ExtResource("6_tqw73")
+region = Rect2(128, 0, 64, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_t3onk"]
+atlas = ExtResource("6_tqw73")
+region = Rect2(0, 24, 64, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kgp4m"]
+atlas = ExtResource("6_tqw73")
+region = Rect2(64, 24, 64, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mkdos"]
+atlas = ExtResource("6_tqw73")
+region = Rect2(128, 24, 64, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_la5oy"]
+atlas = ExtResource("6_tqw73")
+region = Rect2(0, 48, 64, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e8gsi"]
+atlas = ExtResource("6_tqw73")
+region = Rect2(64, 48, 64, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_hd5qa"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8fifd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jlpm1")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rj6q3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_t3onk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kgp4m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mkdos")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_la5oy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e8gsi")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
 
 [node name="powerUpScreen" type="Control" node_paths=PackedStringArray("powerButtons") groups=["Power Screen"]]
 process_mode = 3
@@ -40,60 +105,61 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_6srso")
 [node name="Website" parent="." instance=ExtResource("3_6srso")]
 z_index = 1
 offset_left = 192.0
-offset_top = 48.0
+offset_top = 24.0
 offset_right = 496.0
-offset_bottom = 304.0
+offset_bottom = 280.0
+pivot_offset = Vector2(152, 128)
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Website"]
-custom_minimum_size = Vector2(192, 32)
+custom_minimum_size = Vector2(110.235, 32)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -96.0
-offset_top = 8.0
-offset_right = 96.0
-offset_bottom = 40.0
+offset_left = -112.0
+offset_top = -16.0
+offset_right = 1.0
+offset_bottom = 48.0
 grow_horizontal = 2
 grow_vertical = 2
+scale = Vector2(2, 2)
 
 [node name="Button" type="Button" parent="Website/HBoxContainer"]
-custom_minimum_size = Vector2(64, 32)
+custom_minimum_size = Vector2(32, 32)
 layout_mode = 2
-size_flags_horizontal = 3
-mouse_default_cursor_shape = 2
-text = "Get"
-
-[node name="Button2" type="Button" parent="Website/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 2.2
-mouse_default_cursor_shape = 2
-text = "Get"
-
-[node name="Button3" type="Button" parent="Website/HBoxContainer"]
-custom_minimum_size = Vector2(64, 0)
-layout_mode = 2
-size_flags_horizontal = 3
+size_flags_horizontal = 0
+size_flags_vertical = 4
 size_flags_stretch_ratio = 0.0
 mouse_default_cursor_shape = 2
-text = "Get"
+icon = ExtResource("2_guw8m")
+flat = true
+icon_alignment = 1
 
-[node name="DeadEnemy" type="Sprite2D" parent="Website"]
-position = Vector2(88, 112)
-texture = ExtResource("4_nraks")
+[node name="Button2" type="Button" parent="Website/HBoxContainer"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.0
+mouse_default_cursor_shape = 2
+icon = ExtResource("2_guw8m")
+flat = true
+icon_alignment = 1
 
-[node name="DeadEnemy2" type="Sprite2D" parent="Website"]
-position = Vector2(152, 112)
-texture = ExtResource("5_tqw73")
+[node name="Button3" type="Button" parent="Website/HBoxContainer"]
+custom_minimum_size = Vector2(32, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.0
+mouse_default_cursor_shape = 2
+icon = ExtResource("2_guw8m")
+flat = true
+icon_alignment = 1
 
-[node name="DeadEnemy3" type="Sprite2D" parent="Website"]
-position = Vector2(216, 112)
-texture = ExtResource("5_tqw73")
-
-[node name="Label" type="Label" parent="Website"]
+[node name="browserLabel" type="Label" parent="Website"]
 layout_mode = 0
 offset_left = 8.0
 offset_top = 8.0
@@ -101,14 +167,67 @@ offset_right = 48.0
 offset_bottom = 23.0
 text = "Web"
 
-[node name="Label2" type="Label" parent="Website"]
+[node name="LinkLabel" type="Label" parent="Website"]
 modulate = Color(0, 0, 0, 1)
 layout_mode = 0
 offset_left = 8.0
 offset_top = 32.0
-offset_right = 48.0
+offset_right = 130.0
 offset_bottom = 47.0
 text = "http//www.powerups.com"
+
+[node name="Title" type="Label" parent="Website"]
+layout_mode = 0
+offset_left = -176.0
+offset_top = 80.0
+offset_right = 473.0
+offset_bottom = 194.0
+scale = Vector2(0.25, 0.25)
+pivot_offset = Vector2(324.5, 0)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_fonts/font = ExtResource("5_nraks")
+theme_override_font_sizes/font_size = 97
+text = "Power ups"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Fire" type="Node2D" parent="Website"]
+position = Vector2(88, 72)
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Website/Fire"]
+position = Vector2(64, 0)
+sprite_frames = SubResource("SpriteFrames_hd5qa")
+autoplay = "default"
+frame_progress = 0.346202
+
+[node name="AnimatedSprite2D4" type="AnimatedSprite2D" parent="Website/Fire"]
+sprite_frames = SubResource("SpriteFrames_hd5qa")
+autoplay = "default"
+frame_progress = 0.346202
+
+[node name="AnimatedSprite2D3" type="AnimatedSprite2D" parent="Website/Fire"]
+position = Vector2(128, 0)
+sprite_frames = SubResource("SpriteFrames_hd5qa")
+autoplay = "default"
+frame_progress = 0.346202
+
+[node name="AnimatedSprite2D5" type="AnimatedSprite2D" parent="Website/Fire"]
+position = Vector2(64, 28)
+sprite_frames = SubResource("SpriteFrames_hd5qa")
+autoplay = "default"
+frame_progress = 0.346202
+
+[node name="AnimatedSprite2D6" type="AnimatedSprite2D" parent="Website/Fire"]
+position = Vector2(0, 28)
+sprite_frames = SubResource("SpriteFrames_hd5qa")
+autoplay = "default"
+frame_progress = 0.346202
+
+[node name="AnimatedSprite2D7" type="AnimatedSprite2D" parent="Website/Fire"]
+position = Vector2(128, 28)
+sprite_frames = SubResource("SpriteFrames_hd5qa")
+autoplay = "default"
+frame_progress = 0.346202
 
 [connection signal="button_down" from="Website/HBoxContainer/Button" to="." method="_on_button_pressed"]
 [connection signal="button_down" from="Website/HBoxContainer/Button2" to="." method="_on_button_2_pressed"]

@@ -297,6 +297,7 @@ text = "fps: 40"
 visible = false
 
 [node name="powerUpScreen" parent="CanvasLayer" instance=ExtResource("12_o8jhj")]
+visible = false
 
 [node name="Background" type="Sprite2D" parent="."]
 z_index = -10
