@@ -1,8 +1,10 @@
-[gd_scene load_steps=7 format=3 uid="uid://blaycr1vpl0y8"]
+[gd_scene load_steps=9 format=3 uid="uid://blaycr1vpl0y8"]
 
 [ext_resource type="Script" uid="uid://cri4hvama1quf" path="res://scripts/power_up_screen.gd" id="1_guw8m"]
 [ext_resource type="Theme" uid="uid://c6jbdk3trmuen" path="res://resources/theme/microsoftClassic.tres" id="1_jlpm1"]
-[ext_resource type="Texture2D" uid="uid://dvodivb08kuks" path="res://assets/fish/fish2.png" id="2_guw8m"]
+[ext_resource type="PackedScene" uid="uid://cxhtb50u8yee8" path="res://scenes/UI/website.tscn" id="3_6srso"]
+[ext_resource type="Texture2D" uid="uid://iqeelvsyxgxj" path="res://assets/icons/deadEnemy.png" id="4_nraks"]
+[ext_resource type="Texture2D" uid="uid://cylwj1brlnwwm" path="res://assets/icons/deadFish.png" id="5_tqw73"]
 
 [sub_resource type="Gradient" id="Gradient_guw8m"]
 offsets = PackedFloat32Array(0.380645)
@@ -24,7 +26,7 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("1_jlpm1")
 script = ExtResource("1_guw8m")
-powerButtons = [NodePath("Panel/HBoxContainer/Button"), NodePath("Panel/HBoxContainer/Button2"), NodePath("Panel/HBoxContainer/Button3")]
+powerButtons = [NodePath("Website/HBoxContainer/Button"), NodePath("Website/HBoxContainer/Button2"), NodePath("Website/HBoxContainer/Button3")]
 
 [node name="blur" type="Panel" parent="."]
 layout_mode = 1
@@ -35,75 +37,79 @@ grow_horizontal = 2
 grow_vertical = 2
 theme_override_styles/panel = SubResource("StyleBoxTexture_6srso")
 
-[node name="Panel" type="Panel" parent="."]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 232.0
-offset_top = 64.0
-offset_right = -192.0
-offset_bottom = -80.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Website" parent="." instance=ExtResource("3_6srso")]
+z_index = 1
+offset_left = 192.0
+offset_top = 48.0
+offset_right = 496.0
+offset_bottom = 304.0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="Panel"]
-custom_minimum_size = Vector2(64, 32)
+[node name="HBoxContainer" type="HBoxContainer" parent="Website"]
+custom_minimum_size = Vector2(192, 32)
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -90.0
-offset_top = -24.0
-offset_right = 86.0
-offset_bottom = 18.0
+offset_left = -96.0
+offset_top = 8.0
+offset_right = 96.0
+offset_bottom = 40.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Button" type="Button" parent="Panel/HBoxContainer"]
+[node name="Button" type="Button" parent="Website/HBoxContainer"]
+custom_minimum_size = Vector2(64, 32)
 layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 0
+size_flags_horizontal = 3
 mouse_default_cursor_shape = 2
-icon = ExtResource("2_guw8m")
+text = "Get"
 
-[node name="Button2" type="Button" parent="Panel/HBoxContainer"]
+[node name="Button2" type="Button" parent="Website/HBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 4
+size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.2
 mouse_default_cursor_shape = 2
-icon = ExtResource("2_guw8m")
+text = "Get"
 
-[node name="Button3" type="Button" parent="Panel/HBoxContainer"]
+[node name="Button3" type="Button" parent="Website/HBoxContainer"]
+custom_minimum_size = Vector2(64, 0)
 layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 0
+size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.0
 mouse_default_cursor_shape = 2
-icon = ExtResource("2_guw8m")
+text = "Get"
 
-[node name="exitButton" type="Button" parent="Panel"]
+[node name="DeadEnemy" type="Sprite2D" parent="Website"]
+position = Vector2(88, 112)
+texture = ExtResource("4_nraks")
+
+[node name="DeadEnemy2" type="Sprite2D" parent="Website"]
+position = Vector2(152, 112)
+texture = ExtResource("5_tqw73")
+
+[node name="DeadEnemy3" type="Sprite2D" parent="Website"]
+position = Vector2(216, 112)
+texture = ExtResource("5_tqw73")
+
+[node name="Label" type="Label" parent="Website"]
 layout_mode = 0
-offset_left = 192.0
-offset_right = 216.0
-offset_bottom = 24.0
-focus_mode = 0
-mouse_default_cursor_shape = 2
-flat = true
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 48.0
+offset_bottom = 23.0
+text = "Web"
 
-[node name="Label" type="Label" parent="."]
+[node name="Label2" type="Label" parent="Website"]
+modulate = Color(0, 0, 0, 1)
 layout_mode = 0
-offset_left = 240.0
-offset_top = 72.0
-offset_right = 290.0
-offset_bottom = 87.0
-text = "Perks"
+offset_left = 8.0
+offset_top = 32.0
+offset_right = 48.0
+offset_bottom = 47.0
+text = "http//www.powerups.com"
 
-[connection signal="button_down" from="Panel/HBoxContainer/Button" to="." method="_on_button_pressed"]
-[connection signal="button_down" from="Panel/HBoxContainer/Button2" to="." method="_on_button_2_pressed"]
-[connection signal="button_down" from="Panel/HBoxContainer/Button3" to="." method="_on_button_3_pressed"]
-[connection signal="pressed" from="Panel/exitButton" to="." method="_on_exit_button_pressed"]
+[connection signal="button_down" from="Website/HBoxContainer/Button" to="." method="_on_button_pressed"]
+[connection signal="button_down" from="Website/HBoxContainer/Button2" to="." method="_on_button_2_pressed"]
+[connection signal="button_down" from="Website/HBoxContainer/Button3" to="." method="_on_button_3_pressed"]

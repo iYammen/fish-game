@@ -5,6 +5,7 @@ extends Node2D
 var game_manager: GameManager
 var target: Vector2
 var speed: float = 30
+var currentSpeed: float = 30
 var entered: bool = false
 var eat_t := 0.0
 @onready var animated_sprite_2d: AnimatedSprite2D = $AnimatedSprite2D
@@ -14,6 +15,7 @@ var maxDist: float = 40
 var cooldown_t: float 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
+	AnimationManager.bounceAnim(animated_sprite_2d, 1.15)
 	cooldown_t = randf_range(0.3, 0.7)
 	game_manager = get_tree().get_first_node_in_group("Game Manager")
 	target =  game_manager.GetDirection()
@@ -32,10 +34,11 @@ func _physics_process(delta: float) -> void:
 	var direction = to_target.normalized()
 	var distance = to_target.length()
 	
-	if distance > speed * delta:
-		global_position += direction * speed * delta
+	if distance > currentSpeed * delta:
+		global_position += direction * currentSpeed * delta
 	else:
 		target = game_manager.GetDirection()
+		currentSpeed = speed
 	
 	var flip_now := global_position.x < target.x
 	if flip_now != animated_sprite_2d.flip_h:
@@ -83,6 +86,12 @@ func die():
 	reuseManager.createNumbLabel(global_position, finalValue)
 	reuseManager.createMonsterBlood(global_position)
 	animated_sprite_2d.visible = false
+	
+	var deadEnemyComponents :=  get_tree().get_nodes_in_group("Dead Enemy Component")
+	if deadEnemyComponents.is_empty() != true:
+		for component in deadEnemyComponents:
+			component.AddMult()
+	
 	queue_free()
 
 func _on_button_pressed() -> void:
@@ -90,6 +99,15 @@ func _on_button_pressed() -> void:
 	health.takeDamage(game_manager.damage)
 	game_manager.ShowDamageNumb(game_manager.damage, get_global_mouse_position())
 	game_manager.camera.screenShake(1, 0.1)
+	AnimationManager.shakeAnim(animated_sprite_2d)
+	var to_target = get_global_mouse_position() - global_position
+	var direction = to_target.normalized()
+	var clampedX =  Vector2(-180, 300)
+	var clampedY = Vector2(-128, 128)
+	target = global_position + (Vector2(randf_range(10,50), randf_range(10,50)) * -direction)
+	target.x = clampf(target.x, clampedX.x, clampedX.y)
+	target.y = clampf(target.y, clampedY.x, clampedY.y)
+	currentSpeed = 30 + game_manager.damage
 
 
 func _update_closest_food() -> void:

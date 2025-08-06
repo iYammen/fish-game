@@ -8,10 +8,10 @@ func _ready() -> void:
 
 func AddMult():
 	game_manager.animateMultLabel()
-	game_manager.animatePowerIcon(3)
-	calculator.multiplier += 0.5
+	game_manager.animatePowerIcon(10)
+	calculator.multiplier += 50
 	game_manager.updateMultLabel()
 	await get_tree().create_timer(2).timeout
 	game_manager.animateMultLabel()
-	calculator.multiplier -= 0.5
+	calculator.multiplier -= 50
 	game_manager.updateMultLabel()

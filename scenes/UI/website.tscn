@@ -1,0 +1,42 @@
+[gd_scene load_steps=4 format=3 uid="uid://cxhtb50u8yee8"]
+
+[ext_resource type="Texture2D" uid="uid://bwew6rr24t1rm" path="res://assets/UI/button.png" id="1_kor4h"]
+[ext_resource type="Theme" uid="uid://c6jbdk3trmuen" path="res://resources/theme/microsoftClassic.tres" id="1_uv41t"]
+[ext_resource type="Texture2D" uid="uid://carvhjomyl0y2" path="res://assets/UI/background_tile_blueFish.png" id="2_uv41t"]
+
+[node name="Website" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_top = 8.0
+offset_right = 304.0
+offset_bottom = 264.0
+theme = ExtResource("1_uv41t")
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_kor4h")
+region_rect = Rect2(144, 32, 48, 63)
+patch_margin_left = 4
+patch_margin_top = 54
+patch_margin_right = 4
+patch_margin_bottom = 3
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 54.0
+offset_right = -4.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("2_uv41t")
+stretch_mode = 1

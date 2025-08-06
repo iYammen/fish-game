@@ -1,30 +1,35 @@
 extends Node2D
 class_name Guppy
 
-var hungerWaitTime: float = 0
+signal state_transition
+
 @export var hungerTimerRange: Vector2
 @export var hungerAdultTimerRange: Vector2
 @export var moneyTimerRange: Vector2
 @export var speed: float = 20
 @export var health: healthComponent
-
-var hunger_t := 0.0
-var money_t := 0.0
-var CoolDown_t: float 
-var is_hungry := false
-
+var game_manager: GameManager
 
 @export var feedCount: int = 0
-var game_manager: GameManager
-var makingMoney:bool = false
-@onready var sprite_2d: Sprite2D = $sprite2D
-const BRONZE_COIN = preload("res://scenes/bronze_coin.tscn")
-const SILVER_COIN = preload("res://scenes/silver_coin.tscn")
-@onready var state_machine: stateMachine = $state_machine
-signal state_transition
-var hunger_state := 0
+
+var hungerWaitTime: float = 0
+var hunger_t : float = 0.0
+var money_t : float = 0.0
+var CoolDown_t: float 
+
+var is_hungry : bool = false
+var makingMoney: bool = false
+
+var hunger_state : int = 0
 var grown_state : int = -1
 var tintCheck_t: float
+
+@onready var sprite_2d: Sprite2D = $sprite2D
+@onready var state_machine: stateMachine = $state_machine
+const BRONZE_COIN = preload("res://scenes/bronze_coin.tscn")
+const SILVER_COIN = preload("res://scenes/silver_coin.tscn")
+
+
 var dead: bool = false
 
 # Called when the node enters the scene tree for the first time.

@@ -23,7 +23,7 @@ var game_over_Screen: Control
 
 var discount: float = 1
 var boundray: Vector2 = Vector2(300, 128)
-var money: int = 200000
+var money: int = 2000000000000
 var goal: int = 400
 var stage: int = 1
 var Fish: Array
@@ -39,8 +39,6 @@ var multLabel: Label
 var fishCount: int = 0
 
 var guppyLeft: Label
-var scaleTween: Tween
-var moneyScaleTween: Tween
 
 var camera: Camera2D
 var settings: Control
@@ -131,44 +129,19 @@ func _unhandled_input(event: InputEvent) -> void:
 				get_tree().current_scene.add_child(food)
 				food.position =  get_global_mouse_position()
 
-
-
 func animatePowerIcon(id: int):
 	powerUpBar.animateIcon(id)
 
-func animateMoneyLabel():
-	moneyLabel.pivot_offset = Vector2(moneyLabel.size.x / 2, moneyLabel.size.y / 2)
-	if moneyScaleTween and moneyScaleTween.is_running():
-		return
-	
-	moneyScaleTween = create_tween()
-	# Scale up (quick ease out)
-	moneyScaleTween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BOUNCE)
-	moneyScaleTween.tween_property(moneyLabel, "rotation_degrees", 6.6, 0.05)
-	moneyScaleTween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BOUNCE)
-	moneyScaleTween.tween_property(moneyLabel, "rotation_degrees", -6.6, 0.05)
-	# Then scale down (with bounce)
-	moneyScaleTween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BOUNCE)
-	moneyScaleTween.tween_property(moneyLabel, "rotation_degrees", 0, 0.25)
-
 func animateMultLabel():
-	if scaleTween and scaleTween.is_running():
-		return
-	
-	scaleTween = create_tween()
-	# Scale up (quick ease out)
-	scaleTween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BOUNCE)
-	scaleTween.tween_property(multLabel, "rotation_degrees", 6.6, 0.05)
-	scaleTween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BOUNCE)
-	scaleTween.tween_property(multLabel, "rotation_degrees", -6.6, 0.05)
-	# Then scale down (with bounce)
-	scaleTween.set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_BOUNCE)
-	scaleTween.tween_property(multLabel, "rotation_degrees", 0, 0.25)
+	AnimationManager.shakeAnim(multLabel)
 
 func addCoin(value: int):
 	if value < 0:
 		return
-	animateMoneyLabel()
+	#animate
+	moneyLabel.pivot_offset = Vector2(moneyLabel.size.x / 2, moneyLabel.size.y / 2)
+	AnimationManager.shakeAnim(moneyLabel)
+	
 	money += value
 	moneyLabel.text = "$: " + abriviateNum(money)
 
@@ -203,13 +176,11 @@ func checkScore():
 		if stage % 3 == 0:
 			goal = round(goal * 1.7)
 			powerScreen.setUpPowers()
-			powerScreen.visible = true
-			get_tree().paused = true
+			powerScreen.showScreen()
 		else:
 			goal = round(goal * 1.5)
 			powerScreen.setUpBasicPowers()
-			powerScreen.visible = true
-			get_tree().paused = true
+			powerScreen.showScreen()
 		if stage % 5 == 0:
 			spawn_manager.AddMonster(1)
 		elif stage % 12 == 0:

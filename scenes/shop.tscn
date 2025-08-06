@@ -25,6 +25,7 @@ offset_right = -360.0
 offset_bottom = -48.0
 grow_horizontal = 2
 grow_vertical = 2
+pivot_offset = Vector2(140, 156)
 theme = ExtResource("1_xfvoa")
 script = ExtResource("2_2fc2m")
 fish = Array[ExtResource("3_y6sft")]([ExtResource("4_m4ofw"), ExtResource("5_heatd"), ExtResource("6_m4ofw"), ExtResource("7_1v8qu"), ExtResource("8_24it5"), ExtResource("9_7mqwv")])

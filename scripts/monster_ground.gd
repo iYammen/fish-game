@@ -46,6 +46,12 @@ func die():
 	reuseManager.createNumbLabel(global_position, finalValue)
 	reuseManager.createMonsterBlood(global_position)
 	animated_sprite_2d.visible = false
+	
+	var deadEnemyComponents :=  get_tree().get_nodes_in_group("Dead Enemy Component")
+	if deadEnemyComponents.is_empty() != true:
+		for component in deadEnemyComponents:
+			component.AddMult()
+		
 	queue_free()
 
 func _process(_delta: float) -> void:
@@ -122,6 +128,12 @@ func _on_button_button_down() -> void:
 	health.takeDamage(game_manager.damage)
 	game_manager.ShowDamageNumb(game_manager.damage, get_global_mouse_position())
 	game_manager.camera.screenShake(1, 0.1)
+	AnimationManager.shakeAnim(animated_sprite_2d)
+	var to_target = get_global_mouse_position().x - global_position.x
+	var direction = clampi(to_target, -1, 1)
+	if direction != 0:
+		dir = -direction
+		move_t = randf_range(2.0, 8.0)
 
 
 func _update_closest_food() -> void:

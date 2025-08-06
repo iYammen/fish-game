@@ -1,6 +1,7 @@
 extends Control
 class_name powerUpScreen
 @export var powerButtons: Array[Button]
+@export var powerIcons: Array[Button]
 var rng := RandomNumberGenerator.new()
 var game_manager: GameManager
 @onready var button: Button = $Panel/HBoxContainer/Button
@@ -9,6 +10,8 @@ const DEAD_SHARK_COMPONENT = preload("res://scenes/power ups/dead_shark_componen
 const GROWN_GUPPY_COMPONENT = preload("res://scenes/power ups/grown_guppy_component.tscn")
 const LOW_FISH_COUNT_COMPONENT = preload("res://scenes/power ups/low_fish_count_component.tscn")
 const UPGRADE_FISH_COMPONENT = preload("res://scenes/power ups/upgrade_fish_component.tscn")
+const DEAD_ENEMY_COMPONENT = preload("res://scenes/power ups/dead_enemy_component.tscn")
+@onready var website: Control = $Website
 
 var powerWonArray: Array[powerResource]
 # Called when the node enters the scene tree for the first time.
@@ -20,9 +23,10 @@ func _ready() -> void:
 	powerWonArray.resize(powerButtons.size())
 
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(_delta: float) -> void:
-	pass
+func showScreen():
+	AnimationManager.bounceAnim(website, 1.15)
+	visible = true
+	get_tree().paused = true
 
 func setUpPowers():
 	var available_powers := game_manager.powerUps.duplicate() # Copy so we don't destroy original
@@ -33,7 +37,7 @@ func setUpPowers():
 		# Pick a prize from the remaining ones
 		var picked := pick_weighted_prize(available_powers)
 		powerWonArray[i] = picked
-		powerButtons[i].icon = picked.icon
+		powerIcons[i].icon = picked.icon
 		powerButtons[i].tooltip_text = picked.description
 		available_powers.erase(picked) # Remove so it can't repeat
 
@@ -46,7 +50,7 @@ func setUpBasicPowers():
 		# Pick a prize from the remaining ones
 		var picked := pick_weighted_prize(available_powers)
 		powerWonArray[i] = picked
-		powerButtons[i].icon = picked.icon
+		powerIcons[i].icon = picked.icon
 		powerButtons[i].tooltip_text = picked.description
 		available_powers.erase(picked) # Remove so it can't repeat
 
@@ -94,6 +98,9 @@ func buttonClick(buttonNumb: int):
 			get_tree().current_scene.add_child(inst)
 		9:
 			var inst := UPGRADE_FISH_COMPONENT.instantiate()
+			get_tree().current_scene.add_child(inst)
+		10:
+			var inst := DEAD_ENEMY_COMPONENT.instantiate()
 			get_tree().current_scene.add_child(inst)
 
 	game_manager.editPowerUpBar(powerWonArray[buttonNumb].id, true)

@@ -23,7 +23,7 @@ calculator="*res://scripts/calculator.gd"
 reuseManager="*res://scenes/components/reuse_manager.tscn"
 AudioManager="*res://scenes/components/audio_manager.tscn"
 EntityManager="*res://scenes/components/entity_manager.tscn"
-ArcCalc="*res://scripts/arc_calc.gd"
+AnimationManager="*res://scripts/animation_manager.gd"
 
 [display]
 

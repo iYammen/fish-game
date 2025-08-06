@@ -18,8 +18,9 @@ func _process(delta: float) -> void:
 	if !(global_position.y > 143):
 		global_position.y += 50 * delta
 	else:
+		global_position.y = clampf(global_position.y ,0, 144)
 		disappear_t -= delta
-		modulate.a -= 1 / disappear_t * delta
+		modulate.a -= (0.5 / disappear_t )* delta
 	if disappear_t <= 0 and available == false:
 		global_position = Vector2(1000,1000)
 		remove_from_group("Coin")

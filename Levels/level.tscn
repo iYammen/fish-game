@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://cc3qvorsgdiqt"]
+[gd_scene load_steps=32 format=3 uid="uid://cc3qvorsgdiqt"]
 
 [ext_resource type="PackedScene" uid="uid://2l1a8m2hgowd" path="res://scenes/UI/warningUI.tscn" id="1_xsqsu"]
 [ext_resource type="Script" uid="uid://camigyij84n1w" path="res://scripts/camera_2d.gd" id="2_r2ueb"]
@@ -25,10 +25,11 @@
 [ext_resource type="Resource" uid="uid://d0vhfinvg20ux" path="res://resources/power/hungerDown.tres" id="13_vawf4"]
 [ext_resource type="Shader" uid="uid://caa5ttiuq3bxx" path="res://scripts/background.gdshader" id="14_3kmy4"]
 [ext_resource type="Resource" uid="uid://b2ygnat2elj4y" path="res://resources/power/upgradeFish.tres" id="14_pf7nj"]
+[ext_resource type="Resource" uid="uid://ba2nwop7dum3l" path="res://resources/power/enemyDead.tres" id="15_3fdi5"]
 [ext_resource type="Texture2D" uid="uid://d2oigyt1gepdc" path="res://assets/background.png" id="15_gaktt"]
 [ext_resource type="Texture2D" uid="uid://syx7de2t7qrw" path="res://assets/UI/settings.png" id="22_nflnv"]
 [ext_resource type="PackedScene" uid="uid://dpb6hjihgeumq" path="res://scenes/UI/settings.tscn" id="26_3kmy4"]
-[ext_resource type="PackedScene" uid="uid://cjwj00aulp6xw" path="res://scenes/monsters/monster_ground.tscn" id="29_gaktt"]
+[ext_resource type="PackedScene" uid="uid://ohj7rjnj8pmn" path="res://scenes/bronze_coin.tscn" id="29_gaktt"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_64w2a"]
 shader = ExtResource("14_3kmy4")
@@ -54,8 +55,8 @@ script = ExtResource("2_r2ueb")
 
 [node name="Game Manager" parent="." groups=["Game Manager"] instance=ExtResource("2_vmy0u")]
 process_mode = 3
-allPowerUps = Array[ExtResource("3_1sae0")]([ExtResource("4_twn60"), ExtResource("13_vawf4"), ExtResource("11_3fdi5"), ExtResource("5_r2ueb"), ExtResource("6_o8jhj"), ExtResource("12_papoo"), ExtResource("7_nflnv"), ExtResource("8_twn60"), ExtResource("10_o8jhj"), ExtResource("14_pf7nj")])
-powerUps = Array[ExtResource("3_1sae0")]([ExtResource("4_twn60"), ExtResource("5_r2ueb"), ExtResource("6_o8jhj"), ExtResource("7_nflnv"), ExtResource("8_twn60"), ExtResource("10_o8jhj")])
+allPowerUps = Array[ExtResource("3_1sae0")]([ExtResource("4_twn60"), ExtResource("13_vawf4"), ExtResource("11_3fdi5"), ExtResource("5_r2ueb"), ExtResource("6_o8jhj"), ExtResource("12_papoo"), ExtResource("7_nflnv"), ExtResource("8_twn60"), ExtResource("10_o8jhj"), ExtResource("14_pf7nj"), ExtResource("15_3fdi5")])
+powerUps = Array[ExtResource("3_1sae0")]([ExtResource("4_twn60"), ExtResource("5_r2ueb"), ExtResource("6_o8jhj"), ExtResource("7_nflnv"), ExtResource("8_twn60"), ExtResource("10_o8jhj"), ExtResource("15_3fdi5")])
 basicPowerUps = Array[ExtResource("3_1sae0")]([ExtResource("11_3fdi5"), ExtResource("12_papoo"), ExtResource("13_vawf4"), ExtResource("14_pf7nj")])
 
 [node name="spawnManager" parent="." instance=ExtResource("3_jjxhf")]
@@ -279,10 +280,8 @@ focus_mode = 0
 mouse_default_cursor_shape = 2
 flat = true
 
-[node name="powerUpScreen" parent="CanvasLayer" instance=ExtResource("12_o8jhj")]
-visible = false
-
 [node name="fpsLabel" type="Label" parent="CanvasLayer"]
+visible = false
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
@@ -297,13 +296,24 @@ text = "fps: 40"
 [node name="Settings" parent="CanvasLayer" instance=ExtResource("26_3kmy4")]
 visible = false
 
+[node name="powerUpScreen" parent="CanvasLayer" instance=ExtResource("12_o8jhj")]
+
 [node name="Background" type="Sprite2D" parent="."]
 z_index = -10
 material = SubResource("ShaderMaterial_64w2a")
 texture = ExtResource("15_gaktt")
 
-[node name="Monster Ground" parent="." instance=ExtResource("29_gaktt")]
-position = Vector2(-168, 128)
+[node name="Coin" parent="." instance=ExtResource("29_gaktt")]
+offset_left = -85.0
+offset_top = 6.0
+offset_right = -45.0
+offset_bottom = 46.0
+
+[node name="Coin2" parent="." instance=ExtResource("29_gaktt")]
+offset_left = -26.0
+offset_top = -56.0
+offset_right = 14.0
+offset_bottom = -16.0
 
 [connection signal="pressed" from="CanvasLayer/Sidebar/buttons/shopButton" to="Game Manager" method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Sidebar/buttons/stageButton" to="Game Manager" method="_on_stage_button_pressed"]

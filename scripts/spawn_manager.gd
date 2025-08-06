@@ -33,7 +33,6 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	if monster_spawn_timer.time_left < 5 and monster_spawn_timer.time_left > 0.5 and !spawned:
 		AudioManager.OceanMusicToDarkMusic()
-		print(monsterToSpawn)
 		for i in monsterSpawnNum:
 			pickMonster(i)
 			var ins = SPAWN_POINT_UI.instantiate()
