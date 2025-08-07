@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://cc3qvorsgdiqt"]
+[gd_scene load_steps=31 format=3 uid="uid://cc3qvorsgdiqt"]
 
 [ext_resource type="PackedScene" uid="uid://2l1a8m2hgowd" path="res://scenes/UI/warningUI.tscn" id="1_xsqsu"]
 [ext_resource type="Script" uid="uid://camigyij84n1w" path="res://scripts/camera_2d.gd" id="2_r2ueb"]
@@ -29,7 +29,6 @@
 [ext_resource type="Texture2D" uid="uid://d2oigyt1gepdc" path="res://assets/background.png" id="15_gaktt"]
 [ext_resource type="Texture2D" uid="uid://syx7de2t7qrw" path="res://assets/UI/settings.png" id="22_nflnv"]
 [ext_resource type="PackedScene" uid="uid://dpb6hjihgeumq" path="res://scenes/UI/settings.tscn" id="26_3kmy4"]
-[ext_resource type="PackedScene" uid="uid://ohj7rjnj8pmn" path="res://scenes/bronze_coin.tscn" id="29_gaktt"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_64w2a"]
 shader = ExtResource("14_3kmy4")
@@ -83,14 +82,10 @@ rotation = -3.14159
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
-[node name="Control" parent="CanvasLayer" instance=ExtResource("5_8hqpc")]
-visible = false
-z_index = 10
-
 [node name="powerUpBar" parent="CanvasLayer" instance=ExtResource("6_jmcc3")]
-offset_left = -8.0
+offset_left = -24.0
 offset_top = -320.04
-offset_right = 24.0
+offset_right = 8.0
 offset_bottom = -328.0
 
 [node name="Sidebar" type="NinePatchRect" parent="CanvasLayer"]
@@ -98,7 +93,7 @@ anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_top = -180.0
-offset_right = 120.0
+offset_right = 104.0
 offset_bottom = 180.0
 grow_vertical = 2
 size_flags_horizontal = 0
@@ -131,9 +126,9 @@ layout_mode = 1
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0
-offset_left = -112.0
+offset_left = -96.0
 offset_top = 8.0
-offset_right = -7.0
+offset_right = -24.0
 offset_bottom = 23.0
 grow_horizontal = 0
 pivot_offset = Vector2(0, 7.5)
@@ -145,7 +140,7 @@ text = "Stage 1: 400$"
 layout_mode = 0
 offset_left = 8.0
 offset_top = 64.0
-offset_right = 112.0
+offset_right = 96.0
 offset_bottom = 248.0
 
 [node name="shopButton" type="Button" parent="CanvasLayer/Sidebar/buttons"]
@@ -171,7 +166,7 @@ anchor_top = 1.0
 anchor_bottom = 1.0
 offset_left = 8.0
 offset_top = -56.0
-offset_right = 112.0
+offset_right = 96.0
 offset_bottom = -21.0
 grow_vertical = 0
 
@@ -299,22 +294,12 @@ visible = false
 [node name="powerUpScreen" parent="CanvasLayer" instance=ExtResource("12_o8jhj")]
 visible = false
 
+[node name="Game Over Screen" parent="CanvasLayer" instance=ExtResource("5_8hqpc")]
+
 [node name="Background" type="Sprite2D" parent="."]
 z_index = -10
 material = SubResource("ShaderMaterial_64w2a")
 texture = ExtResource("15_gaktt")
-
-[node name="Coin" parent="." instance=ExtResource("29_gaktt")]
-offset_left = -85.0
-offset_top = 6.0
-offset_right = -45.0
-offset_bottom = 46.0
-
-[node name="Coin2" parent="." instance=ExtResource("29_gaktt")]
-offset_left = -26.0
-offset_top = -56.0
-offset_right = 14.0
-offset_bottom = -16.0
 
 [connection signal="pressed" from="CanvasLayer/Sidebar/buttons/shopButton" to="Game Manager" method="_on_button_pressed"]
 [connection signal="pressed" from="CanvasLayer/Sidebar/buttons/stageButton" to="Game Manager" method="_on_stage_button_pressed"]

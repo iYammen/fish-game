@@ -203,4 +203,5 @@ flat = true
 [connection signal="button_down" from="Panel/HBoxContainer/VBoxContainer/Button6" to="." method="_on_button_4_button_down"]
 [connection signal="button_down" from="Panel/CloseButton" to="." method="_on_close_button_button_down"]
 [connection signal="timeout" from="popUpTimer" to="." method="_on_pop_up_timer_timeout"]
+[connection signal="value_changed" from="bulkBuyWindow/SpinBox" to="." method="_on_spin_box_value_changed"]
 [connection signal="button_down" from="Error Message/ErrorExitButton" to="." method="_on_error_exit_button_button_down"]

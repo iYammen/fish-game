@@ -23,7 +23,7 @@ var game_over_Screen: Control
 
 var discount: float = 1
 var boundray: Vector2 = Vector2(300, 128)
-var money: int = 2000000000000
+var money: int = 4000000
 var goal: int = 400
 var stage: int = 1
 var Fish: Array
@@ -62,7 +62,7 @@ func _ready() -> void:
 	moneyLabel.text = "$: " + abriviateNum(money)
 	stageButton = get_tree().get_first_node_in_group("Stage Button")
 	spawn_manager = get_tree().get_first_node_in_group("Spawn Manager")
-	stageButton.text = "Next Stage: " + abriviateNum(goal) + "$"
+	stageButton.text = "Next: " + abriviateNum(goal) + "$"
 	errorMessage =  get_tree().get_first_node_in_group("Error Message")
 	game_over_Screen = get_tree().get_first_node_in_group("Game Over Screen")
 	fishCountLabel = get_tree().get_first_node_in_group("Fish Count")
@@ -187,7 +187,7 @@ func checkScore():
 			spawn_manager.AddMonster(1)
 
 		stageGoalLabel.text = "Stage " + str(stage)
-		stageButton.text = "Next Stage: " + abriviateNum(goal) + "$"
+		stageButton.text = "Next: " + abriviateNum(goal) + "$"
 	else:
 		AudioManager.playError()
 		errorMessage.visible = true

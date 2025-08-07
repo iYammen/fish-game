@@ -23,17 +23,20 @@ func _ready() -> void:
 
 
 func showShop():
+	spin_box.value = 1
+	updateDisabledButtons()
 	for i in buttons.size():
 		var btn := buttons[i]
-		if fish[i].moneyType.contains("$"):
-			btn.text = "%s: %s %s" % [fish[i].name, game_manager.abriviateNum(floor(fish[i].price * game_manager.discount)), fish[i].moneyType]
+		var data = fish[i]
+		if data.moneyType.contains("$"):
+			btn.text = "%s: %s %s" % [data.name, game_manager.abriviateNum(floor(data.price * game_manager.discount)), fish[i].moneyType]
 		else:
-			btn.text = "%s: %s %s" % [fish[i].name, game_manager.abriviateNum(floor(fish[i].price)), fish[i].moneyType]
+			btn.text = "%s: %s %s" % [data.name, game_manager.abriviateNum(floor(data.price)), data.moneyType]
 		btn.icon = fish[i].portrait
-	spin_box.value = 1
+		
+	
 	visible = true
 	get_tree().paused = true
-	
 
 func closeShop():
 	visible = false
@@ -47,7 +50,7 @@ func _on_shop_button_down(index: int):
 			grownGuppies.append(guppy)
 	currentGuppyArray = grownGuppies
 	var data = fish[index]
-	if data.id != 2:
+	if data.moneyType.contains("$"):
 		var discountedPrice = data.price * game_manager.discount
 		if game_manager.money < discountedPrice * spin_box.value:
 			AudioManager.playError()
@@ -63,11 +66,12 @@ func _on_shop_button_down(index: int):
 			return
 		else:
 			AudioManager.playSplash()
-			for i in 3 * spin_box.value:
+			for i in data.price * spin_box.value:
 				currentGuppyArray[i].die()
 	AudioManager.playButtonClick()
 	for i in spin_box.value:
 		spawn_fish(data)
+	updateDisabledButtons()
 
 func spawn_fish(data: entityResource) -> void:
 	var inst := data.spawnable.instantiate()
@@ -82,6 +86,28 @@ func spawn_fish(data: entityResource) -> void:
 			inst.global_position = game_manager.GetDirection()
 
 
+func updateDisabledButtons():
+	var grownGuppies: Array
+	allGuppies = get_tree().get_nodes_in_group("Guppy")
+	for guppy in allGuppies:
+		if guppy.feedCount >= 10:
+			grownGuppies.append(guppy)
+	currentGuppyArray = grownGuppies
+	
+	for i in buttons.size():
+		var btn := buttons[i]
+		var data = fish[i]
+		if data.moneyType.contains("$"):
+			var discountedPrice = data.price * game_manager.discount
+			if game_manager.money < discountedPrice * spin_box.value:
+				btn.disabled = true
+			else:
+				btn.disabled = false
+		else:
+			if currentGuppyArray.size() < data.price * spin_box.value:
+				btn.disabled = true
+			else:
+				btn.disabled = false
 
 
 func _display_error(msg: String) -> void:
@@ -101,3 +127,8 @@ func _on_close_button_button_down() -> void:
 func _on_error_exit_button_button_down() -> void:
 	AudioManager.playButtonClick()
 	error_message.visible = false
+
+
+
+func _on_spin_box_value_changed(value: float) -> void:
+	updateDisabledButtons()
