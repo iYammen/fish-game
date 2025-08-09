@@ -29,7 +29,7 @@
 [ext_resource type="Resource" uid="uid://i5234q8sbtjh" path="res://resources/power/oneUp.tres" id="16_3fdi5"]
 [ext_resource type="Texture2D" uid="uid://syx7de2t7qrw" path="res://assets/UI/settings.png" id="22_nflnv"]
 [ext_resource type="PackedScene" uid="uid://dpb6hjihgeumq" path="res://scenes/UI/settings.tscn" id="26_3kmy4"]
-[ext_resource type="PackedScene" uid="uid://dtgm2ak4fhnhd" path="res://scenes/UI/error_message.tscn" id="27_gaktt"]
+[ext_resource type="PackedScene" uid="uid://dtgm2ak4fhnhd" path="res://scenes/UI/notification_message.tscn" id="27_gaktt"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_64w2a"]
 shader = ExtResource("14_3kmy4")

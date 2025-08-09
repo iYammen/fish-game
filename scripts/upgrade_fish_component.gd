@@ -4,7 +4,7 @@ var chosenFish
 var game_manager: GameManager
 var multAmount: int
 const SHINY = preload("res://Material/shiny.tres")
-
+var removed: bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	game_manager = get_tree().get_first_node_in_group("Game Manager")
@@ -21,7 +21,8 @@ func _ready() -> void:
 
 
 func isFishAlive():
-	if chosenFish == null:
+	if chosenFish == null and removed == false:
+		removed = true
 		game_manager.editPowerUpBar(9, false)
 		calculator.multiplier -= multAmount
 		game_manager.updateMultLabel()

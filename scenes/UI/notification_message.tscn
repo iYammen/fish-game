@@ -2,9 +2,9 @@
 
 [ext_resource type="Theme" uid="uid://c6jbdk3trmuen" path="res://resources/theme/microsoftClassic.tres" id="1_h7g1k"]
 [ext_resource type="Texture2D" uid="uid://cqfx21eafffr3" path="res://assets/icons/32/nothing.png" id="2_omu06"]
-[ext_resource type="Script" uid="uid://bcm3usntnkge1" path="res://scripts/error_message.gd" id="2_poaij"]
+[ext_resource type="Script" uid="uid://bcm3usntnkge1" path="res://scripts/notification_message.gd" id="2_poaij"]
 
-[node name="Error Message" type="Panel" groups=["Error Message"]]
+[node name="Notification Message" type="Panel" groups=["Notification Message"]]
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0

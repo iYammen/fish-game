@@ -12,7 +12,7 @@ const NUMBER_UI = preload("res://scenes/numberUI.tscn")
 @export var basicPowerUps: Array[powerResource]
 
 var powerUpBar: Control
-var errorMessage: Panel
+var notificationMessage: Panel
 var moneyLabel: Label
 var stageGoalLabel: Label
 var powerScreen: powerUpScreen
@@ -23,7 +23,7 @@ var game_over_Screen: Control
 
 var discount: float = 1
 var boundray: Vector2 = Vector2(300, 128)
-var money: int = 200
+var money: int = 2000000
 var goal: int = 400
 var stage: int = 1
 var Fish: Array
@@ -43,6 +43,7 @@ var guppyLeft: Label
 var camera: Camera2D
 var settings: Control
 var gameJustStarted: bool = true
+var passStageNotification: bool = true
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -65,7 +66,7 @@ func _ready() -> void:
 	stageButton = get_tree().get_first_node_in_group("Stage Button")
 	spawn_manager = get_tree().get_first_node_in_group("Spawn Manager")
 	stageButton.text = "Next: " + abriviateNum(goal) + "$"
-	errorMessage =  get_tree().get_first_node_in_group("Error Message")
+	notificationMessage =  get_tree().get_first_node_in_group("Notification Message")
 	game_over_Screen = get_tree().get_first_node_in_group("Game Over Screen")
 	fishCountLabel = get_tree().get_first_node_in_group("Fish Count")
 	multLabel = get_tree().get_first_node_in_group("Multiplier")
@@ -147,12 +148,20 @@ func addCoin(value: int):
 	
 	money += value
 	moneyLabel.text = "$: " + abriviateNum(money)
+	
+	if money >= goal and passStageNotification:
+		notificationMessage.showMessage("Yippie: Next Stage" ,"You have enough money to pass stage", 2)
+		passStageNotification = false
+	elif money < goal:
+		passStageNotification = true
 
 func subtractCoin(value: int):
 	if value < 0:
 		return
 	money -= value
 	moneyLabel.text = "$: " + abriviateNum(money)
+	if money < goal:
+		passStageNotification = true
 
 func ShowDamageNumb(numbValue: int, currentPos: Vector2):
 	var number = NUMBER_UI.instantiate()
@@ -175,7 +184,7 @@ func checkFishAmount():
 		else:
 			guppyLeft.text = "Guppys Left: " + str(allGuppies.size())
 			if allGuppies.size() == 1 and gameJustStarted == false:
-				errorMessage.showError("Warning: Low Guppy Count" ,"DANGER Low Guppy Count", 1)
+				notificationMessage.showMessage("Warning: Low Guppy Count" ,"DANGER Low Guppy Count", 1)
 			gameJustStarted = false
 
 func checkScore():
@@ -200,7 +209,7 @@ func checkScore():
 		stageGoalLabel.text = "Stage " + str(stage)
 		stageButton.text = "Next: " + abriviateNum(goal) + "$"
 	else:
-		errorMessage.showError("Error: Next Stage" ,"Not Enough Money To Buy Stage", 0)
+		notificationMessage.showMessage("Error: Next Stage" ,"Not Enough Money To Buy Stage", 0)
 
 func checkMoney(num: int, moneyGoal: int):
 	var newNum: float

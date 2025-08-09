@@ -7,12 +7,12 @@ extends Control
 var game_manager: GameManager
 var allGuppies: Array
 var currentGuppyArray: Array
-var errorMessage: Panel
+var notificationMessage: Panel
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	game_manager = get_tree().get_first_node_in_group("Game Manager")
-	errorMessage =  get_tree().get_first_node_in_group("Error Message")
+	notificationMessage =  get_tree().get_first_node_in_group("Notification Message")
 	visible = false
 	for i in buttons.size():
 		var btn := buttons[i]
@@ -57,7 +57,7 @@ func _on_shop_button_down(index: int):
 		var discountedPrice = data.price * game_manager.discount
 		if game_manager.money < discountedPrice * spin_box.value:
 			AudioManager.playError()
-			errorMessage.showError("Error:" ,"Not enough money to buy", 0)
+			notificationMessage.showMessage("Error:" ,"Not enough money to buy", 0)
 			return
 		else:
 			AudioManager.playSplash()
@@ -65,7 +65,7 @@ func _on_shop_button_down(index: int):
 	else:
 		if currentGuppyArray.size() < data.price * spin_box.value:
 			AudioManager.playError()
-			errorMessage.showError("Error:" ,"Not enough Guppys to buy", 0)
+			notificationMessage.showMessage("Error:" ,"Not enough Guppys to buy", 0)
 			return
 		else:
 			AudioManager.playSplash()
