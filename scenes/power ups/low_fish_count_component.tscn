@@ -4,3 +4,4 @@
 
 [node name="Low Fish Count" type="Node" groups=["Low Fish Count"]]
 script = ExtResource("1_ojfam")
+value = 4

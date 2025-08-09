@@ -7,7 +7,6 @@ func _ready() -> void:
 	game_manager = get_tree().get_first_node_in_group("Game Manager")
 
 func SavePlayer():
-	print("saved")
 	game_manager.gameJustStarted = true
 	var spawn:= GUPPY.instantiate()
 	get_tree().current_scene.add_child(spawn)

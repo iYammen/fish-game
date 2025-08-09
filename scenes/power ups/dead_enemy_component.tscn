@@ -4,3 +4,4 @@
 
 [node name="deadEnemyComponent" type="Node" groups=["Dead Enemy Component"]]
 script = ExtResource("1_62guv")
+value = 5

@@ -107,7 +107,7 @@ func _on_button_pressed() -> void:
 	target = global_position + (Vector2(randf_range(10,50), randf_range(10,50)) * -direction)
 	target.x = clampf(target.x, clampedX.x, clampedX.y)
 	target.y = clampf(target.y, clampedY.x, clampedY.y)
-	currentSpeed = 30 + game_manager.damage
+	currentSpeed = 30 + 30
 
 
 func _update_closest_food() -> void:

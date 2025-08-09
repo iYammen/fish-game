@@ -4,3 +4,4 @@
 
 [node name="Grown Guppy Component" type="Node" groups=["Grown Guppy Component"]]
 script = ExtResource("1_5pqtn")
+value = 0.05

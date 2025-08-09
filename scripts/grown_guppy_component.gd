@@ -1,6 +1,7 @@
 extends Node
 
 var game_manager: GameManager
+@export var value: float
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -14,10 +15,10 @@ func _ready() -> void:
 func AddMult():
 	game_manager.animateMultLabel()
 	game_manager.animatePowerIcon(7)
-	calculator.multiplier += 0.05
+	calculator.multiplier += value
 	game_manager.updateMultLabel()
 
 func RemoveMult():
 	game_manager.animateMultLabel()
-	calculator.multiplier -= 0.05
+	calculator.multiplier -= value
 	game_manager.updateMultLabel()

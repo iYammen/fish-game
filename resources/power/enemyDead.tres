@@ -7,7 +7,7 @@
 script = ExtResource("2_tqfof")
 id = 10
 icon = ExtResource("1_4a6tn")
-description = "When a Monster dies gain 25
+description = "When a Monster dies gain 5
 multiplier for 2 seconds"
 rarity = 10
 metadata/_custom_type_script = "uid://dkjupqwcpqhl7"

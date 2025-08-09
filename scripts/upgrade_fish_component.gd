@@ -13,7 +13,7 @@ func _ready() -> void:
 		var i = randi_range(0, fish.size() - 1)
 		chosenFish = fish[i]
 		chosenFish.material = SHINY
-		multAmount = randi_range(1,10)
+		multAmount = randi_range(1,3)
 		calculator.multiplier += multAmount
 		game_manager.animatePowerIcon(9)
 		game_manager.updateMultLabel()

@@ -79,7 +79,7 @@ func buttonClick(buttonNumb: int):
 	match powerWonArray[buttonNumb].id:
 		0:
 			game_manager.animatePowerIcon(0)
-			Engine.time_scale = Engine.time_scale + 0.5
+			Engine.time_scale = Engine.time_scale + 0.25
 		1:
 			game_manager.animatePowerIcon(1)
 			game_manager.foodQuality += 1
