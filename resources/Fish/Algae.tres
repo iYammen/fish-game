@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="entityResource" load_steps=4 format=3 uid="uid://chxbrefwiflu6"]
 
-[ext_resource type="Texture2D" uid="uid://dvjoomqvhlffj" path="res://assets/algae_icon.png" id="1_dssie"]
+[ext_resource type="Texture2D" uid="uid://dvjoomqvhlffj" path="res://assets/icons/32/algae_icon.png" id="1_dssie"]
 [ext_resource type="Script" uid="uid://cyfrwajrr2bdy" path="res://resources/entityResource.gd" id="2_jj8l4"]
 [ext_resource type="PackedScene" uid="uid://bkum14eby8k7i" path="res://scenes/algae.tscn" id="3_dssie"]
 

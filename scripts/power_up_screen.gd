@@ -9,11 +9,13 @@ const GROWN_GUPPY_COMPONENT = preload("res://scenes/power ups/grown_guppy_compon
 const LOW_FISH_COUNT_COMPONENT = preload("res://scenes/power ups/low_fish_count_component.tscn")
 const UPGRADE_FISH_COMPONENT = preload("res://scenes/power ups/upgrade_fish_component.tscn")
 const DEAD_ENEMY_COMPONENT = preload("res://scenes/power ups/dead_enemy_component.tscn")
+const ONE_TIME_SAVE_COMPONENT = preload("res://scenes/power ups/one_time_save_component.tscn")
 @onready var website: Control = $Website
 @onready var title: Label = $Website/Title
 @onready var fire: Node2D = $Website/Fire
 
 var powerWonArray: Array[powerResource]
+var showing: bool = false
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	visible = false
@@ -25,6 +27,7 @@ func _ready() -> void:
 
 func showScreen():
 	website.random()
+	showing = true
 	AnimationManager.bounceAnim(website, 1.15)
 	visible = true
 	get_tree().paused = true
@@ -107,10 +110,17 @@ func buttonClick(buttonNumb: int):
 		10:
 			var inst := DEAD_ENEMY_COMPONENT.instantiate()
 			get_tree().current_scene.add_child(inst)
+		11:
+			var inst := ONE_TIME_SAVE_COMPONENT.instantiate()
+			get_tree().current_scene.add_child(inst)
 
 	game_manager.editPowerUpBar(powerWonArray[buttonNumb].id, true)
+	closeScreen()
+
+func closeScreen():
 	visible = false
 	get_tree().paused = false
+	showing = false
 
 func _on_button_pressed() -> void:
 	AudioManager.playButtonClick()
@@ -123,9 +133,3 @@ func _on_button_2_pressed() -> void:
 func _on_button_3_pressed() -> void:
 	AudioManager.playButtonClick()
 	buttonClick(2)
-
-
-func _on_exit_button_pressed() -> void:
-	AudioManager.playButtonClick()
-	visible = false
-	get_tree().paused = false

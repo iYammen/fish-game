@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://ce2efrqeqkwis"]
+[gd_scene load_steps=14 format=3 uid="uid://ce2efrqeqkwis"]
 
 [ext_resource type="Theme" uid="uid://c6jbdk3trmuen" path="res://resources/theme/microsoftClassic.tres" id="1_xfvoa"]
 [ext_resource type="Texture2D" uid="uid://ymhhbshnc8sx" path="res://assets/fish/shark.png" id="2_1l46r"]
@@ -12,8 +12,7 @@
 [ext_resource type="Resource" uid="uid://chxbrefwiflu6" path="res://resources/Fish/Algae.tres" id="7_1v8qu"]
 [ext_resource type="Resource" uid="uid://dihwc372qm8cu" path="res://resources/Fish/Piranha.tres" id="8_24it5"]
 [ext_resource type="Resource" uid="uid://d0v76mgffora8" path="res://resources/Fish/Gary.tres" id="9_7mqwv"]
-[ext_resource type="Texture2D" uid="uid://dvjoomqvhlffj" path="res://assets/algae_icon.png" id="10_heatd"]
-[ext_resource type="Texture2D" uid="uid://cqfx21eafffr3" path="res://assets/icons/nothing.png" id="12_44xle"]
+[ext_resource type="Texture2D" uid="uid://dvjoomqvhlffj" path="res://assets/icons/32/algae_icon.png" id="10_heatd"]
 
 [node name="shop" type="Control" node_paths=PackedStringArray("buttons") groups=["Shop"]]
 process_mode = 3
@@ -120,11 +119,6 @@ offset_right = 48.0
 offset_bottom = 23.0
 text = "Shop"
 
-[node name="popUpTimer" type="Timer" parent="."]
-process_callback = 0
-wait_time = 2.0
-one_shot = true
-
 [node name="bulkBuyWindow" type="Panel" parent="."]
 layout_mode = 0
 offset_left = 296.0
@@ -152,48 +146,6 @@ value = 1.0
 rounded = true
 update_on_text_changed = true
 
-[node name="Error Message" type="Panel" parent="."]
-visible = false
-layout_mode = 0
-offset_left = 248.0
-offset_top = -24.0
-offset_right = 432.0
-offset_bottom = 72.0
-
-[node name="errorMessageLabel" type="Label" parent="Error Message"]
-modulate = Color(0, 0, 0, 1)
-layout_mode = 0
-offset_left = 56.0
-offset_top = 40.0
-offset_right = 183.0
-offset_bottom = 73.0
-text = "not enough money to
-buy stock"
-
-[node name="Label2" type="Label" parent="Error Message"]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 8.0
-offset_right = 135.0
-offset_bottom = 23.0
-text = "Error Buying Stock"
-
-[node name="TextureRect" type="TextureRect" parent="Error Message"]
-layout_mode = 0
-offset_left = 8.0
-offset_top = 32.0
-offset_right = 40.0
-offset_bottom = 64.0
-texture = ExtResource("12_44xle")
-
-[node name="ErrorExitButton" type="Button" parent="Error Message"]
-layout_mode = 0
-offset_left = 160.0
-offset_right = 184.0
-offset_bottom = 24.0
-mouse_default_cursor_shape = 2
-flat = true
-
 [connection signal="button_down" from="CloseButton2" to="." method="_on_close_button_button_down"]
 [connection signal="button_down" from="Panel/HBoxContainer/VBoxContainer/Button2" to="." method="_on_button_2_button_down"]
 [connection signal="button_down" from="Panel/HBoxContainer/VBoxContainer/Button3" to="." method="_on_button_3_button_down"]
@@ -202,6 +154,4 @@ flat = true
 [connection signal="button_down" from="Panel/HBoxContainer/VBoxContainer/Button5" to="." method="_on_button_4_button_down"]
 [connection signal="button_down" from="Panel/HBoxContainer/VBoxContainer/Button6" to="." method="_on_button_4_button_down"]
 [connection signal="button_down" from="Panel/CloseButton" to="." method="_on_close_button_button_down"]
-[connection signal="timeout" from="popUpTimer" to="." method="_on_pop_up_timer_timeout"]
 [connection signal="value_changed" from="bulkBuyWindow/SpinBox" to="." method="_on_spin_box_value_changed"]
-[connection signal="button_down" from="Error Message/ErrorExitButton" to="." method="_on_error_exit_button_button_down"]

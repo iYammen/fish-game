@@ -7,20 +7,22 @@ extends Control
 var game_manager: GameManager
 var allGuppies: Array
 var currentGuppyArray: Array
-@onready var pop_up_timer: Timer = $popUpTimer
-@onready var error_message: Panel = $"Error Message"
-@onready var error_message_label: Label = $"Error Message/errorMessageLabel"
+var errorMessage: Panel
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	game_manager = get_tree().get_first_node_in_group("Game Manager")
+	errorMessage =  get_tree().get_first_node_in_group("Error Message")
 	visible = false
-	error_message.visible = false
 	for i in buttons.size():
 		var btn := buttons[i]
 		btn.button_down.connect(Callable(self, "_on_shop_button_down").bind(i))
 		buttons[i].tooltip_text = fish[i].desc
 
+func _unhandled_input(event: InputEvent) -> void:
+	if visible:
+		if event.is_action_pressed("pause"):
+			closeShop()
 
 func showShop():
 	spin_box.value = 1
@@ -46,15 +48,16 @@ func _on_shop_button_down(index: int):
 	var grownGuppies: Array
 	allGuppies = get_tree().get_nodes_in_group("Guppy")
 	for guppy in allGuppies:
-		if guppy.feedCount >= 10:
+		if guppy.grown_state >= 2:
 			grownGuppies.append(guppy)
 	currentGuppyArray = grownGuppies
+	
 	var data = fish[index]
 	if data.moneyType.contains("$"):
 		var discountedPrice = data.price * game_manager.discount
 		if game_manager.money < discountedPrice * spin_box.value:
 			AudioManager.playError()
-			_display_error("not enough money to\nbuy stock")
+			errorMessage.showError("Error:" ,"Not enough money to buy", 0)
 			return
 		else:
 			AudioManager.playSplash()
@@ -62,12 +65,14 @@ func _on_shop_button_down(index: int):
 	else:
 		if currentGuppyArray.size() < data.price * spin_box.value:
 			AudioManager.playError()
-			_display_error("not enough fish to\nbuy stock")
+			errorMessage.showError("Error:" ,"Not enough Guppys to buy", 0)
 			return
 		else:
 			AudioManager.playSplash()
-			for i in data.price * spin_box.value:
+			var price: int = data.price * spin_box.value
+			for i in price:
 				currentGuppyArray[i].die()
+			currentGuppyArray.clear()
 	AudioManager.playButtonClick()
 	for i in spin_box.value:
 		spawn_fish(data)
@@ -88,9 +93,9 @@ func spawn_fish(data: entityResource) -> void:
 
 func updateDisabledButtons():
 	var grownGuppies: Array
-	allGuppies = get_tree().get_nodes_in_group("Guppy")
+	allGuppies = EntityManager.allGuppies
 	for guppy in allGuppies:
-		if guppy.feedCount >= 10:
+		if guppy.grown_state >= 2:
 			grownGuppies.append(guppy)
 	currentGuppyArray = grownGuppies
 	
@@ -104,19 +109,11 @@ func updateDisabledButtons():
 			else:
 				btn.disabled = false
 		else:
-			if currentGuppyArray.size() < data.price * spin_box.value:
+			var price: int = data.price * spin_box.value
+			if currentGuppyArray.size() < price:
 				btn.disabled = true
 			else:
 				btn.disabled = false
-
-
-func _display_error(msg: String) -> void:
-	error_message_label.text = msg
-	error_message.visible = true
-	pop_up_timer.start()
-
-func _on_pop_up_timer_timeout() -> void:
-	error_message.visible = false
 
 
 func _on_close_button_button_down() -> void:
@@ -124,11 +121,6 @@ func _on_close_button_button_down() -> void:
 	closeShop()
 
 
-func _on_error_exit_button_button_down() -> void:
-	AudioManager.playButtonClick()
-	error_message.visible = false
 
-
-
-func _on_spin_box_value_changed(value: float) -> void:
+func _on_spin_box_value_changed(_value: float) -> void:
 	updateDisabledButtons()

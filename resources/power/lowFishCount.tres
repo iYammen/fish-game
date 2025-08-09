@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="powerResource" load_steps=3 format=3 uid="uid://dfn37kr3oafjd"]
 
-[ext_resource type="Texture2D" uid="uid://bjpmojrtwbbc6" path="res://assets/icons/lowFishCount.png" id="1_tajoa"]
+[ext_resource type="Texture2D" uid="uid://cgltu1fghoso5" path="res://assets/icons/64/lowFishCount.png" id="1_tajoa"]
 [ext_resource type="Script" uid="uid://dkjupqwcpqhl7" path="res://resources/power/powerResource.gd" id="2_vudio"]
 
 [resource]

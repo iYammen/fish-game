@@ -7,7 +7,7 @@
 [ext_resource type="Resource" uid="uid://8f3r7jpqfkb2" path="res://resources/power/gunUp.tres" id="4_dgsef"]
 [ext_resource type="Resource" uid="uid://d0vhfinvg20ux" path="res://resources/power/hungerDown.tres" id="5_awi2f"]
 [ext_resource type="Theme" uid="uid://c6jbdk3trmuen" path="res://resources/theme/microsoftClassic.tres" id="6_7v1fh"]
-[ext_resource type="Texture2D" uid="uid://cqfx21eafffr3" path="res://assets/icons/nothing.png" id="6_puwce"]
+[ext_resource type="Texture2D" uid="uid://cqfx21eafffr3" path="res://assets/icons/32/nothing.png" id="6_puwce"]
 
 [node name="Slot_machine" type="Control"]
 process_mode = 3

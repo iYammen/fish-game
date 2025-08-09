@@ -15,7 +15,6 @@ hungerAdultTimerRange = Vector2(40, 60)
 moneyTimerRange = Vector2(5, 15)
 speed = 30.0
 health = NodePath("healthComponent")
-feedCount = 10
 
 [node name="state_machine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("2_6eadt")

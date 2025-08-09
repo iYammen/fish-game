@@ -1,0 +1,53 @@
+[gd_scene load_steps=4 format=3 uid="uid://dtgm2ak4fhnhd"]
+
+[ext_resource type="Theme" uid="uid://c6jbdk3trmuen" path="res://resources/theme/microsoftClassic.tres" id="1_h7g1k"]
+[ext_resource type="Texture2D" uid="uid://cqfx21eafffr3" path="res://assets/icons/32/nothing.png" id="2_omu06"]
+[ext_resource type="Script" uid="uid://bcm3usntnkge1" path="res://scripts/error_message.gd" id="2_poaij"]
+
+[node name="Error Message" type="Panel" groups=["Error Message"]]
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -184.0
+offset_bottom = 96.0
+grow_horizontal = 0
+size_flags_horizontal = 8
+theme = ExtResource("1_h7g1k")
+script = ExtResource("2_poaij")
+
+[node name="titleLabel" type="Label" parent="."]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 135.0
+offset_bottom = 23.0
+text = "Error Buying Stage"
+
+[node name="errorMessageLabel" type="Label" parent="."]
+modulate = Color(0, 0, 0, 1)
+layout_mode = 0
+offset_left = 56.0
+offset_top = 40.0
+offset_right = 168.0
+offset_bottom = 73.0
+autowrap_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 0
+offset_left = 8.0
+offset_top = 32.0
+offset_right = 40.0
+offset_bottom = 64.0
+texture = ExtResource("2_omu06")
+
+[node name="Button" type="Button" parent="."]
+layout_mode = 0
+offset_left = 160.0
+offset_top = 8.0
+offset_right = 176.0
+offset_bottom = 24.0
+focus_mode = 0
+mouse_default_cursor_shape = 2
+flat = true
+
+[connection signal="button_down" from="Button" to="." method="_on_button_button_down"]

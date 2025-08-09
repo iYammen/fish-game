@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="powerResource" load_steps=3 format=3 uid="uid://d0vhfinvg20ux"]
 
-[ext_resource type="Texture2D" uid="uid://dtm8eh8r5htxo" path="res://assets/icons/hungerDownIcon.png" id="1_vtj8o"]
+[ext_resource type="Texture2D" uid="uid://c5gvednap7apw" path="res://assets/icons/64/hungerDownIcon.png" id="1_vtj8o"]
 [ext_resource type="Script" uid="uid://dkjupqwcpqhl7" path="res://resources/power/powerResource.gd" id="2_ekwfb"]
 
 [resource]

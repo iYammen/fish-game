@@ -42,6 +42,8 @@ var guppyLeft: Label
 
 var camera: Camera2D
 var settings: Control
+var gameJustStarted: bool = true
+
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	Input.set_use_accumulated_input(false)
@@ -112,7 +114,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		AudioManager.playButtonClick()
 		get_tree().reload_current_scene()
 	
-	if event.is_action_pressed("pause"):
+	if event.is_action_pressed("pause") and powerScreen.showing != true:
+		AudioManager.playButtonClick()
 		if settings.showing == false:
 			settings.showSettings()
 		else:
@@ -158,14 +161,22 @@ func ShowDamageNumb(numbValue: int, currentPos: Vector2):
 	number.global_position = currentPos
 
 func checkFishAmount():
-	if is_inside_tree():
+	if is_inside_tree() and !dead:
 		var allGuppies: Array = EntityManager.allGuppies
 		if allGuppies.is_empty():
+			var oneUp: Node = get_tree().get_first_node_in_group("One Time Save Component")
+			if oneUp:
+				oneUp.SavePlayer()
+				return
+			guppyLeft.text = "Guppys Left: 0"
 			dead = true
 			await get_tree().create_timer(1).timeout
 			game_over_Screen.gameOver(stage)
 		else:
 			guppyLeft.text = "Guppys Left: " + str(allGuppies.size())
+			if allGuppies.size() == 1 and gameJustStarted == false:
+				errorMessage.showError("Warning: Low Guppy Count" ,"DANGER Low Guppy Count", 1)
+			gameJustStarted = false
 
 func checkScore():
 	if checkMoney(money, goal):
@@ -189,10 +200,7 @@ func checkScore():
 		stageGoalLabel.text = "Stage " + str(stage)
 		stageButton.text = "Next: " + abriviateNum(goal) + "$"
 	else:
-		AudioManager.playError()
-		errorMessage.visible = true
-		await get_tree().create_timer(2).timeout
-		errorMessage.visible = false
+		errorMessage.showError("Error: Next Stage" ,"Not Enough Money To Buy Stage", 0)
 
 func checkMoney(num: int, moneyGoal: int):
 	var newNum: float
@@ -305,10 +313,6 @@ func _on_stage_button_pressed() -> void:
 	AudioManager.playButtonClick()
 	if !dead:
 		checkScore()
-
-func _on_button_button_down() -> void:
-	AudioManager.playButtonClick()
-	errorMessage.visible = false
 
 func _on_settings_button_down() -> void:
 	AudioManager.playButtonClick()

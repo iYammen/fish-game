@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="powerResource" load_steps=3 format=3 uid="uid://xw78gbwdt5il"]
 
-[ext_resource type="Texture2D" uid="uid://cylwj1brlnwwm" path="res://assets/icons/deadFish.png" id="1_mwxd8"]
+[ext_resource type="Texture2D" uid="uid://xujmapntptp4" path="res://assets/icons/64/deadFish.png" id="1_mwxd8"]
 [ext_resource type="Script" uid="uid://dkjupqwcpqhl7" path="res://resources/power/powerResource.gd" id="2_8kcu0"]
 
 [resource]

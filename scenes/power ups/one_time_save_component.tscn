@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cg34jska16a8l"]
+
+[ext_resource type="Script" uid="uid://kjgd5x1ym7oa" path="res://scripts/one_time_save_component.gd" id="1_1mjjr"]
+
+[node name="One Time Save Component" type="Node" groups=["One Time Save Component"]]
+script = ExtResource("1_1mjjr")

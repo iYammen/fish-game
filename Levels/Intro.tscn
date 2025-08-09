@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://dm1u1k1wblnyu" path="res://assets/UI/intro-sheet.png" id="2_d556c"]
 [ext_resource type="Theme" uid="uid://c6jbdk3trmuen" path="res://resources/theme/microsoftClassic.tres" id="2_v0be5"]
 [ext_resource type="Shader" uid="uid://caa5ttiuq3bxx" path="res://scripts/background.gdshader" id="3_jj4wx"]
-[ext_resource type="Texture2D" uid="uid://d2oigyt1gepdc" path="res://assets/background.png" id="4_cntf0"]
+[ext_resource type="Texture2D" uid="uid://d2oigyt1gepdc" path="res://assets/UI/background.png" id="4_cntf0"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_v0be5"]
 atlas = ExtResource("2_d556c")

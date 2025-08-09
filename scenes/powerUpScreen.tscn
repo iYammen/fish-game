@@ -1,10 +1,11 @@
-[gd_scene load_steps=19 format=3 uid="uid://blaycr1vpl0y8"]
+[gd_scene load_steps=25 format=3 uid="uid://blaycr1vpl0y8"]
 
 [ext_resource type="Script" uid="uid://cri4hvama1quf" path="res://scripts/power_up_screen.gd" id="1_guw8m"]
 [ext_resource type="Theme" uid="uid://c6jbdk3trmuen" path="res://resources/theme/microsoftClassic.tres" id="1_jlpm1"]
 [ext_resource type="Texture2D" uid="uid://dvodivb08kuks" path="res://assets/fish/fish2.png" id="2_guw8m"]
 [ext_resource type="PackedScene" uid="uid://cxhtb50u8yee8" path="res://scenes/UI/website.tscn" id="3_6srso"]
 [ext_resource type="FontFile" uid="uid://cwlmqqm3qnf20" path="res://fonts/Linolschrift.ttf" id="5_nraks"]
+[ext_resource type="Texture2D" uid="uid://b3t7d87aukcws" path="res://assets/UI/animated-hammer-image-0012.png" id="6_8fifd"]
 [ext_resource type="Texture2D" uid="uid://cb6si6ajeky81" path="res://assets/UI/fire_border.png" id="6_tqw73"]
 
 [sub_resource type="Gradient" id="Gradient_guw8m"]
@@ -16,6 +17,42 @@ gradient = SubResource("Gradient_guw8m")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6srso"]
 texture = SubResource("GradientTexture1D_25bb8")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hd5qa"]
+atlas = ExtResource("6_8fifd")
+region = Rect2(0, 0, 81, 71)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_covhv"]
+atlas = ExtResource("6_8fifd")
+region = Rect2(81, 0, 81, 71)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tqgpc"]
+atlas = ExtResource("6_8fifd")
+region = Rect2(162, 0, 81, 71)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_m6bqj"]
+atlas = ExtResource("6_8fifd")
+region = Rect2(0, 71, 81, 71)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_7a3i6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hd5qa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_covhv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tqgpc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_m6bqj")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8fifd"]
 atlas = ExtResource("6_tqw73")
@@ -106,58 +143,9 @@ theme_override_styles/panel = SubResource("StyleBoxTexture_6srso")
 z_index = 1
 offset_left = 192.0
 offset_top = 24.0
-offset_right = 496.0
-offset_bottom = 280.0
+offset_right = 480.0
+offset_bottom = 336.0
 pivot_offset = Vector2(152, 128)
-
-[node name="HBoxContainer" type="HBoxContainer" parent="Website"]
-custom_minimum_size = Vector2(110.235, 32)
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -112.0
-offset_top = -16.0
-offset_right = 1.0
-offset_bottom = 48.0
-grow_horizontal = 2
-grow_vertical = 2
-scale = Vector2(2, 2)
-
-[node name="Button" type="Button" parent="Website/HBoxContainer"]
-custom_minimum_size = Vector2(32, 32)
-layout_mode = 2
-size_flags_horizontal = 0
-size_flags_vertical = 4
-size_flags_stretch_ratio = 0.0
-mouse_default_cursor_shape = 2
-icon = ExtResource("2_guw8m")
-flat = true
-icon_alignment = 1
-
-[node name="Button2" type="Button" parent="Website/HBoxContainer"]
-custom_minimum_size = Vector2(32, 0)
-layout_mode = 2
-size_flags_horizontal = 6
-size_flags_vertical = 4
-size_flags_stretch_ratio = 0.0
-mouse_default_cursor_shape = 2
-icon = ExtResource("2_guw8m")
-flat = true
-icon_alignment = 1
-
-[node name="Button3" type="Button" parent="Website/HBoxContainer"]
-custom_minimum_size = Vector2(32, 0)
-layout_mode = 2
-size_flags_horizontal = 8
-size_flags_vertical = 4
-size_flags_stretch_ratio = 0.0
-mouse_default_cursor_shape = 2
-icon = ExtResource("2_guw8m")
-flat = true
-icon_alignment = 1
 
 [node name="browserLabel" type="Label" parent="Website"]
 layout_mode = 0
@@ -178,9 +166,9 @@ text = "http//www.powerups.com"
 
 [node name="Title" type="Label" parent="Website"]
 layout_mode = 0
-offset_left = -176.0
+offset_left = -184.0
 offset_top = 80.0
-offset_right = 473.0
+offset_right = 465.0
 offset_bottom = 194.0
 scale = Vector2(0.25, 0.25)
 pivot_offset = Vector2(324.5, 0)
@@ -191,8 +179,25 @@ text = "Power ups"
 horizontal_alignment = 1
 vertical_alignment = 1
 
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Website"]
+visible = false
+position = Vector2(248, 256)
+sprite_frames = SubResource("SpriteFrames_7a3i6")
+autoplay = "default"
+frame = 1
+frame_progress = 0.592697
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Website"]
+visible = false
+position = Vector2(56, 256)
+sprite_frames = SubResource("SpriteFrames_7a3i6")
+autoplay = "default"
+frame = 1
+frame_progress = 0.592697
+flip_h = true
+
 [node name="Fire" type="Node2D" parent="Website"]
-position = Vector2(88, 72)
+position = Vector2(80, 72)
 
 [node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="Website/Fire"]
 position = Vector2(64, 0)
@@ -228,6 +233,54 @@ position = Vector2(128, 28)
 sprite_frames = SubResource("SpriteFrames_hd5qa")
 autoplay = "default"
 frame_progress = 0.346202
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Website"]
+custom_minimum_size = Vector2(110.235, 32)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -104.0
+offset_top = -4.0
+offset_right = 104.0
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="Website/HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.0
+mouse_default_cursor_shape = 2
+icon = ExtResource("2_guw8m")
+flat = true
+icon_alignment = 1
+
+[node name="Button2" type="Button" parent="Website/HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 6
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.0
+mouse_default_cursor_shape = 2
+icon = ExtResource("2_guw8m")
+flat = true
+icon_alignment = 1
+
+[node name="Button3" type="Button" parent="Website/HBoxContainer"]
+custom_minimum_size = Vector2(64, 64)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+size_flags_stretch_ratio = 0.0
+mouse_default_cursor_shape = 2
+icon = ExtResource("2_guw8m")
+flat = true
+icon_alignment = 1
 
 [connection signal="button_down" from="Website/HBoxContainer/Button" to="." method="_on_button_pressed"]
 [connection signal="button_down" from="Website/HBoxContainer/Button2" to="." method="_on_button_2_pressed"]

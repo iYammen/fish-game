@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="powerResource" load_steps=3 format=3 uid="uid://b2ygnat2elj4y"]
 
-[ext_resource type="Texture2D" uid="uid://cvm1ej5r3gs8u" path="res://assets/icons/upgradeFish.png" id="1_ge3d6"]
+[ext_resource type="Texture2D" uid="uid://yi6kxll86m0y" path="res://assets/icons/64/upgradeFish.png" id="1_ge3d6"]
 [ext_resource type="Script" uid="uid://dkjupqwcpqhl7" path="res://resources/power/powerResource.gd" id="2_jmubq"]
 
 [resource]

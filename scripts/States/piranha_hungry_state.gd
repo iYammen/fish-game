@@ -27,7 +27,7 @@ func Physics_Update(delta: float):
 		if distance < 30:
 			if fish.is_hungry:
 				if closestFood.is_in_group("Guppy") and closestFood.dead == false:
-					if closestFood.feedCount < 4:
+					if closestFood.grown_state == 0:
 						closestFood.dead = true
 						AudioManager.playFishEaten()
 						fish.is_hungry = false

@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://bbehg3gs2wa11"]
 
 [ext_resource type="Script" uid="uid://cqememkuws5oy" path="res://scripts/coin.gd" id="1_yxgas"]
-[ext_resource type="Texture2D" uid="uid://drk6icyxvampa" path="res://assets/bloodDiamond.png" id="2_yxgas"]
+[ext_resource type="Texture2D" uid="uid://drk6icyxvampa" path="res://assets/UI/bloodDiamond.png" id="2_yxgas"]
 
 [node name="bloodDiamond" type="Button" groups=["Coin"]]
 z_index = 2
