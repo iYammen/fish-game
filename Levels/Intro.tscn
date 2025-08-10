@@ -1,7 +1,8 @@
-[gd_scene load_steps=14 format=3 uid="uid://brttm71c5yaa"]
+[gd_scene load_steps=15 format=3 uid="uid://brttm71c5yaa"]
 
 [ext_resource type="Script" uid="uid://ccfluk0ouw52j" path="res://scripts/intro.gd" id="1_cntf0"]
 [ext_resource type="Texture2D" uid="uid://dm1u1k1wblnyu" path="res://assets/UI/intro-sheet.png" id="2_d556c"]
+[ext_resource type="PackedScene" uid="uid://b0fi6oxnspenp" path="res://scenes/transition.tscn" id="2_golbo"]
 [ext_resource type="Theme" uid="uid://c6jbdk3trmuen" path="res://resources/theme/microsoftClassic.tres" id="2_v0be5"]
 [ext_resource type="Shader" uid="uid://caa5ttiuq3bxx" path="res://scripts/background.gdshader" id="3_jj4wx"]
 [ext_resource type="Texture2D" uid="uid://d2oigyt1gepdc" path="res://assets/UI/background.png" id="4_cntf0"]
@@ -139,3 +140,6 @@ libraries = {
 &"": SubResource("AnimationLibrary_golbo")
 }
 autoplay = "line"
+
+[node name="transition" parent="CanvasLayer" instance=ExtResource("2_golbo")]
+mouse_filter = 2

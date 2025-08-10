@@ -3,6 +3,7 @@ extends Node
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_ALWAYS
+	RenderingServer.set_default_clear_color(Color.BLACK)
 
 
 func shakeAnim(obj: Node):

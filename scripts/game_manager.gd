@@ -20,10 +20,11 @@ var shop: Control
 var stageButton: Button
 var spawn_manager: spawnManager
 var game_over_Screen: Control
+var transition: ColorRect
 
 var discount: float = 1
 var boundray: Vector2 = Vector2(300, 128)
-var money: int = 2000000
+var money: int = 200
 var goal: int = 400
 var stage: int = 1
 var Fish: Array
@@ -73,6 +74,7 @@ func _ready() -> void:
 	camera = get_tree().get_first_node_in_group("Camera")
 	guppyLeft = get_tree().get_first_node_in_group("Guppy Left")
 	settings = get_tree().get_first_node_in_group("Settings")
+	transition = get_tree().get_first_node_in_group("Transition")
 	reuseManager.Reset()
 	EntityManager.Reset()
 	AudioManager.DarkMusicToOceanMusic()
@@ -109,10 +111,14 @@ func _unhandled_input(event: InputEvent) -> void:
 	if not (event is InputEventMouseButton or event is InputEventKey):
 		return
 	if event.is_action_pressed("restart"):
+		transition.fadeOut()
+		await get_tree().create_timer(1).timeout
 		get_tree().reload_current_scene()
 		
 	if dead and event.is_action_pressed("gameOver"):
 		AudioManager.playButtonClick()
+		transition.fadeOut()
+		await get_tree().create_timer(1).timeout
 		get_tree().reload_current_scene()
 	
 	if event.is_action_pressed("pause") and powerScreen.showing != true:

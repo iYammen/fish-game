@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://cc3qvorsgdiqt"]
+[gd_scene load_steps=33 format=3 uid="uid://cc3qvorsgdiqt"]
 
 [ext_resource type="PackedScene" uid="uid://2l1a8m2hgowd" path="res://scenes/UI/warningUI.tscn" id="1_xsqsu"]
 [ext_resource type="Script" uid="uid://camigyij84n1w" path="res://scripts/camera_2d.gd" id="2_r2ueb"]
@@ -30,6 +30,7 @@
 [ext_resource type="Texture2D" uid="uid://syx7de2t7qrw" path="res://assets/UI/settings.png" id="22_nflnv"]
 [ext_resource type="PackedScene" uid="uid://dpb6hjihgeumq" path="res://scenes/UI/settings.tscn" id="26_3kmy4"]
 [ext_resource type="PackedScene" uid="uid://dtgm2ak4fhnhd" path="res://scenes/UI/notification_message.tscn" id="27_gaktt"]
+[ext_resource type="PackedScene" uid="uid://b0fi6oxnspenp" path="res://scenes/transition.tscn" id="29_papoo"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_64w2a"]
 shader = ExtResource("14_3kmy4")
@@ -253,6 +254,8 @@ visible = false
 
 [node name="Error Message" parent="CanvasLayer" instance=ExtResource("27_gaktt")]
 visible = false
+
+[node name="transition" parent="CanvasLayer" instance=ExtResource("29_papoo")]
 
 [node name="Background" type="Sprite2D" parent="."]
 z_index = -10
