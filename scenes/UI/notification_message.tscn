@@ -5,6 +5,7 @@
 [ext_resource type="Script" uid="uid://bcm3usntnkge1" path="res://scripts/notification_message.gd" id="2_poaij"]
 
 [node name="Notification Message" type="Panel" groups=["Notification Message"]]
+process_mode = 3
 anchors_preset = 1
 anchor_left = 1.0
 anchor_right = 1.0

@@ -26,7 +26,7 @@ func _process(delta: float) -> void:
 		remove_from_group("Coin")
 		EntityManager.allCoins.erase(self)
 		available = true
-		process_mode = Node.PROCESS_MODE_DISABLED
+		set_process(false)
 
 
 
@@ -41,11 +41,11 @@ func _on_button_down() -> void:
 		remove_from_group("Coin")
 		EntityManager.allCoins.erase(self)
 		available = true
-		process_mode = Node.PROCESS_MODE_DISABLED
+		set_process(false)
 
 func resetCoin():
 	EntityManager.allCoins.append(self)
-	process_mode = Node.PROCESS_MODE_INHERIT
+	set_process(true)
 	disappear_t = 2
 	hitFloor = false
 	modulate.a = 1

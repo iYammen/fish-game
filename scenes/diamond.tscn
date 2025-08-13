@@ -17,4 +17,4 @@ flat = true
 script = ExtResource("1_okr8r")
 value = 100
 
-[connection signal="pressed" from="." to="." method="_on_button_down"]
+[connection signal="button_down" from="." to="." method="_on_button_down"]
